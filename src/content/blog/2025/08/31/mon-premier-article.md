@@ -10,3 +10,5 @@ Ceci est le contenu de **mon premier article** écrit en Markdown 🎉.
 ```html
 <html> is cool!</html>
 ```
+
+![ma tronche](/images/avatar.png)

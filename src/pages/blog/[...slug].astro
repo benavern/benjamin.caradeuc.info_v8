@@ -3,31 +3,62 @@ import Layout from "../../components/Layout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+    const posts = await getCollection("blog");
 
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
 }
 
 const { post } = Astro.props;
+
+// 1️⃣ Récupérer tous les posts
+const allPosts = (await getCollection("blog")).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+// 2️⃣ Trouver l’index du post courant
+const index = allPosts.findIndex((p) => p.slug === post.slug);
+
+// 3️⃣ Déterminer précédent et suivant
+const prevPost = index < allPosts.length - 1 ? allPosts[index + 1] : null;
+const nextPost = index > 0 ? allPosts[index - 1] : null;
 ---
 
 <Layout title={post.data.title}>
-  <article>
-    <h1>{post.data.title}</h1>
+    <article>
+        <h1>{post.data.title}</h1>
 
-    <p>Publié le {post.data.date.toLocaleDateString("fr-FR")}</p>
+        <p>Publié le {post.data.date.toLocaleDateString("fr-FR")}</p>
 
-    <div>
-      {post.data.tags?.map((t) => (
-        <a href={`/blog/tags/${t}/`}>#{t}</a>
-      ))}
-    </div>
-    
-    {post.rendered?.html && (
-      <div class="content" set:html={post.rendered.html}></div>
-    )}
-  </article>
+        <div>
+            {post.data.tags?.map((t) => <a href={`/blog/tags/${t}/`}>#{t}</a>)}
+        </div>
+
+        {
+            post.rendered?.html && (
+                <div class="content" set:html={post.rendered.html} />
+            )
+        }
+
+        <hr />
+
+        <nav class="post-navigation">
+            {
+                prevPost && (
+                    <a class="prev" href={`/blog/${prevPost.slug}/`}>
+                        ← {prevPost.data.title}
+                    </a>
+                )
+            }
+            {
+                nextPost && (
+                    <a class="next" href={`/blog/${nextPost.slug}/`}>
+                        {nextPost.data.title} →
+                    </a>
+                )
+            }
+        </nav>
+    </article>
 </Layout>

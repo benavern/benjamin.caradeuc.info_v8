@@ -1,0 +1,145 @@
+.btn {
+    --_btn-min-height: var(--btn-min-height, #{rem-calc(36px)});
+    --_btn-icon-size: var(--btn-icon-size, 1.25em);
+    --_btn-left-icon-size: var(--btn-left-icon-size, var(--_btn-icon-size));
+    --_btn-right-icon-size: var(--btn-right-icon-size, var(--_btn-icon-size));
+
+    // default styles
+    display: inline-flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+    font: inherit;
+    border: none;
+    color: inherit;
+    background-color: unset;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--border-radius);
+    min-height: var(--_btn-min-height);
+    // padding: calc((var(--_btn-min-height) - var(--line-height) * 1rem) / 2) var(--spacing);
+    padding: var(--spacing-sm) var(--spacing);
+    cursor: pointer;
+    transition: {
+        duration: var(--transition-duration);
+        property: opacity, background-color, color, border-color, min-height, box-shadow;
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+        cursor: not-allowed;
+        opacity: .5;
+        box-shadow: none;
+    }
+
+    // icon
+    &__icon {
+        font-size: var(--_btn-icon-size);
+
+        &--left {
+            font-size: var(--_btn-left-icon-size);
+        }
+
+        &--right {
+            font-size: var(--_btn-right-icon-size);
+        }
+
+    }
+
+    // We can assume that when the button is busy, the icon is mdi:loading, we want it to spin 🌀
+    &[aria-busy="true"] &__icon {
+        animation: spin .5s linear infinite;
+    }
+
+    // variants
+    &--variant-link {
+        display: inline;
+        text-decoration: underline;
+        padding: 0;
+        min-height: auto;
+        border: none;
+    }
+
+    &--variant-link &__icon {
+        &--left {
+            margin-inline-end: var(--spacing-sm);
+        }
+
+        &--right {
+            margin-inline-start: var(--spacing-sm);
+        }
+    }
+
+    &--variant-primary {
+        color: var(--clr-bg);
+        background-color: var(--clr-primary);
+
+        &:not(:disabled):hover {
+            background-color: var(--clr-primary-alt);
+            box-shadow: var(--shadow);
+        }
+    }
+
+    &--variant-primary-border {
+        color: var(--clr-primary);
+        background-color: transparent;
+        border-color: var(--clr-primary);
+
+        &:not(:disabled):hover {
+            box-shadow: var(--shadow);
+        }
+    }
+
+    &--variant-secondary {
+        color: var(--clr-txt);
+        background-color: var(--clr-line);
+
+        &:not(:disabled):hover {
+            box-shadow: var(--shadow);
+        }
+    }
+
+    &--variant-secondary-border {
+        color: var(--clr-txt);
+        background-color: transparent;
+        border-color: var(--clr-line);
+
+        &:not(:disabled):hover {
+            box-shadow: var(--shadow);
+        }
+    }
+
+    &--variant-accent {
+        color: var(--clr-bg);
+        background-color: var(--clr-accent);
+
+        &:not(:disabled):hover {
+            background-color: var(--clr-dark-accent);
+            box-shadow: var(--shadow);
+        }
+    }
+
+    &--variant-accent-border {
+        color: var(--clr-accent);
+        background-color: transparent;
+        border-color: var(--clr-accent);
+
+        &:not(:disabled):hover {
+            color: var(--clr-dark-accent);
+            border-color: var(--clr-dark-accent);
+            box-shadow: var(--shadow);
+        }
+    }
+
+    // sizes
+    &--size-large:not(&--variant-link) {
+        --_btn-min-height: #{rem-calc(48px)};
+    }
+
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}

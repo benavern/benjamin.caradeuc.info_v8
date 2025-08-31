@@ -1,0 +1,63 @@
+// Simple CSS Grid system using CSS Grid and CSS Variables
+
+$grid-nb-col: 12 !default;
+$grid-gap-h: 10px !default;
+$grid-gap-v: 10px !default;
+
+$breakpoints: (
+    xxs: 320px,
+    xs: 480px,
+    sm: 768px,
+    md: 1024px,
+    lg: 1200px,
+    xl: 1600px
+) !default;
+
+
+:root {
+    --grid-gap-h: #{$grid-gap-h};
+    --grid-gap-v: #{$grid-gap-v};
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-nb-col, #{$grid-nb-col}), 1fr);
+
+    // add vertical and horizontal gaps on the grid
+    &--gap {
+        gap: var(--grid-gap-v) var(--grid-gap-h);
+    }
+
+    & > &__col {
+        --grid-col-start: auto;
+        --grid-col-span: auto;
+
+        min-width: 0;
+        grid-column: var(--grid-col-start) / span var(--grid-col-span);
+    }
+
+    @for $nb-col from 1 through $grid-nb-col {
+        & > &__col-start-#{$nb-col} {
+            --grid-col-start: #{$nb-col};
+        }
+
+        & > &__col-#{$nb-col} {
+            --grid-col-span: #{$nb-col};
+        }
+    }
+
+    // ⚠️ WARNING : these innocent 8 lines generate ~200 lines css!
+    @each $breakpointName, $breakpointVal in $breakpoints {
+        @media (min-width: $breakpointVal) {
+            @for $nb-col from 1 through $grid-nb-col {
+                & > &__col-start-#{$breakpointName}-#{$nb-col} {
+                    --grid-col-start: #{$nb-col};
+                }
+
+                & > &__col-#{$breakpointName}-#{$nb-col} {
+                    --grid-col-span: #{$nb-col};
+                }
+            }
+        }
+    }
+}

@@ -1,22 +1,7 @@
-$primary-color: #4f46e5;
-
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-header, footer {
-  background: #f3f3f3;
-  padding: 1rem;
-}
-
-nav a {
-  margin-right: 1rem;
-  color: $primary-color;
-  text-decoration: none;
-
-  &.active {
-    font-weight: bold;
-  }
-}
+@use 'theme';
+@use 'reset';
+@use 'grid';
+@use 'form';
+@use 'button';
+@use 'utils';
+// @use 'view-transitions';

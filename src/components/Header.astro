@@ -1,0 +1,40 @@
+---
+import ThemeSwitcher from "./ui/ThemeSwitcher";
+---
+
+<header class="main-header container">
+    <nav class="main-header__nav">
+        <a href="/">Accueil</a>
+        <a href="/blog/">Blog</a>
+        <a href="/parcours/">Parcours</a>
+        <a href="/contact/">Contact</a>
+    </nav>
+
+    <ThemeSwitcher client:load />
+</header>
+
+<style lang="scss">
+    .main-header {
+        position: sticky;
+        top: var(--spacing);
+        margin-block: var(--spacing) 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: var(--border);
+        padding: var(--spacing) var(--spacing-lg);
+        border-radius: var(--border-radius-lg);
+        background-color: var(--clr-bg-alt);
+
+        @supports (backdrop-filter: blur(5px)) {
+            background-color: var(--clr-bg-transparent);
+            backdrop-filter: blur(5px);
+        }
+
+        &__nav {
+            display: flex;
+            gap: var(--spacing);
+        }
+    }
+</style>

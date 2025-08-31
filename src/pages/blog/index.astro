@@ -2,9 +2,9 @@
 import Layout from "../../components/Layout.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 
 const perPage = 6;
 const page = Number(Astro.url.searchParams.get("page") ?? 1);
@@ -15,24 +15,34 @@ const totalPages = Math.ceil(posts.length / perPage);
 ---
 
 <Layout title="Blog">
-  <h1>Blog</h1>
-  <ul>
-    {paginated.map((post) => (
-      <li>
-        <a href={`/blog/${post.slug}/`}>{post.data.title}</a> — 
-        {post.data.date.toLocaleDateString("fr-FR")}
-      </li>
-    ))}
-  </ul>
+    <h1>Blog</h1>
 
-  <nav>
-    {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-      <a href={`/blog/?page=${p}`} class={p === page ? "active" : ""}>
-        {p}
-      </a>
-    ))}
-  </nav>
+    <ul>
+        {
+            paginated.map((post) => (
+                <li>
+                    <a href={`/blog/${post.slug}/`}>{post.data.title}</a> —
+                    {post.data.date.toLocaleDateString("fr-FR")}
+                </li>
+            ))
+        }
+    </ul>
 
-  
-  <a href="/blog/tags">Voir tous les tags</a>
+    {
+        totalPages > 1 && (
+            <nav>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (p) => (
+                        <a
+                            href={`/blog/?page=${p}`}
+                            class={p === page ? "active" : ""}>
+                            {p}
+                        </a>
+                    ),
+                )}
+            </nav>
+        )
+    }
+
+    <a href="/blog/tags">Voir tous les tags</a>
 </Layout>

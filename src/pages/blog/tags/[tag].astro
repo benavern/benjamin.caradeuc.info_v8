@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
   // Extraire tous les tags uniques
-  const tags = new Set(posts.filter(post => !post.data.draft).flatMap(post => post.data.tags || []));
+  const tags = new Set(posts.flatMap(post => post.data.tags || []));
 
   return Array.from(tags).map(tag => ({
     params: { tag },
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 
 // 2️⃣ Filtrer les articles correspondant au tag
-const posts = (await getCollection("blog")).filter(post => !post.data.draft && post.data.tags?.includes(tag));
+const posts = (await getCollection("blog")).filter(post => post.data.tags?.includes(tag));
 ---
 
 <Layout title={`Articles avec le tag #${tag}`}>

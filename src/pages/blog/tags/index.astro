@@ -6,7 +6,7 @@ import { getCollection } from "astro:content";
 const posts = await getCollection("blog");
 
 // Extraire tous les tags et les dédoublonner
-const allTags = Array.from(new Set(posts.filter(post => !post.data.draft).flatMap(post => post.data.tags || []))).sort();
+const allTags = Array.from(new Set(posts.flatMap(post => post.data.tags || []))).sort();
 ---
 
 <Layout title="Tous les tags">
@@ -23,6 +23,6 @@ const allTags = Array.from(new Set(posts.filter(post => !post.data.draft).flatMa
       ))}
     </ul>
   )}
-  
+
   <a href="/blog/">Voir tous les articles</a>
 </Layout>

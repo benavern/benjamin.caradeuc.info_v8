@@ -1,0 +1,25 @@
+<footer class="main-footer">
+    <p class="main-footer__text">
+        <span class="main-footer__text__coded">&lt;/&gt;</span>
+        with ❤️ by Benjamin Caradeuc
+        <br>
+        © 1990 - {new Date().getFullYear()}
+    </p>
+</footer>
+
+<style lang="scss">
+    .main-footer {
+        text-align: center;
+        padding-block: var(--spacing-lg);
+        background-color: var(--clr-bg-alt);
+        border-top: 1px solid var(--clr-border);
+
+        &__text {
+            font-size: var(--txt-sm);
+
+            &__coded {
+                color: var(--clr-accent);
+            }
+        }
+    }
+</style>

@@ -1,0 +1,65 @@
+:root {
+    color-scheme: light dark;
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+:root {
+    --clr-bg: light-dark(#ffffff, #121212);
+    --clr-bg-alt: light-dark(#f9f9f9, #1e1e1e);
+    --clr-bg-transparent: light-dark(rgb(249 249 249 / 75%), rgb(30 30 30 / 75%));
+    --clr-fg: light-dark(#121212, #ffffff);
+    --clr-txt: light-dark(#333333, #eeeeee);
+    --clr-border: light-dark(#dddddd, #333333);
+    --clr-primary: light-dark(#1d6845, #81c995);
+    --clr-primary-alt: light-dark(#15532f, #5ea877);
+    --clr-accent: light-dark(#411f68, #c678dd);
+    --clr-accent-alt: light-dark(#2e1450, #9d4edd);
+    --clr-danger: light-dark(#d93025, #ff7961);
+    --clr-light-red: light-dark(#fce8e6, #5a1e1c);
+
+    --spacing-sm: calc(4/16 * 1rem); // 4px
+    --spacing: calc(10/16 * 1rem); // 10px
+    --spacing-lg: calc(20/16 * 1rem); // 20px
+    --spacing-xl: calc(40/16 * 1rem); // 40px
+
+    --txt-sm: calc(12/16 * 1rem); // 12px
+    --txt: 1rem; // 16px
+    --txt-lg: calc(20/16 * 1rem); // 20px
+    --txt-xl: calc(32/16 * 1rem); // 32px
+
+    --line-height: 1.6;
+
+    --border-width: 1px;
+    --border: var(--border-width) solid var(--clr-border);
+    --border-radius: calc(4/16 * 1rem); // 4px
+    --border-radius-lg: calc(12/16 * 1rem); // 4px
+
+    --focus-outline-width: 2px;
+    --focus-outline-color: var(--clr-primary);
+    --focus-outline: var(--focus-outline-width) solid var(--focus-outline-color);
+
+    --clr-shadow: light-dark(rgb(0 0 0 / 10%), transparent);
+    --shadow: 4px 4px 5px var(--clr-shadow);
+
+    --transition-duration: .3s;
+
+    // Form
+    --form-element-spacing-vertical: var(--spacing);
+    --form-element-spacing-horizontal: 1rem;
+    --form-element-color: inherit;
+    --form-element-background-color: var(--clr-bg);
+    --form-element-error-color: var(--clr-danger);
+    --form-element-error-outline-color: var(--clr-light-red);
+    --form-element-placeholder-color: var(--clr-border);
+    --form-element-border-color: var(--clr-border);
+    --form-element-filled-border-color: var(--clr-txt);
+    --form-element-label-color: var(--clr-txt);
+    --form-element-label-required-asterisk-color: var(--clr-accent);
+}

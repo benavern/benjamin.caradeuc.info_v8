@@ -1,8 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import heroImg from "../assets/images/AVATAR.jpg";
 import Layout from "../components/Layout.astro";
 ---
 
-<Layout title="Accueil">
-  <h1>Bienvenue sur mon site 🚀</h1>
-  <p>Développeur passionné, voici mon blog, mon parcours et mes projets.</p>
+<Layout>
+    <h1>Bienvenue sur mon site 🚀</h1>
+    <p>Développeur passionné, voici mon blog, mon parcours et mes projets.</p>
+    <Image src={heroImg} alt="Hero Image" />
 </Layout>

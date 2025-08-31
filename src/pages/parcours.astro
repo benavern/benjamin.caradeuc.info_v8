@@ -4,22 +4,27 @@ import { parcours } from "../content/parcours";
 ---
 
 <Layout title="Parcours">
-  <h1>Mon parcours</h1>
+    <h1>Mon parcours</h1>
 
-  {parcours.map(section => (
-    <section>
-      <h2>{section.title}</h2>
+    {
+        parcours.map((section) => (
+            <section>
+                <h2>{section.title}</h2>
 
-      <ul class="timeline">
-        {section.items.map(item => (
-          <li>
-            <strong>de {item.startDate} à {item.endDate ?? 'aujourd\'hui'} </strong> - <em>{item.title}</em>
-            {item.company && ` chez ${item.company}`}
-            {item.location && ` (${item.location})`}
-            <p>{item.description}</p>
-          </li>
-        ))}
-      </ul>
-    </section>
-  ))}
+                <ul class="timeline">
+                    {section.items.map((item) => (
+                        <li>
+                            <strong>
+                                de {item.startDate} à {item.endDate ?? "aujourd'hui"}
+                            </strong>
+                            - <em>{item.title}</em>
+                            {item.company && ` chez ${item.company}`}
+                            {item.location && ` (${item.location})`}
+                            <p>{item.description}</p>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        ))
+    }
 </Layout>
