@@ -1,0 +1,127 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog"))
+    .sort((a,b) => Number(b.data.date) - Number(a.data.date));
+
+  const pageSize = 6;
+  const pageCount = Math.ceil(posts.length / pageSize);
+
+  // Générer toutes les pages
+  const paths = Array.from({ length: pageCount }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: { page: i + 1 }
+  }));
+
+  return paths;
+}
+
+const { page } = Astro.props;
+
+const posts = (await getCollection("blog"))
+  .sort((a,b) => Number(b.data.date) - Number(a.data.date));
+
+const pageSize = 6;
+const start = (page - 1) * pageSize;
+const pagePosts = posts.slice(start, start + pageSize);
+const totalPages = Math.ceil(posts.length / pageSize);
+---
+
+<Layout title={`Blog - page ${page}`}>
+    <h1>Blog ({page} / {totalPages})</h1>
+
+    <div class="post-list grid grid--gap">
+        {
+            pagePosts.map((post) => (
+                <div class="grid__col grid__col-6">
+                    <img
+                        src={post.data.thumbnail || "/images/default_img.jpg"}
+                        alt={`Thumbnail for ${post.data.title}`}
+                        class="thumbnail"
+                    />
+                    <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+                    —
+                    <time datetime={post.data.date.toISOString()}>
+                        {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+                    </time>
+                </div>
+
+            ))
+        }
+    </div>
+
+    <hr>
+
+    {
+        totalPages > 1 && (
+            <nav>
+                { page > 1 &&
+                    <a href={page === 2 ? `/blog/` : `/blog/page/${page-1}/`}>← Page précédente</a>
+                }
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (p) => (
+                        <a
+                            href={p === 1 ? '/blog/' : `/blog/page/${p}/`}
+                            class={p === page ? "active" : ""}>
+                            {p}
+                        </a>
+                    ),
+                )}
+
+
+                { page < Math.ceil(posts.length/pageSize) &&
+                    <a href={`/blog/page/${page+1}/`}>Page suivante →</a>
+                }
+            </nav>
+        )
+    }
+
+    <hr>
+
+    <a href="/blog/tags">Voir tous les tags</a>
+</Layout>
+
+<style lang="scss">
+    .post-list {
+
+        list-style: none;
+
+        li {
+            margin-bottom: 1rem;
+        }
+    }
+
+    nav {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+
+        a {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: background-color 0.3s, color 0.3s;
+
+            &:hover {
+                background-color: var(--color-primary);
+                color: white;
+                border-color: var(--color-primary);
+            }
+
+            &.active {
+                background-color: var(--color-primary);
+                color: white;
+                border-color: var(--color-primary);
+                font-weight: bold;
+                pointer-events: none;
+            }
+        }
+    }
+</style>
+

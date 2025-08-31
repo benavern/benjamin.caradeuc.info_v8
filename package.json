@@ -14,5 +14,8 @@
         "sass": "^1.91.0",
         "solid-js": "^1.9.9",
         "typescript": "^5.9.2"
+    },
+    "dependencies": {
+        "gray-matter": "^4.0.3"
     }
 }

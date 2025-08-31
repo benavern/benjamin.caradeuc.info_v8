@@ -27,14 +27,26 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 ---
 
 <Layout title={post.data.title}>
-    <article>
+    <article class="blog-post">
         <h1>{post.data.title}</h1>
 
-        <p>Publié le {post.data.date.toLocaleDateString("fr-FR")}</p>
+        <img
+            src={post.data.featured_image || "/images/default_img.jpg"}
+            alt={`Featured image for ${post.data.title}`}
+            class="featured-image"
+        />
 
-        <div>
-            {post.data.tags?.map((t) => <a href={`/blog/tags/${t}/`}>#{t}</a>)}
-        </div>
+        <p>
+            Publié le
+
+            <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+            </time>
+        </p>
+
+        <p class="blog-post__tags">
+            {post.data.tags?.map((t, i) => <a class="btn btn--variant-primary-border" href={`/blog/tags/${t}/`}>{t}</a>)}
+        </p>
 
         {
             post.rendered?.html && (
@@ -62,3 +74,41 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
         </nav>
     </article>
 </Layout>
+
+
+<style lang="scss">
+    .blog-post {
+        .featured-image {
+            width: 100%;
+            margin-bottom: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+        }
+
+        .blog-post__tags {
+            display: flex;
+            gap: var(--spacing);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing);
+        }
+
+        .post-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+
+            a {
+                text-decoration: none;
+                color: var(--color-primary);
+                font-weight: bold;
+
+                &.prev {
+                    text-align: left;
+                }
+
+                &.next {
+                    text-align: right;
+                }
+            }
+        }
+    }
+</style>
