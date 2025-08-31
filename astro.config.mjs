@@ -6,7 +6,10 @@ export default defineConfig({
     site: 'https://benjamin.caradeuc.info',
 
     markdown: {
-        syntaxHighlight: 'prism'
+        syntaxHighlight: 'shiki',
+        shikiConfig: {
+            theme: 'dracula-soft',
+        },
     },
 
     integrations: [

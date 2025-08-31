@@ -16,3 +16,38 @@
     width: min(calc(100% - var(--spacing-lg) * 2), 1024px);
     margin-inline: auto;
 }
+
+
+pre.astro-code {
+    margin-block: var(--spacing-lg);
+    border-radius: var(--border-radius);
+
+    code {
+      counter-reset: step;
+      counter-increment: step 0;
+    }
+
+    code .line {
+        &::before {
+            position: sticky;
+            left: 0;
+            z-index: 1000;
+            content: counter(step);
+            counter-increment: step;
+            width: 2rem;
+            padding-inline-end: var(--spacing);
+            margin-inline-end: var(--spacing-lg);
+            display: inline-block;
+            text-align: end;
+            background-color: #3d4052; // Dark background for line numbers based on the dracula bg
+        }
+
+        &:first-child::before {
+            padding-block-start: var(--spacing);
+        }
+
+        &:last-child::before {
+            padding-block-end: var(--spacing);
+        }
+    }
+}
