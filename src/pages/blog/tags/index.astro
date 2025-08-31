@@ -1,0 +1,28 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Récupérer tous les articles
+const posts = await getCollection("blog");
+
+// Extraire tous les tags et les dédoublonner
+const allTags = Array.from(new Set(posts.filter(post => !post.data.draft).flatMap(post => post.data.tags || []))).sort();
+---
+
+<Layout title="Tous les tags">
+  <h1>Tags du blog</h1>
+
+  {allTags.length === 0 ? (
+    <p>Aucun tag trouvé.</p>
+  ) : (
+    <ul>
+      {allTags.map(tag => (
+        <li>
+          <a href={`/blog/tags/${tag}/`}>#{tag}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+  
+  <a href="/blog/">Voir tous les articles</a>
+</Layout>
