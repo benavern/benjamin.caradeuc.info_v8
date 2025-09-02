@@ -1,0 +1,135 @@
+---
+const { post, class: className = "" } = Astro.props;
+---
+
+<article class={`blog-post-card card ${className}`}>
+  <figure class="blog-post-card__header">
+    <figcaption
+      class="blog-post-card__header__caption"
+      data-theme="dark">
+      <h3>{post.data.title}</h3>
+    </figcaption>
+
+    <img
+      class="blog-post-card__header__thumbnail"
+      src={post.data.thumbnail || "/images/default_img.jpg"}
+      alt={`Thumbnail for ${post.data.title}`}
+    />
+  </figure>
+
+  <div class="blog-post-card__content">
+    {post.data.excerpt && (
+      <p class="blog-post-card__content__excerpt">
+        {post.data.excerpt}
+      </p>
+    )}
+
+    <p class="blog-post-card__content__credits">
+      <small>
+        par {post.data.author} &minus;{" "}
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString("fr-FR", { dateStyle: "long" })}
+        </time>
+      </small>
+    </p>
+
+    {post.data.tags?.length > 0 && (
+      <div class="blog-post-card__content__tags">
+        {post.data.tags.map((tag) => (
+          <a
+            role="button"
+            class="btn btn--variant-primary-border btn--size-sm btn--shape-pill"
+            href={`/blog/tags/${tag}/`}>
+            {tag}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <div class="blog-post-card__footer">
+    <a
+      role="button"
+      class="btn btn--variant-primary"
+      href={`/blog/${post.slug}/`}>
+      Lire l'article
+    </a>
+  </div>
+</article>
+
+<style lang="scss">
+    .blog-post-card{
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+        display: block;
+        position: relative;
+
+        &__caption {
+            position: absolute;
+            inset: 0 0 0 0;
+            background: linear-gradient(to top, var(--clr-bg-transparent), transparent 75%);
+            padding: var(--spacing-lg) var(--spacing);
+            display: flex;
+            align-items: flex-end;
+
+            h3 {
+                margin: 0;
+            }
+        }
+
+        &__thumbnail {
+            width: 100%;
+            height: auto;
+            border-bottom: var(--border);
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+        }
+    }
+
+    &__content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border-block: var(--border);
+        padding: var(--spacing);
+
+        &__excerpt {
+            white-space: pre-wrap;
+            margin-bottom: var(--spacing);
+
+            @supports ((display: -webkit-box) and (-webkit-line-clamp: 3)) {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
+        }
+
+        &__credits {
+            margin-block-start: auto;
+            text-align: end;
+        }
+
+        &__tags {
+            overflow: auto clip;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--spacing-sm);
+            margin-block-start: var(--spacing);
+            padding: var(--spacing-sm) 0;
+
+            .btn {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &__footer {
+        text-align: end;
+        padding: var(--spacing);
+    }
+}
+</style>

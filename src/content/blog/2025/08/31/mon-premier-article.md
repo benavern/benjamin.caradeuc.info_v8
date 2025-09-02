@@ -5,6 +5,10 @@ tags:
   - astro
   - lit
   - perso
+excerpt: |
+    je test et ça doit marcher! n'empeche, car j'aime bien quand ça marche !
+        n'est-ce pas ?
+                hein ?
 ---
 
 Ceci est le contenu de **mon premier article** écrit en Markdown 🎉.

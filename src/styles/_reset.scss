@@ -19,6 +19,7 @@ body {
     font-family: var(--font-family-body, sans-serif);
     font-optical-sizing: auto;
     line-height: var(--line-height);
+    background-image: url('/images/otis-redding-texture.png');
     background-color: var(--clr-bg);
     color: var(--clr-txt);
 }
@@ -27,7 +28,11 @@ p + p {
     margin-block-start: var(--spacing);
 }
 
-a {
+small {
+    font-size: var(--txt-sm);
+}
+
+a:not([role="button"]) {
     color: var(--clr-accent);
     text-decoration: none;
 
@@ -56,6 +61,7 @@ hr {
 }
 
 img {
+    display: block;
     max-width: 100%;
     height: auto;
 }

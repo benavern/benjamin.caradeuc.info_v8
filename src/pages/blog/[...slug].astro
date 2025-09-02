@@ -45,7 +45,7 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
         </p>
 
         <p class="blog-post__tags">
-            {post.data.tags?.map((t, i) => <a class="btn btn--variant-primary-border" href={`/blog/tags/${t}/`}>{t}</a>)}
+            {post.data.tags?.map((t, i) => <a role="button" class="btn btn--variant-primary-border" href={`/blog/tags/${t}/`}>{t}</a>)}
         </p>
 
         {

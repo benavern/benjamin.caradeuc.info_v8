@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../components/Layout.astro";
 import { getCollection } from "astro:content";
+import BlogPostCard from "../../../components/ui/BlogPostCard.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
@@ -35,19 +36,9 @@ const totalPages = Math.ceil(posts.length / pageSize);
     <div class="post-list grid grid--gap">
         {
             pagePosts.map((post) => (
-                <div class="grid__col grid__col-6">
-                    <img
-                        src={post.data.thumbnail || "/images/default_img.jpg"}
-                        alt={`Thumbnail for ${post.data.title}`}
-                        class="thumbnail"
-                    />
-                    <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-                    —
-                    <time datetime={post.data.date.toISOString()}>
-                        {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
-                    </time>
-                </div>
-
+                <BlogPostCard
+                    post={post}
+                    class="grid__col grid__col-12 grid__col-md-6 grid__col-lg-4" />
             ))
         }
     </div>
@@ -86,12 +77,10 @@ const totalPages = Math.ceil(posts.length / pageSize);
 
 <style lang="scss">
     .post-list {
+        --grid-gap-v: var(--spacing-lg);
+        --grid-gap-h: var(--spacing-lg);
 
         list-style: none;
-
-        li {
-            margin-bottom: 1rem;
-        }
     }
 
     nav {
