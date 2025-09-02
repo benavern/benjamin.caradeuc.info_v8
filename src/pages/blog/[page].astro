@@ -1,7 +1,12 @@
 ---
-import Layout from "../../../components/Layout.astro";
+import Layout from "../../components/Layout.astro";
 import { getCollection } from "astro:content";
-import BlogPostCard from "../../../components/ui/BlogPostCard.astro";
+import BlogPostCard from "../../components/ui/BlogPostCard.astro";
+import Pagination from "../../components/ui/Pagination.astro";
+
+export type Props = {
+    page: number;
+}
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
@@ -31,7 +36,11 @@ const totalPages = Math.ceil(posts.length / pageSize);
 ---
 
 <Layout title={`Blog - page ${page}`}>
-    <h1>Blog ({page} / {totalPages})</h1>
+    <hgroup>
+        <h1>Blog</h1>
+
+        { totalPages > 1 && <p>Page ({page} / {totalPages})</p> }
+    </hgroup>
 
     <div class="post-list grid grid--gap">
         {
@@ -43,19 +52,24 @@ const totalPages = Math.ceil(posts.length / pageSize);
         }
     </div>
 
-    <hr>
-
     {
         totalPages > 1 && (
-            <nav>
+            <hr>
+            <Pagination
+                current={page}
+                total={totalPages}
+                urlPrefix="/blog"  />
+        )
+    }
+            {/* <nav>
                 { page > 1 &&
-                    <a href={page === 2 ? `/blog/` : `/blog/page/${page-1}/`}>← Page précédente</a>
+                    <a href={page === 2 ? `/blog/` : `/blog/${page-1}/`}>← Page précédente</a>
                 }
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                     (p) => (
                         <a
-                            href={p === 1 ? '/blog/' : `/blog/page/${p}/`}
+                            href={p === 1 ? '/blog/' : `/blog/${p}/`}
                             class={p === page ? "active" : ""}>
                             {p}
                         </a>
@@ -64,11 +78,9 @@ const totalPages = Math.ceil(posts.length / pageSize);
 
 
                 { page < Math.ceil(posts.length/pageSize) &&
-                    <a href={`/blog/page/${page+1}/`}>Page suivante →</a>
+                    <a href={`/blog/${page+1}/`}>Page suivante →</a>
                 }
-            </nav>
-        )
-    }
+            </nav> */}
 
     <hr>
 

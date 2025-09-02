@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import Page from "./[page].astro";
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+
+    // Extraire tous les tags uniques
+    const tags = new Set(posts.flatMap((post) => post.data.tags || []));
+
+    return Array.from(tags).map((tag) => ({
+        params: { tag },
+    }));
+}
+
+const { tag } = Astro.params;
+---
+
+<Page tag={tag} page={1} />

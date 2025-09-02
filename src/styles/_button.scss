@@ -47,7 +47,7 @@
         color: var(--clr-bg);
         background-color: var(--clr-primary);
 
-        &:not(:disabled):hover {
+        &:not(:disabled):not([aria-disabled="true"]):hover {
             background-color: var(--clr-primary-alt);
             box-shadow: var(--shadow);
         }
@@ -58,7 +58,7 @@
         background-color: transparent;
         border-color: var(--clr-primary);
 
-        &:not(:disabled):hover {
+        &:not(:disabled):not([aria-disabled="true"]):hover {
             color: var(--clr-bg);
             background-color: var(--clr-primary-alt);
             border-color: var(--clr-primary-alt);
@@ -70,7 +70,7 @@
         color: var(--clr-txt);
         background-color: var(--clr-border);
 
-        &:not(:disabled):hover {
+        &:not(:disabled):not([aria-disabled="true"]):hover {
             background-color: var(--clr-border-alt);
             box-shadow: var(--shadow);
         }
@@ -81,7 +81,7 @@
         background-color: transparent;
         border-color: var(--clr-border);
 
-        &:not(:disabled):hover {
+        &:not(:disabled):not([aria-disabled="true"]):hover {
             background-color: var(--clr-border-alt);
             border-color: var(--clr-border-alt);
             box-shadow: var(--shadow);
@@ -92,7 +92,7 @@
         color: var(--clr-bg);
         background-color: var(--clr-accent);
 
-        &:not(:disabled):hover {
+        &:not(:disabled):not([aria-disabled="true"]):hover {
             background-color: var(--clr-accent-alt);
             box-shadow: var(--shadow);
         }
@@ -103,7 +103,7 @@
         background-color: transparent;
         border-color: var(--clr-accent);
 
-        &:not(:disabled):hover {
+        &:not(:disabled):not([aria-disabled="true"]):hover {
             color: var(--clr-bg);
             background-color: var(--clr-accent-alt);
             border-color: var(--clr-accent-alt);

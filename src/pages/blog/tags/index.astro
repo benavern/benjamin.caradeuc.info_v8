@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../components/Layout.astro";
 import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 
 // Récupérer tous les articles
 const posts = await getCollection("blog");
@@ -8,7 +9,7 @@ const posts = await getCollection("blog");
 // Extraire tous les tags et les dédoublonner
 const allTags = Array.from(
     new Set(posts.flatMap((post) => post.data.tags || [])),
-).sort();
+).sort(new Intl.Collator('fr').compare);
 ---
 
 <Layout title="Tous les tags">
@@ -18,22 +19,38 @@ const allTags = Array.from(
         allTags.length === 0 ? (
             <p>Aucun tag trouvé.</p>
         ) : (
-            <ul>
+            <div class="tags-list">
                 {allTags.map((tag) => (
-                    <li>
-                        <a
-                            role="button"
-                            class="btn btn--variant-primary-border"
-                            href={`/blog/tags/${tag}/`}>
-                            {tag}
-                        </a>
-                    </li>
+                    <a
+                        role="button"
+                        class="btn btn--variant-accent-border btn--size-small btn--shape-pill"
+                        href={`/blog/tags/${tag}/`}>
+                        {tag}
+                    </a>
                 ))}
-            </ul>
+            </div>
         )
     }
 
     <hr>
 
-    <a href="/blog/">Voir tous les articles</a>
+    <a
+        role="button"
+        class="btn btn--variant-secondary-border btn--size-large"
+        href="/blog/">
+        <div class="btn__icon">
+            <Icon name="mdi:arrow-left" />
+        </div>
+
+        Voir tous les articles
+    </a>
 </Layout>
+
+<style lang="scss">
+    .tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-lg);
+    }
+</style>

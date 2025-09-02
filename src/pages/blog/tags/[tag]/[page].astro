@@ -1,0 +1,94 @@
+---
+import Layout from "../../../../components/Layout.astro";
+import { getCollection } from "astro:content";
+import BlogPostCard from "../../../../components/ui/BlogPostCard.astro";
+import { Icon } from "astro-icon/components";
+import Pagination from "../../../../components/ui/Pagination.astro";
+
+export type Props = {
+    page: number;
+}
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags || [])));
+    const pageSize = 6;
+
+    // Générer toutes les pages
+    const paths = [];
+
+    for (const tag of tags) {
+        const tagPosts = posts.filter((post) => post.data.tags?.includes(tag));
+        const pageCount = Math.ceil(tagPosts.length / pageSize);
+
+        paths.push(...Array.from({ length: pageCount }, (_, i) => ({
+            params: { tag, page: String(i + 1) },
+            props: { page: i + 1 }
+        })));
+    }
+
+    return paths;
+}
+
+const { tag } = Astro.params;
+const { page } = Astro.props;
+
+const posts = (await getCollection("blog")).filter((post) =>
+    post.data.tags?.includes(tag),
+);
+
+const pageSize = 6;
+const start = (Number(page) - 1) * pageSize;
+const pagePosts = posts.slice(start, start + pageSize);
+const totalPages = Math.ceil(posts.length / pageSize);
+const pageTitle = `Articles avec le tag "${tag}"`;
+---
+
+<Layout title={pageTitle}>
+    <hgroup>
+        <h1>{pageTitle}</h1>
+
+        { totalPages > 1 && <p>Page ({page} / {totalPages})</p> }
+    </hgroup>
+
+    <a
+        role="button"
+        class="btn btn--variant-primary-border btn--size-large"
+        href="/blog/tags">
+        <div class="btn__icon">
+            <Icon name="mdi:arrow-left" />
+        </div>
+
+        Voir tous les tags
+    </a>
+
+
+    <hr />
+
+    {
+        pagePosts.length === 0 ? (
+            <p>Aucun article pour ce tag.</p>
+        ) : (
+            <div class="post-list grid grid--gap">
+                {pagePosts.map((post) => (
+                    <BlogPostCard
+                        post={post}
+                        class="grid__col grid__col--12 grid__col--md-6"
+                    />
+                ))}
+            </div>
+        )
+    }
+
+    {
+        totalPages > 1 && (
+            <hr />
+
+            <Pagination
+                current={page}
+                total={totalPages}
+                urlPrefix={`/blog/tags/${tag}`} />
+        )
+    }
+
+</Layout>

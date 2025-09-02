@@ -1,4 +1,9 @@
 ---
+export type Props = {
+    title?: string;
+}
+
+import { ClientRouter } from "astro:transitions";
 const { title = "Mon site perso" } = Astro.props;
 
 import "../styles/global.scss";
@@ -7,7 +12,7 @@ import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 ---
 
-<html lang="fr">
+<html lang="fr" transition:name="root" transition:animate="none">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,12 +28,15 @@ import Footer from "./Footer.astro";
             href="https://fonts.googleapis.com/css2?family=Galindo&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"
         />
+
+        <!-- astro transitions -->
+        <ClientRouter />
     </head>
 
     <body>
         <Header />
 
-        <main>
+        <main transition:animate="fade">
             <div class="container">
                 <slot />
             </div>

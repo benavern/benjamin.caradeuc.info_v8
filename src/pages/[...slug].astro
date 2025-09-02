@@ -1,5 +1,6 @@
 ---
-import Layout from "../../components/Layout.astro";
+import { Icon } from "astro-icon/components";
+import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -28,25 +29,31 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 
 <Layout title={post.data.title}>
     <article class="blog-post">
-        <h1>{post.data.title}</h1>
+        <h1 transition:name={`post-title-${post.id}`}>
+            {post.data.title}
+        </h1>
 
         <img
+            transition:name={`post-img-${post.id}`}
             src={post.data.featured_image || "/images/default_img.jpg"}
             alt={`Featured image for ${post.data.title}`}
-            class="featured-image"
-        />
+            class="featured-image">
 
-        <p>
+        <p><i>
             Publié le
 
             <time datetime={post.data.date.toISOString()}>
                 {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
             </time>
-        </p>
+
+            par {post.data.author}
+        </i></p>
 
         <p class="blog-post__tags">
-            {post.data.tags?.map((t, i) => <a role="button" class="btn btn--variant-primary-border" href={`/blog/tags/${t}/`}>{t}</a>)}
+            {post.data.tags?.map((t, i) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
         </p>
+
+        <hr>
 
         {
             post.rendered?.html && (
@@ -63,12 +70,16 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
                         <a
                             role="button"
                             class="btn btn--variant-secondary-border btn--size-large"
-                            href={`/blog/${nextPost.slug}/`}>
+                            href={`/${nextPost.slug}/`}>
                             <div class="btn__icon">
-                                &larr;
+                                <Icon name="mdi:arrow-left" />
                             </div>
 
-                            {nextPost.data.title}
+                            <span>
+                                <small>Suivant</small>
+                                <br>
+                                <strong>{nextPost.data.title}</strong>
+                            </span>
                         </a>
                     )
                 }
@@ -80,11 +91,15 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
                         <a
                             role="button"
                             class="btn btn--variant-secondary-border btn--size-large"
-                            href={`/blog/${prevPost.slug}/`}>
-                            {prevPost.data.title}
+                            href={`/${prevPost.slug}/`}>
+                            <span>
+                                <small>Précédent</small>
+                                <br>
+                                <strong>{prevPost.data.title}</strong>
+                            </span>
 
                             <div class="btn__icon">
-                                &rarr;
+                                <Icon name="mdi:arrow-right" />
                             </div>
                         </a>
                     )
@@ -114,6 +129,10 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
             display: flex;
             justify-content: space-between;
             margin-block-start: var(--spacing-xl);
+
+            &__prev {
+                text-align: end;
+            }
         }
     }
 </style>

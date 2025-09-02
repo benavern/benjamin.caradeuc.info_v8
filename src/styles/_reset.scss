@@ -80,6 +80,14 @@ h1, h2, h3, h4, h5, h6 {
     margin-block-end: 1em;
 }
 
+hgroup {
+    margin-block: var(--spacing) var(--spacing-xl);
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-block-end: 0;
+    }
+}
+
 h1 {
     font-size: var(--txt-xxl);
 }

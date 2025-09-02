@@ -1,0 +1,75 @@
+---
+import { Icon } from "astro-icon/components"
+
+export type Props = {
+    urlPrefix?: string;
+    current: number;
+    total: number;
+}
+
+const {
+    urlPrefix = '',
+    current,
+    total,
+} = Astro.props
+---
+
+<nav class="pagination">
+    <div class="pagination__prev">
+        {current > 1 && (
+            <a
+                role="button"
+                class="btn btn--variant-secondary-border"
+                href={current === 2 ? `${urlPrefix}/` : `${urlPrefix}/${current - 1}/`}>
+                <div class="btn__icon">
+                    <Icon name="mdi:arrow-left" />
+                </div>
+
+                Page précédente
+            </a>
+        )}
+    </div>
+
+    <div class="pagination__nums">
+        {Array.from({ length: total }, (_, i) => i + 1).map(
+            (p) => (
+                <a
+                    role="button"
+                    class={`btn btn--variant-secondary${p !== current ? '-border' : ''}`}
+                    aria-disabled={p === current ? 'true' : null}
+                    href={p === current ?  null : (p === 1 ? `${urlPrefix}/` : `${urlPrefix}/${p}/`)}>
+                    {p}
+                </a>
+            ),
+        )}
+    </div>
+
+    <div class="pagination__next">
+        {current < total && (
+            <a
+                role="button"
+                class="btn btn--variant-secondary-border"
+                href={`${urlPrefix}/${current + 1}/`}>
+                Page suivante
+
+                <div class="btn__icon">
+                    <Icon name="mdi:arrow-right" />
+                </div>
+            </a>
+        )}
+    </div>
+</nav>
+
+<style lang="scss">
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing);
+
+        &__nums {
+            display: flex;
+            gap: var(--spacing);
+        }
+    }
+</style>
