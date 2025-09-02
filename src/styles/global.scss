@@ -1,6 +1,10 @@
+@use 'variables';
+
 @use 'theme';
 @use 'reset';
-@use 'grid';
+@use 'grid' with (
+    $breakpoints: variables.$breakpoints
+);
 @use 'form';
 @use 'button';
 @use 'utils';

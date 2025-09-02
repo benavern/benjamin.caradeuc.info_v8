@@ -1,72 +1,48 @@
+@use 'variables';
+
 :root {
     color-scheme: light dark;
 
-    // Original color palette
-    // --clr-bg: light-dark(#ffffff, #121212);
-    // --clr-bg-alt: light-dark(#f9f9f9, #1e1e1e);
-    // --clr-bg-transparent: light-dark(rgb(249 249 249 / 90%), rgb(30 30 30 / 90%));
-    // --clr-bg-transparent-blur: light-dark(rgb(249 249 249 / 75%), rgb(30 30 30 / 75%));
-    // --clr-fg: light-dark(#121212, #ffffff);
-    // --clr-txt: light-dark(#666666, #bbbbbb);
-    // --clr-border: light-dark(#dddddd, #333333);
-    // --clr-primary: light-dark(#1d6845, #81c995);
-    // --clr-primary-alt: light-dark(#15532f, #5ea877);
-    // --clr-accent: light-dark(#411f68, #c678dd);
-    // --clr-accent-alt: light-dark(#2e1450, #9d4edd);
-    // --clr-danger: light-dark(#d93025, #ff7961);
-    // --clr-light-red: light-dark(#fce8e6, #5a1e1c);
+    // --- Personalized "Dracula soft" palet
+    --clr-bg: light-dark(hsl(230 15% 97%), hsl(230 15% 12%));
+    --clr-bg-alt: light-dark(hsl(230 15% 94%), hsl(230 15% 16%));
+    --clr-bg-transparent: light-dark(hsl(230 15% 94% / 0.9), hsl(230 15% 16% / 0.9));
+    --clr-bg-transparent-blur: light-dark(hsl(230 15% 94% / 0.75), hsl(230 15% 16% / 0.75));
+    --clr-fg: light-dark(hsl(230 15% 10%), hsl(230 15% 96%));
+    --clr-txt: light-dark(hsl(230 10% 40%), hsl(230 10% 70%));
+    --clr-border: light-dark(hsl(230 10% 85%), hsl(230 10% 25%));
+    --clr-border-alt: light-dark(hsl(230 10% 82%), hsl(230 10% 21%));
+    --clr-primary: light-dark(hsl(265 45% 60%), hsl(265 55% 70%));
+    --clr-primary-alt: light-dark(hsl(265 35% 45%), hsl(265 45% 60%));
+    --clr-accent: light-dark(hsl(195 55% 40%), hsl(195 65% 65%));
+    --clr-accent-alt: light-dark(hsl(195 45% 30%), hsl(195 55% 55%));
+    --clr-danger: light-dark(hsl(355 60% 45%), hsl(355 70% 65%));
+    --clr-light-red: light-dark(hsl(355 85% 90%), hsl(355 25% 25%));
 
-    // Monochrome palette
-    // --clr-bg: light-dark(#ffffff, #121212);
-    // --clr-bg-alt: light-dark(#f5f5f5, #1a1a1a);
-    // --clr-bg-transparent: light-dark(rgb(255 255 255 / 90%), rgb(18 18 18 / 90%));
-    // --clr-bg-transparent-blur: light-dark(rgb(255 255 255 / 75%), rgb(18 18 18 / 75%));
-    // --clr-fg: light-dark(#121212, #ffffff);
-    // --clr-txt: light-dark(#444444, #cccccc);
-    // --clr-border: light-dark(#dcdcdc, #333333);
-    // --clr-primary: light-dark(#2c2c2c, #e0e0e0);
-    // --clr-primary-alt: light-dark(#555555, #b0b0b0);
-    // --clr-accent: light-dark(#767676, #aaaaaa);
-    // --clr-accent-alt: light-dark(#9a9a9a, #888888);
-    // --clr-danger: light-dark(#a00000, #ff4444);
-    // --clr-light-red: light-dark(#f8eaea, #441111);
+    // --- Other theming stuff
+    // Spacing
+    --spacing-sm: calc(4/#{variables.$rem-base} * 1rem); // 4px
+    --spacing: calc(10/#{variables.$rem-base} * 1rem); // 10px
+    --spacing-lg: calc(20/#{variables.$rem-base} * 1rem); // 20px
+    --spacing-xl: calc(40/#{variables.$rem-base} * 1rem); // 40px
 
-    // Futuristic palette
-    --clr-bg: light-dark(#ffffff, #0c0c1e);
-    --clr-bg-alt: light-dark(#f5f5f5, #15152b);
-    --clr-bg-transparent: light-dark(rgb(245 245 245 / 90%), rgb(21 21 43 / 90%));
-    --clr-bg-transparent-blur: light-dark(rgb(245 245 245 / 75%), rgb(21 21 43 / 75%));
-    --clr-fg: light-dark(#0c0c1e, #ffffff);
-    --clr-txt: light-dark(#333333, #cccccc);
-    --clr-border: light-dark(#bbbbbb, #444466);
-    --clr-primary: light-dark(#00b3b3, #00bfe0);
-    --clr-primary-alt: light-dark(#008888, #009aa0);
-    --clr-accent: light-dark(#e600e6, #ff29e6);
-    --clr-accent-alt: light-dark(#cc0077, #ff59b3);
-    --clr-danger: light-dark(#ff3300, #ff6666);
-    --clr-light-red: light-dark(#ffe6e0, #661111);
-
-
-    --spacing-sm: calc(4/16 * 1rem); // 4px
-    --spacing: calc(10/16 * 1rem); // 10px
-    --spacing-lg: calc(20/16 * 1rem); // 20px
-    --spacing-xl: calc(40/16 * 1rem); // 40px
-
-    --txt-sm: calc(.75 * 1rem); // 12px
-    --txt: 1rem; // 16px
-    --txt-lg: calc(1.5 * 1rem); // 24px
-    --txt-xl: calc(2 * 1rem); // 32px
-    --txt-xxl: calc(3 * 1rem); // 48px
+    // typography
+    --txt-sm: calc(.75 * 1rem);
+    --txt: 1rem;
+    --txt-lg: calc(1.5 * 1rem);
+    --txt-xl: calc(2 * 1rem);
+    --txt-xxl: calc(4 * 1rem);
 
     --font-family-body: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --font-family-heading: 'Galindo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     --line-height: 1.6;
 
+    // Boxes
     --border-width: 1px;
     --border: var(--border-width) solid var(--clr-border);
-    --border-radius: calc(4/16 * 1rem); // 4px
-    --border-radius-lg: calc(12/16 * 1rem); // 4px
+    --border-radius: calc(4/#{variables.$rem-base} * 1rem); // 4px
+    --border-radius-lg: calc(12/#{variables.$rem-base} * 1rem); // 12px
 
     --focus-outline-width: 2px;
     --focus-outline-color: var(--clr-primary);
@@ -75,7 +51,14 @@
     --clr-shadow: light-dark(rgb(0 0 0 / 10%), transparent);
     --shadow: 4px 4px 5px var(--clr-shadow);
 
-    --transition-duration: .3s;
+    // Buttons
+    --btn-min-height-sm: calc(24/#{variables.$rem-base} * 1rem); // 24px;
+    --btn-min-height: calc(36/#{variables.$rem-base} * 1rem); // 36px;
+    --btn-min-height-lg: calc(48/#{variables.$rem-base} * 1rem); // 48px;
+    --btn-icon-size: 1.25em;
+    --btn-right-icon-size: var(--_btn-icon-size);
+    --btn-right-icon-size: var(--_btn-icon-size);
+    --btn-line-height: var(--line-height);
 
     // Form
     --form-element-spacing-vertical: var(--spacing);
@@ -89,12 +72,11 @@
     --form-element-filled-border-color: var(--clr-txt);
     --form-element-label-color: var(--clr-txt);
     --form-element-label-required-asterisk-color: var(--clr-accent);
+
+    // Miscelineous
+    --transition-duration: .3s;
 }
 
-[data-theme="light"] {
-    color-scheme: light;
-}
-
-[data-theme="dark"] {
-    color-scheme: dark;
-}
+// Force theme
+[data-theme="light"] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }

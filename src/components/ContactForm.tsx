@@ -14,7 +14,7 @@ export default function ContactForm() {
     return (
         <form onSubmit={handleSubmit}>
             <div class="grid grid--gap">
-                <div class="grid__col grid__col-6">
+                <div class="grid__col grid__col--6">
                     <label>
                         <input
                             type="text"
@@ -29,7 +29,7 @@ export default function ContactForm() {
                     </label>
                 </div>
 
-                <div class="grid__col grid__col-6">
+                <div class="grid__col grid__col--6">
                     <label>
                         <input
                             type="email"
@@ -43,7 +43,7 @@ export default function ContactForm() {
                     </label>
                 </div>
 
-                <div class="grid__col grid__col-12">
+                <div class="grid__col grid__col--12">
                     <label>
                         <textarea
                             placeholder="bla bla bla..."

@@ -1,3 +1,6 @@
+@use 'sass:math';
+@use 'variables';
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +9,7 @@
 
 html {
     height: 100%;
-    font-size: calc(100% * 18 / 16); // 18px
+    font-size: math.percentage(math.div(variables.$rem-base, 16));
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -91,4 +94,23 @@ h3 {
 
 ul, ol {
     list-style-position: inside;
+}
+
+details {
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing);
+
+    summary:not([role="button"]) {
+        padding: var(--spacing);
+        cursor: pointer;
+
+    }
+
+    &[open] summary {
+        margin-block-end: var(--spacing);
+
+        &:not([role="button"]){
+            border-bottom: var(--border);
+        }
+    }
 }

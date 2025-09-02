@@ -1,0 +1,120 @@
+---
+import { Icon } from 'astro-icon/components'
+import Layout from "../components/Layout.astro";
+
+const btnVariants = [null, "primary", "primary-border", "secondary", "secondary-border", "accent", "accent-border"] as const;
+const btnSizes = ["small", null, "large"] as const;
+const btnShapes = [null, "pill"] as const;
+
+type BtnVariant = typeof btnVariants[number];
+type BtnSize = typeof btnSizes[number];
+type BtnShape = typeof btnShapes[number];
+
+function buildBtnClass(variant: BtnVariant, size: BtnSize, shape: BtnShape): string {
+  const classes = ["btn"];
+
+  if (variant) classes.push(`btn--variant-${variant}`);
+  if (size) classes.push(`btn--size-${size}`);
+  if (shape) classes.push(`btn--shape-${shape}`);
+
+  return classes.join(" ");
+}
+
+const buttons: Record<string, string[]> = {};
+
+for (const btnVariant of btnVariants) {
+  const key = btnVariant ?? "default";
+  buttons[key] = [];
+
+  for (const btnSize of btnSizes) {
+    for (const btnShape of btnShapes) {
+      buttons[key].push(buildBtnClass(btnVariant, btnSize, btnShape));
+    }
+  }
+}
+---
+
+<Layout>
+    <h1>Demo page</h1>
+
+    <h2>
+        <Icon name="mdi:button-pointer" />
+        Buttons
+    </h2>
+
+    <p>Il existe plusieurs façon de personaliser les boutons:</p>
+
+    <ul>
+        <li><strong>Les variants</strong>: {btnVariants.filter(Boolean).join(', ')}</li>
+        <li><strong>Les tailles</strong>: {btnSizes.filter(Boolean).join(', ')}</li>
+        <li><strong>Les formes</strong>: {btnShapes.filter(Boolean).join(', ')}</li>
+    </ul>
+
+    <hr>
+
+    {
+        Object.entries(buttons).map(([variantName, variantBtns]) => (
+            <section class="card">
+                <h3>{variantName}</h3>
+
+                <p>
+                    <button class={`btn btn--variant-${variantName}`}>
+                        <div class="btn__icon">
+                            <Icon name="mdi:space-invaders" />
+                        </div>
+
+                        {variantBtns[2]}
+                    </button>
+                </p>
+
+                <details class="card">
+                    <summary>
+                        Détails
+                    </summary>
+
+                    {variantBtns.map((className, i) => (
+                        <>
+                            {i > 1 && <hr>}
+
+                            <p>
+                                <button class={className}>
+                                    {className}
+                                </button>
+                            </p>
+
+                            <p>
+                                <button class={className}>
+                                    <div class="btn__icon">
+                                        <Icon name="mdi:space-invaders" />
+                                    </div>
+
+                                    {className}
+                                </button>
+                            </p>
+
+                            <p>
+                                <button class={className} aria-busy="true">
+                                    {className}
+
+                                    <div class="btn__icon">
+                                        <Icon name="mdi:loading" />
+                                    </div>
+                                </button>
+                            </p>
+                        </>
+                    ))}
+                </details>
+            </section>
+        ))
+    }
+</Layout>
+
+<style lang="scss">
+    section.card {
+        padding: var(--spacing) var(--spacing-lg);
+
+        & + & {
+            margin-block-start: var(--spacing-xl);
+        }
+    }
+</style>

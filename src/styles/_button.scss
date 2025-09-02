@@ -1,12 +1,7 @@
 .btn {
-    --_btn-min-height: var(--btn-min-height, #{rem-calc(36px)});
-    --_btn-icon-size: var(--btn-icon-size, 1.25em);
-    --_btn-left-icon-size: var(--btn-left-icon-size, var(--_btn-icon-size));
-    --_btn-right-icon-size: var(--btn-right-icon-size, var(--_btn-icon-size));
-
     // default styles
     display: inline-flex;
-    gap: var(--spacing-sm);
+    gap: var(--spacing);
     align-items: center;
     justify-content: center;
     appearance: none;
@@ -17,9 +12,9 @@
     background-color: unset;
     border: var(--border-width) solid transparent;
     border-radius: var(--border-radius);
-    min-height: var(--_btn-min-height);
-    // padding: calc((var(--_btn-min-height) - var(--line-height) * 1rem) / 2) var(--spacing);
-    padding: var(--spacing-sm) var(--spacing);
+    min-height: var(--btn-min-height);
+    line-height: var(--btn-line-height);
+    padding: calc((var(--btn-min-height) - var(--btn-line-height) * 1rem) / 2) var(--spacing);
     cursor: pointer;
     transition: {
         duration: var(--transition-duration);
@@ -35,42 +30,19 @@
 
     // icon
     &__icon {
-        font-size: var(--_btn-icon-size);
+        font-size: var(--btn-icon-size);
 
-        &--left {
-            font-size: var(--_btn-left-icon-size);
+        > svg {
+            display: block;
         }
-
-        &--right {
-            font-size: var(--_btn-right-icon-size);
-        }
-
     }
 
     // We can assume that when the button is busy, the icon is mdi:loading, we want it to spin 🌀
     &[aria-busy="true"] &__icon {
-        animation: spin .5s linear infinite;
+        animation: spin 1s linear infinite;
     }
 
     // variants
-    &--variant-link {
-        display: inline;
-        text-decoration: underline;
-        padding: 0;
-        min-height: auto;
-        border: none;
-    }
-
-    &--variant-link &__icon {
-        &--left {
-            margin-inline-end: var(--spacing-sm);
-        }
-
-        &--right {
-            margin-inline-start: var(--spacing-sm);
-        }
-    }
-
     &--variant-primary {
         color: var(--clr-bg);
         background-color: var(--clr-primary);
@@ -87,15 +59,19 @@
         border-color: var(--clr-primary);
 
         &:not(:disabled):hover {
+            color: var(--clr-bg);
+            background-color: var(--clr-primary-alt);
+            border-color: var(--clr-primary-alt);
             box-shadow: var(--shadow);
         }
     }
 
     &--variant-secondary {
         color: var(--clr-txt);
-        background-color: var(--clr-line);
+        background-color: var(--clr-border);
 
         &:not(:disabled):hover {
+            background-color: var(--clr-border-alt);
             box-shadow: var(--shadow);
         }
     }
@@ -103,9 +79,11 @@
     &--variant-secondary-border {
         color: var(--clr-txt);
         background-color: transparent;
-        border-color: var(--clr-line);
+        border-color: var(--clr-border);
 
         &:not(:disabled):hover {
+            background-color: var(--clr-border-alt);
+            border-color: var(--clr-border-alt);
             box-shadow: var(--shadow);
         }
     }
@@ -115,7 +93,7 @@
         background-color: var(--clr-accent);
 
         &:not(:disabled):hover {
-            background-color: var(--clr-dark-accent);
+            background-color: var(--clr-accent-alt);
             box-shadow: var(--shadow);
         }
     }
@@ -126,17 +104,31 @@
         border-color: var(--clr-accent);
 
         &:not(:disabled):hover {
-            color: var(--clr-dark-accent);
-            border-color: var(--clr-dark-accent);
+            color: var(--clr-bg);
+            background-color: var(--clr-accent-alt);
+            border-color: var(--clr-accent-alt);
             box-shadow: var(--shadow);
         }
     }
 
     // sizes
-    &--size-large:not(&--variant-link) {
-        --_btn-min-height: #{rem-calc(48px)};
+    &--size-small {
+        --btn-min-height: var(--btn-min-height-sm);
+
+        font-size: var(--txt-sm);
     }
 
+    &--size-large {
+        --btn-min-height: var(--btn-min-height-lg);
+
+        border-radius: var(--border-radius-lg);
+        padding-inline: var(--spacing-lg);
+    }
+
+    // shapes
+    &--shape-pill {
+        border-radius: 9999px;
+    }
 }
 
 @keyframes spin {

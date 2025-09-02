@@ -38,7 +38,7 @@ const { post, class: className = "" } = Astro.props;
         {post.data.tags.map((tag) => (
           <a
             role="button"
-            class="btn btn--variant-primary-border btn--size-sm btn--shape-pill"
+            class="btn btn--variant-primary-border btn--size-small btn--shape-pill"
             href={`/blog/tags/${tag}/`}>
             {tag}
           </a>

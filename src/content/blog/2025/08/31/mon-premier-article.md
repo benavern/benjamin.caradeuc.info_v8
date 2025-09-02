@@ -16,7 +16,7 @@ Ceci est le contenu de **mon premier article** écrit en Markdown 🎉.
 
 ```astro
 <div class="grid grid--gap">
-    <div class="grid__col grid__col-6">
+    <div class="grid__col grid__col--6">
         <label>
             <input
                 type="text"

@@ -56,21 +56,40 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 
         <hr />
 
-        <nav class="post-navigation">
-            {
-                prevPost && (
-                    <a class="prev" href={`/blog/${prevPost.slug}/`}>
-                        ← {prevPost.data.title}
-                    </a>
-                )
-            }
-            {
-                nextPost && (
-                    <a class="next" href={`/blog/${nextPost.slug}/`}>
-                        {nextPost.data.title} →
-                    </a>
-                )
-            }
+        <nav class="blog-post__navigation">
+            <div class="blog-post__navigation__prev">
+                {
+                    nextPost && (
+                        <a
+                            role="button"
+                            class="btn btn--variant-secondary-border btn--size-large"
+                            href={`/blog/${nextPost.slug}/`}>
+                            <div class="btn__icon">
+                                &larr;
+                            </div>
+
+                            {nextPost.data.title}
+                        </a>
+                    )
+                }
+            </div>
+
+            <div class="blog-post__navigation__next">
+                {
+                    prevPost && (
+                        <a
+                            role="button"
+                            class="btn btn--variant-secondary-border btn--size-large"
+                            href={`/blog/${prevPost.slug}/`}>
+                            {prevPost.data.title}
+
+                            <div class="btn__icon">
+                                &rarr;
+                            </div>
+                        </a>
+                    )
+                }
+            </div>
         </nav>
     </article>
 </Layout>
@@ -84,31 +103,17 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
             border-radius: var(--border-radius-lg);
         }
 
-        .blog-post__tags {
+        &__tags {
             display: flex;
             gap: var(--spacing);
             flex-wrap: wrap;
             margin-bottom: var(--spacing);
         }
 
-        .post-navigation {
+        &__navigation {
             display: flex;
             justify-content: space-between;
-            margin-top: 2rem;
-
-            a {
-                text-decoration: none;
-                color: var(--color-primary);
-                font-weight: bold;
-
-                &.prev {
-                    text-align: left;
-                }
-
-                &.next {
-                    text-align: right;
-                }
-            }
+            margin-block-start: var(--spacing-xl);
         }
     }
 </style>

@@ -5,11 +5,10 @@ $grid-gap-h: 10px !default;
 $grid-gap-v: 10px !default;
 
 $breakpoints: (
-    sm: 480px,
-    md: 768px,
-    lg: 1024px,
+    mobile: 375px,
+    tablet: 768px,
+    pc: 1024px,
 ) !default;
-
 
 :root {
     --grid-gap-h: #{$grid-gap-h};
@@ -26,32 +25,23 @@ $breakpoints: (
     }
 
     & > &__col {
-        --grid-col-start: auto;
         --grid-col-span: auto;
 
         min-width: 0;
-        grid-column: var(--grid-col-start) / span var(--grid-col-span);
+        grid-column: auto / span var(--grid-col-span);
     }
 
     @for $nb-col from 1 through $grid-nb-col {
-        & > &__col-start-#{$nb-col} {
-            --grid-col-start: #{$nb-col};
-        }
-
-        & > &__col-#{$nb-col} {
+        & > &__col--#{$nb-col} {
             --grid-col-span: #{$nb-col};
         }
     }
 
-    // ⚠️ WARNING : these innocent 8 lines generate ~200 lines css!
     @each $breakpointName, $breakpointVal in $breakpoints {
         @media (min-width: $breakpointVal) {
             @for $nb-col from 1 through $grid-nb-col {
-                & > &__col-start-#{$breakpointName}-#{$nb-col} {
-                    --grid-col-start: #{$nb-col};
-                }
 
-                & > &__col-#{$breakpointName}-#{$nb-col} {
+                & > &__col--#{$breakpointName}-#{$nb-col} {
                     --grid-col-span: #{$nb-col};
                 }
             }

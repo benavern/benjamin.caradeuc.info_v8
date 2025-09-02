@@ -10,12 +10,14 @@
     "devDependencies": {
         "@astrojs/sitemap": "^3.5.1",
         "@astrojs/solid-js": "^5.1.0",
+        "@iconify-json/mdi": "^1.2.3",
         "astro": "^5.13.5",
         "sass": "^1.91.0",
         "solid-js": "^1.9.9",
         "typescript": "^5.9.2"
     },
     "dependencies": {
+        "astro-icon": "^1.1.5",
         "gray-matter": "^4.0.3"
     }
 }
