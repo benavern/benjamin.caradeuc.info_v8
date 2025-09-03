@@ -1,0 +1,36 @@
+title: Formations
+items:
+- description: Master 2 en alternance dans le domaine de l'informatique.
+  establishment: IMIE
+  location: Rennes (35)
+  name: Master 2 Chef de projet en conception de systèmes informatiques
+  period: "[Septembre 2015 - Septembre 2016]"
+  tags:
+  - color: blue
+    name: Développement
+  - color: red
+    name: Management
+  - color: orange
+    name: Systèmes & réseaux
+- description: Orientation personnelle vers l'informatique après 2 modules Informatiques à l'école.
+  establishment: ENIB
+  location: Brest (29)
+  name: Diplôme d'ingénieur généraliste
+  period: "[Septembre 2009 - Juin 2015]"
+  tags:
+  - color: orange
+    name: Informatique
+  - color: violet
+    name: Électronique
+  - color: yellow
+    name: Mécatronique
+- description: Baccalauréat Sciences et Technologies Industrielles génie Électrotechnique. **Mention Bien**
+  establishment: Lycée Brequigny
+  location: Rennes (35)
+  name: Baccalauréat STI Génie Électrotechnique
+  period: "[Septembre 2005 - Juin 2009]"
+  tags:
+  - color: red
+    name: Informatique industrielle
+  - color: green
+    name: Énergies renouvelables

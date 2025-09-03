@@ -1,0 +1,201 @@
+title: Expériences professionnelles
+items:
+- name: Responsable projet informatique
+  period: Septembre 2021 - Aujourd'hui
+  establishment: Additi (Ouestfrance)
+  location: Rennes (35)
+  description: >+
+    [Ouestfrance Immo](https://www.ouestfrance-immo.com), [BellesPierres](https://www.bellespierres.com/), [CessionPME](https://www.cessionpme.com/)
+
+
+    * Développeur web fullStack Vuejs (2 / 3) (svelte(kit) - lit-element) + Laravel + MySQL / PosgreSQL
+
+    * Maintenance et développement de nouvelles fonctionnalités
+
+    * Refonte totale du site [BellesPierres](https://www.bellespierres.com/)
+
+    * Refonte des pages principales du site [Ouestfrance Immo](https://www.ouestfrance-immo.com)
+
+    * Refonte de l'espace "mon-compte" du site [CessionPME](https://www.cessionpme.com/)
+
+    * Création d'outils utils à l'équipe (extension navigateur / interface d'administration marketing & SEO / ...)
+
+    * CI/CD GitlabCI / Jenkins
+
+    * Docker / Kubernetes
+
+    * GCP
+
+    * Tests cypress / Jest
+
+    * Introduction de l'équipe à Storybook
+
+  tags:
+  - name: html5
+    color: orange
+  - name: css3
+    color: blue
+  - name: Javascript
+    color: yellow
+  - name: Typescript
+    color: blue
+  - name: vuejs (2 & 3)
+    color: green
+  - name: web-components (lit-element)
+    color: blue
+  - name: Laravel
+    color: red
+  - name: docker
+    color: blue
+  - name: kubernetes
+    color: blue
+  - name: storybook
+    color: violet
+  - name: GCP
+    color: red
+- name: Ingénieur Développeur
+  period: Février 2020 - Août 2021
+  establishment: MolotovTV (Idean - Klanik)
+  location: Montpellier (34)
+  description: >-
+    Service français de distribution de chaînes de télévision.
+
+
+    * Développement front (VueJS)
+
+    * Performances, optimisation mémoire / CPU, innovation
+
+    * TNR régulière sur les devices cibles (XBOX, et smartTVs Samsung - LG - Hisense - Panasonic - ...)
+
+    * Lecture de contenus protégés par DRM (widevine, playready, ...)
+
+    * Relations avec clients étrangers et constructeurs importants de smartTVs (échanges en anglais avec Allemagne, Chine, Corée, Inde, Russie, ...)
+
+    * Organisation en squads
+
+    * Mise en place de CI / CD (Github actions) + bash
+
+    * Migration cloud (AWS + terraform)
+
+    * Tests Unitaires & end 2 end (Jest & Cypress)
+  tags:
+  - name: HTML5
+    color: orange
+  - name: CSS3
+    color: blue
+  - name: Javascript
+    color: yellow
+  - name: VueJs
+    color: green
+  - name: AWS
+    color: orange
+  - name: storybook
+    color: violet
+  - name: cypress
+    color: green
+- description: |-
+    Plateforme sécurisée d’échanges pour la télé-expertise
+
+    * Développement front & back
+    * Mise en place scrum
+    * Mise en place CI/CD
+    * Introduction à Gitflow
+  establishment: Rofim (KLANIK)
+  location: Montpellier (34)
+  name: Ingénieur Développeur Web Fullstack
+  period: "[Juillet 2019 - Janvier 2020]"
+  tags:
+  - color: orange
+    name: HTML5
+  - color: blue
+    name: CSS3
+  - color: yellow
+    name: Javascript
+  - color: red
+    name: Angular 8
+  - color: green
+    name: NodeJs
+  - color: violet
+    name: MongoDb
+- description: |-
+    * Maintenance évolutive
+    * Conception architecture logicielle
+    * Mise en oeuvre d'un nouveau portail
+    * Refonte des autres portails
+  establishment: ORANGE WebTV (SII)
+  location: Rennes (35)
+  name: Ingénieur (Lead) Développeur Web
+  period: "[Octobre 2016 - Juin 2019]"
+  tags:
+  - color: orange
+    name: HTML5
+  - color: blue
+    name: CSS3
+  - color: yellow
+    name: Javascript
+  - color: green
+    name: VueJs
+  - color: green
+    name: NodeJs
+- description: Refonte d'un module 3D interactif
+  establishment: La boutonnière (SII)
+  location: Rennes (35)
+  name: Ingénieur Développeur Web
+  period: "[Février 2017 - Mars 2017]"
+  tags:
+  - color: orange
+    name: HTML5
+  - color: blue
+    name: CSS3
+  - color: yellow
+    name: Javascript
+  - color: red
+    name: WebGL
+- description: Maintenance d'une application mobile hybride pour le compte d'un opérateur téléphonique péruvien, en collaboration avec des développeurs étrangers (Pérou, Inde, USA, Israël)
+  establishment: AMDocs (SII)
+  location: Rennes (35)
+  name: Ingénieur Développeur Web
+  period: "[Novembre 2016 - Février 2017]"
+  tags:
+  - color: orange
+    name: HTML5
+  - color: blue
+    name: CSS3
+  - color: yellow
+    name: Javascript
+  - color: red
+    name: AngularJs 1.5
+  - color: violet
+    name: Anglais professionnel
+- description: Alternance pendant ma formation de Master 2 "Chef de projet numérque" à l'IMIE de Rennes. Maintenance de code et conception de nouvelles fonctionnalités pour les produits de Dolmen Technologies.
+  establishment: Dolmen Technologies
+  location: Rennes (35)
+  name: Développeur Web (Alternance)
+  period: "[Septembre 2015 - Septembre 2016]"
+  tags:
+  - color: orange
+    name: HTML5
+  - color: blue
+    name: CSS3
+  - color: yellow
+    name: Javascript
+  - color: red
+    name: BackbneJs + MarionetteJs
+  - color: violet
+    name: PHP 5
+  - color: blue
+    name: Drupal 7
+- description: Développement d’une interface graphique complexe et dynamique en HTML5 pour remplacement des interfaces existantes développées en FLASH. (Proof of concept)
+  establishment: ENENSYS Technologies
+  location: Rennes (35)
+  name: Développeur Web (Stagiaire)
+  period: "[Avril 2014 - Août 2014]"
+  tags:
+  - color: orange
+    name: HTML5
+  - color: blue
+    name: CSS3
+  - color: yellow
+    name: Javascript
+  - color: red
+    name: AngularJs 1.3
