@@ -29,8 +29,8 @@ export default function ThemeSwitcher() {
         saveTheme(localStorage.getItem("theme") as Theme | null);
     });
 
-    const handleChange = (e) => {
-        const newTheme = e.target.checked ? "light" : "dark";
+    const handleChange = (e: Event) => {
+        const newTheme = (e.target as HTMLInputElement).checked ? "light" : "dark";
         saveTheme(newTheme);
     };
 

@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "astro dev",
+        "prebuild": "astro check",
         "build": "astro build",
         "preview": "astro preview"
     },
@@ -17,7 +18,7 @@
         "typescript": "^5.9.2"
     },
     "dependencies": {
-        "astro-icon": "^1.1.5",
-        "gray-matter": "^4.0.3"
+        "@astrojs/check": "^0.9.4",
+        "astro-icon": "^1.1.5"
     }
 }

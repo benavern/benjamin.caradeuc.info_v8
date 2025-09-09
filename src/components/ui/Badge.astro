@@ -1,0 +1,43 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<Tag extends HTMLTag = 'div'> = Polymorphic<{ as: Tag, class?: string, color?: string }>;
+
+const {
+    as: Tag = 'div',
+    class: inheritedClass,
+    color,
+    ...props
+} = Astro.props as Props;
+---
+
+<Tag
+    class={`badge ${inheritedClass ?? ''}`}
+    style={ color ? { "--timeline-tag-color": color } : undefined }
+    {...props}>
+    <span class="badge__content">
+        <slot />
+    </span>
+</Tag>
+
+<style lang="scss">
+    .badge {
+        display: inline-flex;
+        padding: var(--spacing-sm) var(--spacing);
+        font-size: var(--txt-sm);
+        border-radius: var(--border-radius);
+        background-color: var(--timeline-tag-color, var(--clr-border));
+
+        :global([data-theme="dark"]) & {
+            filter: brightness(.9) grayscale(.15);
+        }
+
+        &__content {
+            background: inherit;
+            background-clip: text;
+            color: transparent;
+            filter: invert(1) grayscale(1) contrast(9);
+            font-weight: bold;
+        }
+    }
+</style>

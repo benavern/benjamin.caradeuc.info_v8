@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
+import Sharer from "../components/ui/Sharer.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -29,37 +30,55 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 
 <Layout title={post.data.title}>
     <article class="blog-post">
-        <h1 transition:name={`post-title-${post.id}`}>
-            {post.data.title}
-        </h1>
+        <hgroup>
+            <h1 transition:name={`post-title-${post.id}`}>
+                {post.data.title}
+            </h1>
+
+            <p><i>
+                Publié le
+
+                <time datetime={post.data.date.toISOString()}>
+                    {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+                </time>
+
+                par {post.data.author}
+            </i></p>
+        </hgroup>
 
         <img
             transition:name={`post-img-${post.id}`}
             src={post.data.featured_image || "/images/default_img.jpg"}
             alt={`Featured image for ${post.data.title}`}
-            class="featured-image">
-
-        <p><i>
-            Publié le
-
-            <time datetime={post.data.date.toISOString()}>
-                {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
-            </time>
-
-            par {post.data.author}
-        </i></p>
+            class="blog-post__image">
 
         <p class="blog-post__tags">
-            {post.data.tags?.map((t, i) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
+            {post.data.tags?.map((t) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
         </p>
 
         <hr>
 
-        {
-            post.rendered?.html && (
-                <div class="content" set:html={post.rendered.html} />
-            )
-        }
+        <div class="blog-post__content">
+            <div class="blog-post__content__main">
+                {
+                    post.rendered?.html && (
+                        <div class="content" set:html={post.rendered.html} />
+                    )
+                }
+            </div>
+
+            <aside class="blog-post__content__sidebar">
+                <div class="card blog-post__content__sidebar__section">
+                    <h3>
+                        <Icon name="mdi:share-variant" />
+                        Partager
+                    </h3>
+
+                    <Sharer />
+                </div>
+            </aside>
+        </div>
+
 
         <hr />
 
@@ -111,8 +130,11 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 
 
 <style lang="scss">
+    @use 'sass:map';
+    @use '../styles/variables';
+
     .blog-post {
-        .featured-image {
+        &__image {
             width: 100%;
             margin-bottom: var(--spacing-lg);
             border-radius: var(--border-radius-lg);
@@ -123,6 +145,30 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
             gap: var(--spacing);
             flex-wrap: wrap;
             margin-bottom: var(--spacing);
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+
+            &__sidebar__section {
+                padding: var(--spacing) var(--spacing-lg);
+                text-align: center;
+            }
+
+            @media (min-width: map.get(variables.$breakpoints, lg)) {
+                flex-direction: row;
+
+                &__main {
+                    flex: 1;
+                }
+
+                &__sidebar__section {
+                    position: sticky;
+                    top: calc(4rem + var(--spacing));
+                }
+            }
         }
 
         &__navigation {

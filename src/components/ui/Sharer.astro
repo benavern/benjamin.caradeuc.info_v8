@@ -1,0 +1,54 @@
+---
+import { Icon } from "astro-icon/components";
+
+
+const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
+---
+
+<div class="sharer">
+    <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+        target="_blank"
+        class="btn btn--variant-secondary-border btn--size-large"
+        title="Partager sur Facebook">
+        <span class="btn__icon">
+            <Icon name="mdi:facebook" />
+        </span>
+
+        <span class="sr-only">Partager sur Facebook</span>
+    </a>
+
+    <a
+        href={`https://twitter.com/intent/tweet?text=${shareUrl}`}
+        target="_blank"
+        class="btn btn--variant-secondary-border btn--size-large"
+        title="Partager sur X">
+        <span class="btn__icon">
+            <Icon name="mdi:twitter" />
+        </span>
+
+        <span class="sr-only">Partager sur X</span>
+    </a>
+
+    <a
+        href={`https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}`}
+        target="_blank"
+        class="btn btn--variant-secondary-border btn--size-large"
+        title="Partager sur LinkedIn">
+        <span class="btn__icon">
+            <Icon name="mdi:linkedin" />
+        </span>
+
+        <span class="sr-only">Partager sur LinkedIn</span>
+    </a>
+
+    <!-- whatsapp, etc ?... -->
+</div>
+
+<style lang="scss">
+    .sharer {
+        display: flex;
+        justify-content: space-evenly;
+        gap: var(--spacing);
+    }
+</style>

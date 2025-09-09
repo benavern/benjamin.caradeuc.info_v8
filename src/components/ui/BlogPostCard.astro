@@ -63,7 +63,7 @@ const { post, class: className = "" } = Astro.props;
     <div class="blog-post-card__footer">
         <a
             role="button"
-            class="btn btn--variant-primary"
+            class="btn btn--variant-primary blog-post-card__link"
             href={`/${post.slug}/`}>
             Lire l'article ...
         </a>
@@ -72,12 +72,16 @@ const { post, class: className = "" } = Astro.props;
 
 <style lang="scss">
     .blog-post-card {
+        position: relative;
         display: flex;
         flex-direction: column;
 
         &__header {
             display: block;
             position: relative;
+            border-bottom: var(--border);
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+            overflow: clip;
 
             &__caption {
                 z-index: 1;
@@ -100,12 +104,14 @@ const { post, class: className = "" } = Astro.props;
             &__thumbnail {
                 width: 100%;
                 height: auto;
-                border-bottom: var(--border);
-                border-radius: var(--border-radius-lg) var(--border-radius-lg) 0
-                    0;
                 object-fit: cover;
                 aspect-ratio: 16 / 9;
+                transition: transform .3s;
             }
+        }
+
+        &:hover &__header__thumbnail {
+            transform: scale(1.2);
         }
 
         &__content {
@@ -147,6 +153,15 @@ const { post, class: className = "" } = Astro.props;
         &__footer {
             text-align: end;
             padding: var(--spacing);
+        }
+
+        &__link {
+            &::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: 2;
+            }
         }
     }
 </style>
