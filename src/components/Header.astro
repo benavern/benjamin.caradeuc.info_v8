@@ -1,31 +1,98 @@
 ---
+import { Icon } from "astro-icon/components";
 import ThemeSwitcher from "./ui/ThemeSwitcher";
 ---
 
 <header class="main-header container card">
+
+    <button class="main-header__burger btn btn--variant-secondary-border">
+        <div class="btn__icon">
+            <Icon name="mdi:menu" />
+        </div>
+    </button>
+
     <nav class="main-header__nav">
-        <a href="/">Accueil</a>
-        <a href="/blog/">Blog</a>
-        <a href="/parcours/">Parcours</a>
-        <a href="/contact/">Contact</a>
+        <a
+            class="btn"
+            href="/">
+            Accueil
+        </a>
+
+        <a
+            class="btn"
+            href="/blog/">
+            Blog
+        </a>
+
+        <a
+            class="btn"
+            href="/parcours/">
+            Parcours
+        </a>
+
+        <a
+            class="btn"
+            href="/contact/">
+            Contact
+        </a>
     </nav>
 
     <ThemeSwitcher client:load />
 </header>
 
 <style lang="scss">
+    @use 'sass:map';
+    @use '../styles/variables';
+
     .main-header {
         position: sticky;
         top: var(--spacing);
         margin-block: var(--spacing) 0;
         z-index: 1000;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
+        align-items: top;
         padding: var(--spacing) var(--spacing-lg);
 
         &__nav {
             display: flex;
+            order: 1;
             gap: var(--spacing);
+            flex-basis: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin-block-start: var(--spacing-lg);
+
+            &:not(&--visible) {
+                display: none;
+            }
+        }
+
+        @media (min-width: map.get(variables.$breakpoints, md)) {
+            &__nav {
+
+                &, &:not(&--visible) {
+                    display: flex;
+                    order: 0;
+                    flex-basis: auto;
+                    flex-direction: row;
+                    margin-block-start: unset;
+                }
+            }
+
+            &__burger {
+                display: none;
+            }
         }
     }
 </style>
+
+<script>
+    const $burger = document.querySelector('.main-header__burger');
+    const $nav = document.querySelector('.main-header__nav');
+
+    $burger.addEventListener('click', () => {
+        $nav.classList.toggle('main-header__nav--visible');
+    })
+</script>
