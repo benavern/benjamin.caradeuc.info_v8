@@ -5,7 +5,22 @@ import { Icon } from "astro-icon/components";
 const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
 ---
 
-<div class="sharer">
+<button
+    class="btn btn--variant-secondary-border btn--size-large"
+    popovertarget="sharer"
+    aria-controls="sharer">
+    <Icon name="mdi:share-variant" />
+
+    <span class="sr-only">
+        Partager
+    </span>
+</button>
+
+<dialog
+    popover
+    id="sharer"
+    class="card"
+    aria-label="Partager cet article sur ...">
     <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
         target="_blank"
@@ -42,13 +57,22 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
         <span class="sr-only">Partager sur LinkedIn</span>
     </a>
 
-    <!-- whatsapp, etc ?... -->
-</div>
+    {/* whatsapp, etc ?... */
+</dialog>
 
 <style lang="scss">
-    .sharer {
-        display: flex;
-        justify-content: space-evenly;
-        gap: var(--spacing);
+    [popovertarget] {
+        anchor-name: --sharer-anchor;
+    }
+
+    [popover]:popover-open {
+        position-anchor: --sharer-anchor;
+        position-area: left center;
+        margin-inline-end: var(--spacing);
+        border: var(--border);
+        border-radius: var(--border-radius-lg);
+        padding: var(--spacing);
+        display: grid;
+        row-gap: var(--spacing);
     }
 </style>

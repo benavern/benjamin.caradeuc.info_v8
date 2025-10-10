@@ -1,0 +1,76 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<form>
+    <label>
+        <input
+            type="text"
+            name="name"
+            placeholder="Benjamin CARADEUC"
+            required />
+
+        <div class="label label--floating">
+            Votre nom
+        </div>
+    </label>
+
+    <label>
+        <input
+            type="email"
+            name="email"
+            placeholder="ben@jam.in"
+            required />
+        <div class="label label--floating">
+            Votre email
+        </div>
+    </label>
+
+    <label>
+        <textarea
+            name="message"
+            placeholder="bla bla bla..."
+            required />
+
+        <div class="label label--floating">
+            Votre message
+        </div>
+    </label>
+
+    <button
+        type="submit"
+        class="btn btn--variant-primary btn--size-large">
+        Envoyer
+
+        <span class="btn__icon">
+            <Icon name="mdi:send" />
+        </span>
+    </button>
+</form>
+
+<style lang="scss">
+    form {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: var(--spacing);
+
+        [name="message"] {
+            field-sizing: content;
+        }
+
+        label:has([name="message"]) {
+            grid-column: 1 / -1;
+        }
+
+        button[type="submit"] {
+            grid-column: 1 / -1;
+            justify-self: end;
+        }
+
+        @media (min-width: 82ch) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+</style>

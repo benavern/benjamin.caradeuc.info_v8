@@ -33,15 +33,16 @@ const { post, class: className = "" } = Astro.props;
             )
         }
 
-        <p class="blog-post-card__content__credits">
-            <small><i>
-                    par {post.data.author} &minus; le
+        <p transition:name={`post-info-${post.id}`}>
+            <small>
+                <i>
+                    le
                     <time datetime={post.data.date.toISOString()}>
-                        {
-                            post.data.date.toLocaleDateString("fr-FR", { dateStyle: "long" })
-                        }
+                        {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
                     </time>
-                </i></small>
+                    par {post.data.author}
+                </i>
+            </small>
         </p>
 
         {

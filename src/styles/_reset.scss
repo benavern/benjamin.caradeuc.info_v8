@@ -72,6 +72,8 @@ a:not([role="button"]) {
     &:hover {
         color: var(--clr-accent-alt);
         text-decoration: underline;
+        text-decoration-thickness: .1em;
+        text-underline-offset: .25em;
     }
 }
 
@@ -102,14 +104,14 @@ img {
 h1, h2, h3, h4, h5, h6 {
     color: var(--clr-fg);
     font-family: var(--font-family-heading, sans-serif);
-    margin-block-end: 1em;
+    margin-block: 1em;
 }
 
 hgroup {
     margin-block: var(--spacing) var(--spacing-xl);
 
     > * {
-        margin-block-end: 0;
+        margin-block: .25em;
     }
 }
 
@@ -127,6 +129,7 @@ h3 {
 
 ul, ol {
     list-style-position: inside;
+    margin-block: 1em;
 }
 
 details {
@@ -145,5 +148,24 @@ details {
         &:not([role="button"]){
             border-bottom: var(--border);
         }
+    }
+}
+
+blockquote {
+    position: relative;
+    border-radius: var(--border-radius);
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing);
+    background-color: var(--clr-bg-alt);
+
+    &::before {
+        content: "“";
+        position: absolute;
+        inset-inline-start: calc(-1 * var(--spacing));
+        inset-block-start: calc(-1 * var(--spacing));
+        font-size: var(--txt-xxl);
+        line-height: 1;
+        color: var(--clr-border);
+        font-family: serif;
     }
 }

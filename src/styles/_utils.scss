@@ -12,17 +12,6 @@
     white-space: nowrap !important;
 }
 
-// .container {
-//     --_container-margin: var(--spacing);
-
-//     width: min(calc(100% - var(--_container-margin) * 2), map.get(variables.$breakpoints, xl));
-//     margin-inline: auto;
-
-//     @media (min-width: map.get(variables.$breakpoints, md)) {
-//         --_container-margin: var(--spacing-lg);
-//     }
-// }
-
 pre.astro-code {
     margin-block: var(--spacing-lg);
     border-radius: var(--border-radius);
@@ -55,6 +44,13 @@ pre.astro-code {
             padding-block-end: var(--spacing);
         }
     }
+}
+
+*:not(pre.astro-code) > code {
+    background-image: linear-gradient(to bottom, var(--clr-bg-alt), var(--clr-bg));
+    padding: .125em .5em .175em;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--border-radius);
 }
 
 .card {

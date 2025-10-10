@@ -41,164 +41,137 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
                 {post.data.title}
             </h1>
 
-            <p><i>
-                Publié le
-
-                <time datetime={post.data.date.toISOString()}>
-                    {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
-                </time>
-
-                par {post.data.author}
-            </i></p>
+            <p transition:name={`post-info-${post.id}`}>
+                <small>
+                    <i>
+                        le
+                        <time datetime={post.data.date.toISOString()}>
+                            {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+                        </time>
+                        par {post.data.author}
+                    </i>
+                </small>
+            </p>
         </hgroup>
 
         { post.data.tags?.length && (
             <div class="blog-post__tags">
-                <h2>tags:</h2>
                 {post.data.tags.map((t) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
             </div>
         )}
 
+        <div role="complementary">
+            <Sharer />
+        </div>
     </header>
 
     <hr>
 
-    <main>
-        { post.rendered?.html && <article class="blog-post__content__main" set:html={post.rendered.html} /> }
-
-        <aside class="blog-post__content__sidebar">
-            <div class="card blog-post__content__sidebar__section">
-                <h3>
-                    <Icon name="mdi:share-variant" />
-                    Partager
-                </h3>
-
-                <Sharer />
-            </div>
-        </aside>
-    </main>
+    { post.rendered?.html && <article set:html={post.rendered.html} /> }
 
     <hr />
 
     <footer>
-        <nav class="blog-post__navigation">
-            <div class="blog-post__navigation__prev">
-                {
-                    nextPost && (
-                        <a
-                            role="button"
-                            class="btn btn--variant-secondary-border btn--size-large"
-                            href={`/${nextPost.slug}/`}>
-                            <div class="btn__icon">
-                                <Icon name="mdi:arrow-left" />
-                            </div>
+        <nav>
+            {
+                nextPost ? (
+                    <a
+                        role="button"
+                        rel="next"
+                        class="btn btn--variant-secondary-border btn--size-large"
+                        href={`/${nextPost.slug}/`}>
+                        <div class="btn__icon">
+                            <Icon name="mdi:arrow-left" />
+                        </div>
 
-                            <span>
-                                <small>Suivant</small>
-                                <br>
-                                <strong>{nextPost.data.title}</strong>
-                            </span>
-                        </a>
-                    )
-                }
-            </div>
+                        <span>
+                            <small>Suivant</small>
+                            <br>
+                            <strong>{nextPost.data.title}</strong>
+                        </span>
+                    </a>
+                ) : <div></div>
+            }
 
-            <div class="blog-post__navigation__next">
-                {
-                    prevPost && (
-                        <a
-                            role="button"
-                            class="btn btn--variant-secondary-border btn--size-large"
-                            href={`/${prevPost.slug}/`}>
-                            <span>
-                                <small>Précédent</small>
-                                <br>
-                                <strong>{prevPost.data.title}</strong>
-                            </span>
+            {
+                prevPost ? (
+                    <a
+                        role="button"
+                        rel="prev"
+                        class="btn btn--variant-secondary-border btn--size-large"
+                        href={`/${prevPost.slug}/`}>
+                        <span>
+                            <small>Précédent</small>
+                            <br>
+                            <strong>{prevPost.data.title}</strong>
+                        </span>
 
-                            <div class="btn__icon">
-                                <Icon name="mdi:arrow-right" />
-                            </div>
-                        </a>
-                    )
-                }
-            </div>
+                        <div class="btn__icon">
+                            <Icon name="mdi:arrow-right" />
+                        </div>
+                    </a>
+                ) : <div></div>
+            }
         </nav>
     </footer>
 </Layout>
 
-// @todo:
-// le contenu dans le layout
-// sidebar -> bas de header + popover!
-// img & pre -> bleed
 
 <style lang="scss">
-    header {
+    header,
+    article,
+    footer {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: bleed;
 
-        > * {
+        &:global(> *) {
             grid-column: content;
         }
+    }
 
+    header {
         img {
             grid-column: bleed;
             width: 100%;
             margin-bottom: var(--spacing-lg);
         }
-    }
 
-
-    @media (min-width: 120ch) {
-        main {
-            display: grid;
-            grid-template-columns: 1fr 35ch;
-            column-gap: var(--spacing-lg);
+        [role="complementary"] {
+            margin-block: var(--spacing-lg);
+            justify-self: end;
         }
     }
 
+    article > :global(*:has( >img)),
+    article > :global(pre.astro-code),
+    article > :global(iframe),
+    article > :global(blockquote) {
+        grid-column: bleed;
+        margin: var(--spacing-lg) auto;
+        width: 100%;
+        max-width: 120ch;
+    }
 
+    article :global(img) {
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+    }
 
-    // &__tags {
-    //     display: flex;
-    //     gap: var(--spacing);
-    //     flex-wrap: wrap;
-    //     margin-bottom: var(--spacing);
-    // }
+    article :global(pre.astro-code) {
+        font-size: var(--txt-sm);
+        max-width: 172ch; // because of the smaller font-size
+    }
 
-    // &__content {
-    //     display: flex;
-    //     flex-direction: column;
-    //     gap: var(--spacing-lg);
+    footer {
+        nav {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--spacing-lg);
 
-    //     &__sidebar__section {
-    //         padding: var(--spacing) var(--spacing-lg);
-    //         text-align: center;
-    //     }
-
-    //     @media (min-width: 120ch) {
-    //         flex-direction: row;
-
-    //         &__main {
-    //             flex: 1;
-    //         }
-
-    //         &__sidebar__section {
-    //             position: sticky;
-    //             top: calc(6rem + var(--spacing));
-    //         }
-    //     }
-    // }
-
-    // &__navigation {
-    //     display: flex;
-    //     justify-content: space-between;
-    //     margin-block-start: var(--spacing-xl);
-
-    //     &__prev {
-    //         text-align: end;
-    //     }
-    // }
-    // }
+            [rel="next"] {
+                text-align: end;
+            }
+        }
+    }
 </style>

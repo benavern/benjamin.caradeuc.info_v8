@@ -1,14 +1,16 @@
 ---
 import Layout from "../components/Layout.astro";
-import ContactForm from "../components/ContactForm.tsx";
+import ContactForm from "../components/ContactForm.astro";
 ---
 
 <Layout title="Contact">
-    <h1>Contact</h1>
+    <section>
+        <h1>Contact</h1>
 
-    <p>Vous pouvez me laisser un message :</p>
+        <p>Vous pouvez me laisser un message :</p>
 
-    <hr>
+        <hr>
 
-    <ContactForm client:load />
+        <ContactForm />
+    </section>
 </Layout>

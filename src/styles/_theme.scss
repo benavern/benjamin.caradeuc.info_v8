@@ -18,7 +18,15 @@
     --clr-light-red: light-dark(hsl(355 85% 90%), hsl(355 25% 25%));
 
     // --- Other theming stuff
-    --rem-base: 22; // 1rem = 22px
+    --rem-base: 16;
+
+    @media (min-width: 82ch) {
+        --rem-base: 20;
+    }
+
+    @media (min-width: 120ch) {
+        --rem-base: 24;
+    }
 
     // Spacing
     --spacing-sm: .5rem;
@@ -62,8 +70,8 @@
     --btn-line-height: var(--line-height);
 
     // Form
-    --form-element-spacing-vertical: var(--spacing);
-    --form-element-spacing-horizontal: 1rem;
+    --form-element-spacing-vertical: var(--spacing-sm);
+    --form-element-spacing-horizontal: var(--spacing);
     --form-element-color: inherit;
     --form-element-background-color: var(--clr-bg);
     --form-element-error-color: var(--clr-danger);
@@ -81,3 +89,4 @@
 // Force theme
 [data-theme="light"] { color-scheme: light; }
 [data-theme="dark"] { color-scheme: dark; }
+
