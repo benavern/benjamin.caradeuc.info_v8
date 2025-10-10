@@ -1,0 +1,51 @@
+z-carousel {
+    &:not(:defined) {
+        display: none;
+    }
+
+    &::part(content) {
+        scroll-behavior: smooth;
+    }
+
+    &::part(nav-btn) {
+        position: absolute;
+        top: 50%;
+        translate: 0 -50%;
+    }
+
+    &::part(nav-btn--prev) {
+        left: var(--spacing-sm);
+    }
+
+    &::part(nav-btn--next) {
+        right: var(--spacing-sm);
+    }
+
+    &::part(nav-btn nav-btn--disabled) {
+        display: none;
+    }
+
+    &::part(dots) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-block-start: var(--spacing-sm);
+    }
+
+    &::part(dots-item) {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: .25rem;
+        font-size: 0;
+        line-height: 0;
+    }
+
+    &::part(dots-item)::before {
+        content: '';
+        width: var(--txt-sm);
+        height: var(--txt-sm);
+        background-color: currentColor;
+        border-radius: 50%;
+    }
+}

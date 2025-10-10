@@ -33,12 +33,14 @@ const { post, class: className = "" } = Astro.props;
             )
         }
 
-        <p transition:name={`post-info-${post.id}`}>
+        <p
+            transition:name={`post-info-${post.id}`}
+            class="blog-post-card__content__credits">
             <small>
                 <i>
                     le
                     <time datetime={post.data.date.toISOString()}>
-                        {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+                        {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'medium'})}
                     </time>
                     par {post.data.author}
                 </i>
@@ -76,6 +78,11 @@ const { post, class: className = "" } = Astro.props;
         position: relative;
         display: flex;
         flex-direction: column;
+        transition: scale .3s;
+
+        &:hover {
+            scale: 1.01;
+        }
 
         &__header {
             display: block;
@@ -107,12 +114,7 @@ const { post, class: className = "" } = Astro.props;
                 height: auto;
                 object-fit: cover;
                 aspect-ratio: 16 / 9;
-                transition: transform .3s;
             }
-        }
-
-        &:hover &__header__thumbnail {
-            transform: scale(1.2);
         }
 
         &__content {
@@ -142,7 +144,7 @@ const { post, class: className = "" } = Astro.props;
             &__tags {
                 display: flex;
                 flex-wrap: wrap;
-                gap: var(--spacing);
+                gap: var(--spacing-sm);
                 margin-block-start: var(--spacing);
 
                 .btn {

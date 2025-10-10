@@ -22,7 +22,7 @@ You just have to insert the `equalheight` class on each box that has to be resiz
 
 ![Screenshot](https://benavern.github.io/equalheight/screenshot.jpg)
 
-Examples are done with [z-grid](/2015/05/27/Z-Grid/), a lightweight grid system I created but it can be used on a ton of other grid systems.
+Examples are done with [z-grid](/2015/05/27/z-grid/), a lightweight grid system I created but it can be used on a ton of other grid systems.
 
 ---
 

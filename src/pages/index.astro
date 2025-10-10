@@ -1,17 +1,19 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
+import BlogPostCard from "../components/ui/BlogPostCard.astro";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
   return (await getCollection("blog"))
     .sort((a,b) => Number(b.data.date) - Number(a.data.date))
-    .slice(0, 6);
+    .slice(0, 5);
 }
 
 
 const posts = (await getCollection("blog"))
   .sort((a,b) => Number(b.data.date) - Number(a.data.date))
-  .slice(0, 6);
+  .slice(0, 5);
 ---
 
 <Layout>
@@ -29,77 +31,149 @@ const posts = (await getCollection("blog"))
 
     <hr>
 
-    <section>
-        <p>
-            En tant que <strong>développeur web fullstack</strong> et <strong>Responsable projets informatiques</strong>, Benjamin exerce actuellement son talent sur ces sites:
-        </p>
+    <p>
+        En tant que <strong>développeur web fullstack</strong> et <strong>Responsable projets informatiques</strong>, Benjamin exerce actuellement son talent sur ces sites:
+    </p>
 
-        <ul>
-            <li>
-                <a
-                    target="_blank"
-                    href="https://www.ouestfrance-immo.com">
-                    ouestfrance-immo.com
-                </a>
-            </li>
+    <ul>
+        <li>
+            <a
+                target="_blank"
+                href="https://www.ouestfrance-immo.com">
+                ouestfrance-immo.com
+            </a>
+        </li>
 
-            <li>
-                <a
-                    target="_blank"
-                    href="https://www.bellespierres.com">
-                    bellespierres.com
-                </a>
-            </li>
+        <li>
+            <a
+                target="_blank"
+                href="https://www.bellespierres.com">
+                bellespierres.com
+            </a>
+        </li>
 
-            <li>
-                <a
-                    target="_blank"
-                    href="https://www.cessionpme.com">
-                    cessionpme.com
-                </a>
-            </li>
-        </ul>
+        <li>
+            <a
+                target="_blank"
+                href="https://www.cessionpme.com">
+                cessionpme.com
+            </a>
+        </li>
+    </ul>
 
-        <p>
-            Les technologies qu'il emploie au quotidien sont:
-        </p>
+    <p>
+        Les technologies qu'il emploie au quotidien sont:
+    </p>
 
-        <ul>
-            <li>
-                <strong>Front-end:</strong> HTML, CSS, JavaScript, TypeScript, Vuejs, Nuxtjs, Lit, Svelte
-            </li>
+    <ul>
+        <li>
+            <strong>Front-end:</strong> HTML, CSS, JavaScript, TypeScript, Vuejs, Nuxtjs, Lit, Svelte
+        </li>
 
-            <li>
-                <strong>Back-end:</strong> PHP, Laravel, Node.js
-            </li>
+        <li>
+            <strong>Back-end:</strong> PHP, Laravel, Node.js
+        </li>
 
-            <li>
-                <strong>Base de données:</strong> MySQL, PostgreSQL
-            </li>
-        </ul>
-    </section>
+        <li>
+            <strong>Base de données:</strong> MySQL, PostgreSQL
+        </li>
+    </ul>
 
     <hr>
 
-    <section>
-        <h2>Découvrez les derniers articles de son blog</h2>
+    <h2>Découvrez les derniers articles du blog</h2>
 
-        <ul>
-            { posts.map((post) => (
-                <li>
-                    <a href={post.slug}>
-                        {post.data.title}
-                    </a>
-                </li>
-            )) }
-        </ul>
+    <z-carousel
+        id="home-carousel"
+        per-page="1"
+        gap="16"
+        navigation
+        dots>
+        { posts.map((post) => <BlogPostCard post={post} />) }
 
-        <a href="/blog">Voir tous les articles</a>
-    </section>
+        <a
+            role="button"
+            class="btn btn--variant-secondary"
+            href="/blog">
+            Voir tous les articles
+        </a>
+
+        <span
+            role="button"
+            class="btn btn--variant-secondary-border btn--shape-pill"
+            slot="nav-prev">
+            <div class="btn__icon">
+                <Icon name="mdi:arrow-left" />
+            </div>
+
+            <div class="sr-only">Page précédente</div>
+        </span>
+
+        <span
+            role="button"
+            class="btn btn--variant-secondary-border btn--shape-pill"
+            slot="nav-next">
+            <div class="sr-only">Page suivante</div>
+
+            <div class="btn__icon">
+                <Icon name="mdi:arrow-right" />
+            </div>
+        </span>
+    </z-carousel>
+
+    <p>
+
+    </p>
 </Layout>
 
 <style>
     hgroup p {
         font-size: var(--txt-lg);
     }
+
+    z-carousel {
+        grid-column: bleed;
+
+        &::part(content) {
+            /* Let the shadows and scale pass & some of the next page starting element */
+            padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 0;
+        }
+    }
+
+    [slot^="nav-"] {
+        backdrop-filter: blur(5px);
+    }
 </style>
+
+
+<script>
+  const breakpoints = [
+    { mq: '(min-width: 240ch)', perPage: 4, gap: 24 },
+    { mq: '(min-width: 160ch)', perPage: 3, gap: 24 },
+    { mq: '(min-width: 82ch)',  perPage: 2, gap: 20 },
+    { mq: '(max-width: 81ch)',  perPage: 1, gap: 16 },
+  ];
+
+  function updateCarousel() {
+    const carousel = document.querySelector('#home-carousel');
+    if (!carousel) return;
+
+    const match = breakpoints.find(b => window.matchMedia(b.mq).matches);
+    if (match) {
+      carousel.setAttribute('per-page', String(match.perPage));
+      carousel.setAttribute('gap', String(match.gap));
+    }
+  }
+
+  // initialisation
+  updateCarousel();
+
+  // écoute resize si le viewport change
+  for (const bp of breakpoints) {
+    const mq = window.matchMedia(bp.mq);
+    mq.addEventListener('change', updateCarousel);
+  }
+
+  // écoute les swaps Astro SPA pour réinitialiser si nécessaire
+  document.addEventListener('astro:after-swap', updateCarousel);
+</script>

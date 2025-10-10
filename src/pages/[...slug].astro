@@ -46,7 +46,7 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
                     <i>
                         le
                         <time datetime={post.data.date.toISOString()}>
-                            {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+                            {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'medium'})}
                         </time>
                         par {post.data.author}
                     </i>

@@ -136,6 +136,11 @@ ul, ol {
     margin-block: 1em;
 }
 
+li > ul,
+li > ol {
+    margin-inline-start: var(--spacing-lg);
+}
+
 details {
     margin-block: var(--spacing-lg);
     padding: var(--spacing);

@@ -51,6 +51,7 @@ angular.module('myApp', ['zzEnter'])
 
 * use it like so :
   * in the controller
+  
     ```js
     .controller('myController', ['$scope', function($scope) {
         $scope.foo = "bar";
