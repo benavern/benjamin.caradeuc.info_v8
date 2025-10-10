@@ -47,7 +47,7 @@ pre.astro-code {
 }
 
 *:not(pre.astro-code) > code {
-    background-image: linear-gradient(to bottom, var(--clr-bg-alt), var(--clr-bg));
+    background-color: var(--clr-bg-alt);
     padding: .125em .5em .175em;
     border: 1px solid var(--clr-border);
     border-radius: var(--border-radius);

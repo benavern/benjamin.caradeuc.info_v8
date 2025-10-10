@@ -20,14 +20,6 @@
     // --- Other theming stuff
     --rem-base: 16;
 
-    @media (min-width: 82ch) {
-        --rem-base: 20;
-    }
-
-    @media (min-width: 120ch) {
-        --rem-base: 24;
-    }
-
     // Spacing
     --spacing-sm: .5rem;
     --spacing: 1rem;
@@ -84,6 +76,14 @@
 
     // Miscelineous
     --transition-duration: .3s;
+
+    @media (min-width: 82ch) {
+        --rem-base: 20;
+    }
+
+    @media (min-width: 120ch) {
+        --rem-base: 24;
+    }
 }
 
 // Force theme

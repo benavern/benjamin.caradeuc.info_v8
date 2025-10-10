@@ -115,6 +115,10 @@ hgroup {
     }
 }
 
+h1, h2, h3, h4, h5, h6, p {
+    text-wrap-style: pretty;
+}
+
 h1 {
     font-size: var(--txt-xxl);
 }
@@ -161,7 +165,7 @@ blockquote {
     &::before {
         content: "“";
         position: absolute;
-        inset-inline-start: calc(-1 * var(--spacing));
+        inset-inline-start: var(--spacing-sm);
         inset-block-start: calc(-1 * var(--spacing));
         font-size: var(--txt-xxl);
         line-height: 1;

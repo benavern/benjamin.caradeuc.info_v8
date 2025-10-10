@@ -106,10 +106,16 @@ import ThemeSwitcher from "./ui/ThemeSwitcher";
 </style>
 
 <script>
-    const $burger = document.querySelector('#main-menu-toggler');
-    const $nav = document.querySelector('#main-menu-nav');
+    const initBurger = () => {
+        const $burger = document.querySelector('#main-menu-toggler');
+        const $nav = document.querySelector('#main-menu-nav');
 
-    $burger.addEventListener('click', () => {
-        $nav.toggleAttribute('data-mobile-visible');
-    })
+        $burger.addEventListener('click', () => {
+            $nav.toggleAttribute('data-mobile-visible');
+        });
+    }
+
+    initBurger();
+
+    document.addEventListener('astro:after-swap', initBurger);
 </script>

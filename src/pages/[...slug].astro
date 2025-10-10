@@ -55,9 +55,16 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
         </hgroup>
 
         { post.data.tags?.length && (
-            <div class="blog-post__tags">
-                {post.data.tags.map((t) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
-            </div>
+            <nav>
+                { post.data.tags.map((t) => (
+                    <a
+                        role="button"
+                        class="btn btn--variant-accent-border btn--size-small"
+                        href={`/blog/tags/${t}/`}>
+                        {t}
+                    </a>
+                ))}
+            </nav>
         )}
 
         <div role="complementary">
@@ -137,6 +144,12 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
             margin-bottom: var(--spacing-lg);
         }
 
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
         [role="complementary"] {
             margin-block: var(--spacing-lg);
             justify-self: end;
@@ -154,6 +167,7 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
     }
 
     article :global(img) {
+        width: 100%;
         border-radius: var(--border-radius);
         box-shadow: var(--shadow);
     }

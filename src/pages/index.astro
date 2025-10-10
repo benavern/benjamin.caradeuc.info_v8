@@ -17,12 +17,13 @@ const posts = (await getCollection("blog"))
 <Layout>
     <hgroup>
         <h1>
-            Benjamin CARADEUC
+            Benjamin
+            <br>
+            CARADEUC
         </h1>
 
         <p>
-            est un ingénieur développeur web.
-            Passionné par le front-end et l'UX, il aime créer des applications web performantes et élégantes.
+            Ingénieur développeur web passionné par le front-end et l'UX. Créateur d'applications web performantes et élégantes.
         </p>
     </hgroup>
 
@@ -96,3 +97,9 @@ const posts = (await getCollection("blog"))
         <a href="/blog">Voir tous les articles</a>
     </section>
 </Layout>
+
+<style>
+    hgroup p {
+        font-size: var(--txt-lg);
+    }
+</style>
