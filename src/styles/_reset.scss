@@ -1,6 +1,3 @@
-@use 'sass:math';
-@use 'variables';
-
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +6,7 @@
 
 html {
     height: 100%;
-    font-size: math.percentage(math.div(variables.$rem-base, 16));
+    font-size: calc(var(--rem-base) / 16 * 100%); // Set the root font size based on the rem base (default is 22px, so 22/16*100% = 137.5%)
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -17,14 +14,47 @@ html {
 
 body {
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: [bleed-start] 1fr [content-start] minmax(50vi, 85ch) [content-end] 1fr [bleed-end];
+    grid-template-rows: auto 1fr auto;
+    align-items: start;
+    column-gap: var(--spacing-sm);
     font-family: var(--font-family-body, sans-serif);
     font-optical-sizing: auto;
     line-height: var(--line-height);
     background-image: url('/images/otis-redding-texture.png');
     background-color: var(--clr-bg);
     color: var(--clr-txt);
+    overflow-x: clip;
+
+    @media (min-width: 85ch) {
+        column-gap: var(--spacing);
+    }
+
+    @media (min-width: 120ch) {
+        column-gap: var(--spacing-lg);
+    }
+
+    > header,
+    > main,
+    > footer {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: bleed;
+
+        & > * {
+            grid-column: content;
+        }
+    }
+
+    > header {
+        margin-block-end: var(--spacing-lg);
+    }
+
+    > footer {
+        align-self: end;
+        margin-block-start: var(--spacing-xl);
+    }
 }
 
 p + p {
@@ -42,6 +72,8 @@ a:not([role="button"]) {
     &:hover {
         color: var(--clr-accent-alt);
         text-decoration: underline;
+        text-decoration-thickness: .1em;
+        text-underline-offset: .25em;
     }
 }
 
@@ -69,23 +101,22 @@ img {
     height: auto;
 }
 
-main {
-    flex: 1;
-    padding-block: var(--spacing-xl);
-}
-
 h1, h2, h3, h4, h5, h6 {
     color: var(--clr-fg);
     font-family: var(--font-family-heading, sans-serif);
-    margin-block-end: 1em;
+    margin-block: 1em;
 }
 
 hgroup {
     margin-block: var(--spacing) var(--spacing-xl);
 
-    h1, h2, h3, h4, h5, h6 {
-        margin-block-end: 0;
+    > * {
+        margin-block: .25em;
     }
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    text-wrap-style: pretty;
 }
 
 h1 {
@@ -102,6 +133,7 @@ h3 {
 
 ul, ol {
     list-style-position: inside;
+    margin-block: 1em;
 }
 
 details {
@@ -120,5 +152,24 @@ details {
         &:not([role="button"]){
             border-bottom: var(--border);
         }
+    }
+}
+
+blockquote {
+    position: relative;
+    border-radius: var(--border-radius);
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing);
+    background-color: var(--clr-bg-alt);
+
+    &::before {
+        content: "“";
+        position: absolute;
+        inset-inline-start: var(--spacing-sm);
+        inset-block-start: calc(-1 * var(--spacing));
+        font-size: var(--txt-xxl);
+        line-height: 1;
+        color: var(--clr-border);
+        font-family: serif;
     }
 }

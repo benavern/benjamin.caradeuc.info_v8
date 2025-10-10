@@ -70,12 +70,7 @@ const pageTitle = `Articles avec le tag "${tag}"`;
             <p>Aucun article pour ce tag.</p>
         ) : (
             <div class="post-list grid grid--gap">
-                {pagePosts.map((post) => (
-                    <BlogPostCard
-                        post={post}
-                        class="grid__col grid__col--12 grid__col--md-6"
-                    />
-                ))}
+                { pagePosts.map((post) => <BlogPostCard post={post} />) }
             </div>
         )
     }
@@ -92,3 +87,20 @@ const pageTitle = `Articles avec le tag "${tag}"`;
     }
 
 </Layout>
+
+
+<style lang="scss">
+    .post-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing);
+
+        @media (min-width: 85ch) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 120ch) {
+            gap: var(--spacing-lg);
+        }
+    }
+</style>

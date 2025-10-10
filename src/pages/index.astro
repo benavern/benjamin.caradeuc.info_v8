@@ -1,11 +1,105 @@
 ---
-import { Image } from "astro:assets";
-import heroImg from "../assets/images/AVATAR.jpg";
+import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
+
+export async function getStaticPaths() {
+  return (await getCollection("blog"))
+    .sort((a,b) => Number(b.data.date) - Number(a.data.date))
+    .slice(0, 6);
+}
+
+
+const posts = (await getCollection("blog"))
+  .sort((a,b) => Number(b.data.date) - Number(a.data.date))
+  .slice(0, 6);
 ---
 
 <Layout>
-    <h1>Bienvenue sur mon site 🚀</h1>
-    <p>Développeur passionné, voici mon blog, mon parcours et mes projets.</p>
-    <Image src={heroImg} alt="Hero Image" />
+    <hgroup>
+        <h1>
+            Benjamin
+            <br>
+            CARADEUC
+        </h1>
+
+        <p>
+            Ingénieur développeur web passionné par le front-end et l'UX. Créateur d'applications web performantes et élégantes.
+        </p>
+    </hgroup>
+
+    <hr>
+
+    <section>
+        <p>
+            En tant que <strong>développeur web fullstack</strong> et <strong>Responsable projets informatiques</strong>, Benjamin exerce actuellement son talent sur ces sites:
+        </p>
+
+        <ul>
+            <li>
+                <a
+                    target="_blank"
+                    href="https://www.ouestfrance-immo.com">
+                    ouestfrance-immo.com
+                </a>
+            </li>
+
+            <li>
+                <a
+                    target="_blank"
+                    href="https://www.bellespierres.com">
+                    bellespierres.com
+                </a>
+            </li>
+
+            <li>
+                <a
+                    target="_blank"
+                    href="https://www.cessionpme.com">
+                    cessionpme.com
+                </a>
+            </li>
+        </ul>
+
+        <p>
+            Les technologies qu'il emploie au quotidien sont:
+        </p>
+
+        <ul>
+            <li>
+                <strong>Front-end:</strong> HTML, CSS, JavaScript, TypeScript, Vuejs, Nuxtjs, Lit, Svelte
+            </li>
+
+            <li>
+                <strong>Back-end:</strong> PHP, Laravel, Node.js
+            </li>
+
+            <li>
+                <strong>Base de données:</strong> MySQL, PostgreSQL
+            </li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Découvrez les derniers articles de son blog</h2>
+
+        <ul>
+            { posts.map((post) => (
+                <li>
+                    <a href={post.slug}>
+                        {post.data.title}
+                    </a>
+                </li>
+            )) }
+        </ul>
+
+        <a href="/blog">Voir tous les articles</a>
+    </section>
 </Layout>
+
+<style>
+    hgroup p {
+        font-size: var(--txt-lg);
+    }
+</style>

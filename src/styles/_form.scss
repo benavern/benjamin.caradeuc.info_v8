@@ -323,6 +323,7 @@ label:has(input:not([type="checkbox"], [type="radio"], [type="range"], [type="fi
         transform: translateY(0);
         transform-origin: top left;
         color: var(--form-element-label-color);
+        line-height: 1;
         white-space: nowrap;
         max-width: calc(100% - var(--form-element-spacing-horizontal));
         overflow: hidden;

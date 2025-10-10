@@ -29,154 +29,161 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 ---
 
 <Layout title={post.data.title}>
-    <article class="blog-post">
-        <hgroup>
-            <h1 transition:name={`post-title-${post.id}`}>
-                {post.data.title}
-            </h1>
-
-            <p><i>
-                Publié le
-
-                <time datetime={post.data.date.toISOString()}>
-                    {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
-                </time>
-
-                par {post.data.author}
-            </i></p>
-        </hgroup>
-
+    <header>
         <img
             transition:name={`post-img-${post.id}`}
             src={post.data.featured_image || "/images/default_img.jpg"}
             alt={`Featured image for ${post.data.title}`}
             class="blog-post__image">
 
-        <p class="blog-post__tags">
-            {post.data.tags?.map((t) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
-        </p>
+        <hgroup>
+            <h1 transition:name={`post-title-${post.id}`}>
+                {post.data.title}
+            </h1>
 
-        <hr>
+            <p transition:name={`post-info-${post.id}`}>
+                <small>
+                    <i>
+                        le
+                        <time datetime={post.data.date.toISOString()}>
+                            {post.data.date.toLocaleDateString("fr-FR", { dateStyle: 'long'})}
+                        </time>
+                        par {post.data.author}
+                    </i>
+                </small>
+            </p>
+        </hgroup>
 
-        <div class="blog-post__content">
-            <div class="blog-post__content__main">
-                {
-                    post.rendered?.html && (
-                        <div class="content" set:html={post.rendered.html} />
-                    )
-                }
-            </div>
+        { post.data.tags?.length && (
+            <nav>
+                { post.data.tags.map((t) => (
+                    <a
+                        role="button"
+                        class="btn btn--variant-accent-border btn--size-small"
+                        href={`/blog/tags/${t}/`}>
+                        {t}
+                    </a>
+                ))}
+            </nav>
+        )}
 
-            <aside class="blog-post__content__sidebar">
-                <div class="card blog-post__content__sidebar__section">
-                    <h3>
-                        <Icon name="mdi:share-variant" />
-                        Partager
-                    </h3>
-
-                    <Sharer />
-                </div>
-            </aside>
+        <div role="complementary">
+            <Sharer />
         </div>
+    </header>
 
+    <hr>
 
-        <hr />
+    { post.rendered?.html && <article set:html={post.rendered.html} /> }
 
-        <nav class="blog-post__navigation">
-            <div class="blog-post__navigation__prev">
-                {
-                    nextPost && (
-                        <a
-                            role="button"
-                            class="btn btn--variant-secondary-border btn--size-large"
-                            href={`/${nextPost.slug}/`}>
-                            <div class="btn__icon">
-                                <Icon name="mdi:arrow-left" />
-                            </div>
+    <hr />
 
-                            <span>
-                                <small>Suivant</small>
-                                <br>
-                                <strong>{nextPost.data.title}</strong>
-                            </span>
-                        </a>
-                    )
-                }
-            </div>
+    <footer>
+        <nav>
+            {
+                nextPost ? (
+                    <a
+                        role="button"
+                        rel="next"
+                        class="btn btn--variant-secondary-border btn--size-large"
+                        href={`/${nextPost.slug}/`}>
+                        <div class="btn__icon">
+                            <Icon name="mdi:arrow-left" />
+                        </div>
 
-            <div class="blog-post__navigation__next">
-                {
-                    prevPost && (
-                        <a
-                            role="button"
-                            class="btn btn--variant-secondary-border btn--size-large"
-                            href={`/${prevPost.slug}/`}>
-                            <span>
-                                <small>Précédent</small>
-                                <br>
-                                <strong>{prevPost.data.title}</strong>
-                            </span>
+                        <span>
+                            <small>Suivant</small>
+                            <br>
+                            <strong>{nextPost.data.title}</strong>
+                        </span>
+                    </a>
+                ) : <div></div>
+            }
 
-                            <div class="btn__icon">
-                                <Icon name="mdi:arrow-right" />
-                            </div>
-                        </a>
-                    )
-                }
-            </div>
+            {
+                prevPost ? (
+                    <a
+                        role="button"
+                        rel="prev"
+                        class="btn btn--variant-secondary-border btn--size-large"
+                        href={`/${prevPost.slug}/`}>
+                        <span>
+                            <small>Précédent</small>
+                            <br>
+                            <strong>{prevPost.data.title}</strong>
+                        </span>
+
+                        <div class="btn__icon">
+                            <Icon name="mdi:arrow-right" />
+                        </div>
+                    </a>
+                ) : <div></div>
+            }
         </nav>
-    </article>
+    </footer>
 </Layout>
 
 
 <style lang="scss">
-    @use 'sass:map';
-    @use '../styles/variables';
+    header,
+    article,
+    footer {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: bleed;
 
-    .blog-post {
-        &__image {
+        &:global(> *) {
+            grid-column: content;
+        }
+    }
+
+    header {
+        img {
+            grid-column: bleed;
             width: 100%;
             margin-bottom: var(--spacing-lg);
-            border-radius: var(--border-radius-lg);
         }
 
-        &__tags {
+        nav {
             display: flex;
-            gap: var(--spacing);
             flex-wrap: wrap;
-            margin-bottom: var(--spacing);
+            gap: var(--spacing-sm);
         }
 
-        &__content {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-lg);
-
-            &__sidebar__section {
-                padding: var(--spacing) var(--spacing-lg);
-                text-align: center;
-            }
-
-            @media (min-width: map.get(variables.$breakpoints, lg)) {
-                flex-direction: row;
-
-                &__main {
-                    flex: 1;
-                }
-
-                &__sidebar__section {
-                    position: sticky;
-                    top: calc(4rem + var(--spacing));
-                }
-            }
+        [role="complementary"] {
+            margin-block: var(--spacing-lg);
+            justify-self: end;
         }
+    }
 
-        &__navigation {
+    article > :global(*:has( >img)),
+    article > :global(pre.astro-code),
+    article > :global(iframe),
+    article > :global(blockquote) {
+        grid-column: bleed;
+        margin: var(--spacing-lg) auto;
+        width: 100%;
+        max-width: 120ch;
+    }
+
+    article :global(img) {
+        width: 100%;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+    }
+
+    article :global(pre.astro-code) {
+        font-size: var(--txt-sm);
+        max-width: 172ch; // because of the smaller font-size
+    }
+
+    footer {
+        nav {
             display: flex;
             justify-content: space-between;
-            margin-block-start: var(--spacing-xl);
+            gap: var(--spacing-lg);
 
-            &__prev {
+            [rel="next"] {
                 text-align: end;
             }
         }
