@@ -1,5 +1,3 @@
-@use 'variables';
-
 :root {
     color-scheme: light dark;
 
@@ -9,7 +7,7 @@
     --clr-bg-transparent: light-dark(hsl(230 15% 94% / 0.9), hsl(230 15% 16% / 0.9));
     --clr-bg-transparent-blur: light-dark(hsl(230 15% 94% / 0.75), hsl(230 15% 16% / 0.75));
     --clr-fg: light-dark(hsl(230 15% 10%), hsl(230 15% 96%));
-    --clr-txt: light-dark(hsl(230 10% 40%), hsl(230 10% 70%));
+    --clr-txt: light-dark(hsl(230 10% 40%), hsl(230 10% 60%));
     --clr-border: light-dark(hsl(230 10% 85%), hsl(230 10% 25%));
     --clr-border-alt: light-dark(hsl(230 10% 82%), hsl(230 10% 21%));
     --clr-primary: light-dark(hsl(265 45% 60%), hsl(265 55% 70%));
@@ -20,11 +18,14 @@
     --clr-light-red: light-dark(hsl(355 85% 90%), hsl(355 25% 25%));
 
     // --- Other theming stuff
+    --rem-base: 22; // 1rem = 22px
+
     // Spacing
-    --spacing-sm: calc(4/#{variables.$rem-base} * 1rem); // 4px
-    --spacing: calc(10/#{variables.$rem-base} * 1rem); // 10px
-    --spacing-lg: calc(20/#{variables.$rem-base} * 1rem); // 20px
-    --spacing-xl: calc(40/#{variables.$rem-base} * 1rem); // 40px
+    --spacing-sm: .5rem;
+    --spacing: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 6rem;
 
     // typography
     --txt-sm: calc(.75 * 1rem);
@@ -41,8 +42,8 @@
     // Boxes
     --border-width: 1px;
     --border: var(--border-width) solid var(--clr-border);
-    --border-radius: calc(4/#{variables.$rem-base} * 1rem); // 4px
-    --border-radius-lg: calc(12/#{variables.$rem-base} * 1rem); // 12px
+    --border-radius: calc(4 / var(--rem-base) * 1rem); // 4px
+    --border-radius-lg: calc(12 / var(--rem-base) * 1rem); // 12px
 
     --focus-outline-width: 2px;
     --focus-outline-color: var(--clr-primary);
@@ -52,9 +53,9 @@
     --shadow: 4px 4px 5px var(--clr-shadow);
 
     // Buttons
-    --btn-min-height-sm: calc(24/#{variables.$rem-base} * 1rem); // 24px;
-    --btn-min-height: calc(36/#{variables.$rem-base} * 1rem); // 36px;
-    --btn-min-height-lg: calc(48/#{variables.$rem-base} * 1rem); // 48px;
+    --btn-min-height-sm: calc(24 / var(--rem-base) * 1rem); // 24px;
+    --btn-min-height: calc(36 / var(--rem-base) * 1rem); // 36px;
+    --btn-min-height-lg: calc(48 / var(--rem-base) * 1rem); // 48px;
     --btn-icon-size: 1.25em;
     --btn-right-icon-size: var(--_btn-icon-size);
     --btn-right-icon-size: var(--_btn-icon-size);

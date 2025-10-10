@@ -1,6 +1,3 @@
-@use 'variables';
-@use 'sass:map';
-
 .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
@@ -15,16 +12,16 @@
     white-space: nowrap !important;
 }
 
-.container {
-    --_container-margin: var(--spacing);
+// .container {
+//     --_container-margin: var(--spacing);
 
-    width: min(calc(100% - var(--_container-margin) * 2), map.get(variables.$breakpoints, xl));
-    margin-inline: auto;
+//     width: min(calc(100% - var(--_container-margin) * 2), map.get(variables.$breakpoints, xl));
+//     margin-inline: auto;
 
-    @media (min-width: map.get(variables.$breakpoints, md)) {
-        --_container-margin: var(--spacing-lg);
-    }
-}
+//     @media (min-width: map.get(variables.$breakpoints, md)) {
+//         --_container-margin: var(--spacing-lg);
+//     }
+// }
 
 pre.astro-code {
     margin-block: var(--spacing-lg);

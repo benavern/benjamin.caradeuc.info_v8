@@ -29,7 +29,13 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 ---
 
 <Layout title={post.data.title}>
-    <article class="blog-post">
+    <header>
+        <img
+            transition:name={`post-img-${post.id}`}
+            src={post.data.featured_image || "/images/default_img.jpg"}
+            alt={`Featured image for ${post.data.title}`}
+            class="blog-post__image">
+
         <hgroup>
             <h1 transition:name={`post-title-${post.id}`}>
                 {post.data.title}
@@ -46,42 +52,35 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
             </i></p>
         </hgroup>
 
-        <img
-            transition:name={`post-img-${post.id}`}
-            src={post.data.featured_image || "/images/default_img.jpg"}
-            alt={`Featured image for ${post.data.title}`}
-            class="blog-post__image">
-
-        <p class="blog-post__tags">
-            {post.data.tags?.map((t) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
-        </p>
-
-        <hr>
-
-        <div class="blog-post__content">
-            <div class="blog-post__content__main">
-                {
-                    post.rendered?.html && (
-                        <div class="content" set:html={post.rendered.html} />
-                    )
-                }
+        { post.data.tags?.length && (
+            <div class="blog-post__tags">
+                <h2>tags:</h2>
+                {post.data.tags.map((t) => <a role="button" class="btn btn--variant-accent-border btn--size-small" href={`/blog/tags/${t}/`}>{t}</a>)}
             </div>
+        )}
 
-            <aside class="blog-post__content__sidebar">
-                <div class="card blog-post__content__sidebar__section">
-                    <h3>
-                        <Icon name="mdi:share-variant" />
-                        Partager
-                    </h3>
+    </header>
 
-                    <Sharer />
-                </div>
-            </aside>
-        </div>
+    <hr>
 
+    <main>
+        { post.rendered?.html && <article class="blog-post__content__main" set:html={post.rendered.html} /> }
 
-        <hr />
+        <aside class="blog-post__content__sidebar">
+            <div class="card blog-post__content__sidebar__section">
+                <h3>
+                    <Icon name="mdi:share-variant" />
+                    Partager
+                </h3>
 
+                <Sharer />
+            </div>
+        </aside>
+    </main>
+
+    <hr />
+
+    <footer>
         <nav class="blog-post__navigation">
             <div class="blog-post__navigation__prev">
                 {
@@ -125,60 +124,81 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
                 }
             </div>
         </nav>
-    </article>
+    </footer>
 </Layout>
 
+// @todo:
+// le contenu dans le layout
+// sidebar -> bas de header + popover!
+// img & pre -> bleed
 
 <style lang="scss">
-    @use 'sass:map';
-    @use '../styles/variables';
+    header {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: bleed;
 
-    .blog-post {
-        &__image {
+        > * {
+            grid-column: content;
+        }
+
+        img {
+            grid-column: bleed;
             width: 100%;
             margin-bottom: var(--spacing-lg);
-            border-radius: var(--border-radius-lg);
-        }
-
-        &__tags {
-            display: flex;
-            gap: var(--spacing);
-            flex-wrap: wrap;
-            margin-bottom: var(--spacing);
-        }
-
-        &__content {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-lg);
-
-            &__sidebar__section {
-                padding: var(--spacing) var(--spacing-lg);
-                text-align: center;
-            }
-
-            @media (min-width: map.get(variables.$breakpoints, lg)) {
-                flex-direction: row;
-
-                &__main {
-                    flex: 1;
-                }
-
-                &__sidebar__section {
-                    position: sticky;
-                    top: calc(4rem + var(--spacing));
-                }
-            }
-        }
-
-        &__navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-block-start: var(--spacing-xl);
-
-            &__prev {
-                text-align: end;
-            }
         }
     }
+
+
+    @media (min-width: 120ch) {
+        main {
+            display: grid;
+            grid-template-columns: 1fr 35ch;
+            column-gap: var(--spacing-lg);
+        }
+    }
+
+
+
+    // &__tags {
+    //     display: flex;
+    //     gap: var(--spacing);
+    //     flex-wrap: wrap;
+    //     margin-bottom: var(--spacing);
+    // }
+
+    // &__content {
+    //     display: flex;
+    //     flex-direction: column;
+    //     gap: var(--spacing-lg);
+
+    //     &__sidebar__section {
+    //         padding: var(--spacing) var(--spacing-lg);
+    //         text-align: center;
+    //     }
+
+    //     @media (min-width: 120ch) {
+    //         flex-direction: row;
+
+    //         &__main {
+    //             flex: 1;
+    //         }
+
+    //         &__sidebar__section {
+    //             position: sticky;
+    //             top: calc(6rem + var(--spacing));
+    //         }
+    //     }
+    // }
+
+    // &__navigation {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     margin-block-start: var(--spacing-xl);
+
+    //     &__prev {
+    //         text-align: end;
+    //     }
+    // }
+    // }
 </style>

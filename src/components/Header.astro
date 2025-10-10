@@ -3,59 +3,73 @@ import { Icon } from "astro-icon/components";
 import ThemeSwitcher from "./ui/ThemeSwitcher";
 ---
 
-<header class="main-header container card">
+<header>
+    <nav>
+        <button
+            id="main-menu-toggler"
+            class="btn btn--variant-secondary-border">
+            <div class="btn__icon">
+                <Icon name="mdi:menu" />
+            </div>
+        </button>
 
-    <button class="main-header__burger btn btn--variant-secondary-border">
-        <div class="btn__icon">
-            <Icon name="mdi:menu" />
-        </div>
-    </button>
+        <ul id="main-menu-nav">
+            <li>
+                <a
+                    class="btn"
+                    href="/">
+                    Accueil
+                </a>
+            </li>
 
-    <nav class="main-header__nav">
-        <a
-            class="btn"
-            href="/">
-            Accueil
-        </a>
+            <li>
+                <a
+                    class="btn"
+                    href="/blog/">
+                    Blog
+                </a>
+            </li>
 
-        <a
-            class="btn"
-            href="/blog/">
-            Blog
-        </a>
+            <li>
+                <a
+                    class="btn"
+                    href="/parcours/">
+                    Parcours
+                </a>
+            </li>
 
-        <a
-            class="btn"
-            href="/parcours/">
-            Parcours
-        </a>
+            <li>
+                <a
+                    class="btn"
+                    href="/contact/">
+                    Contact
+                </a>
+            </li>
+        </ul>
 
-        <a
-            class="btn"
-            href="/contact/">
-            Contact
-        </a>
+        <ThemeSwitcher client:load />
     </nav>
-
-    <ThemeSwitcher client:load />
 </header>
 
 <style lang="scss">
-    @use 'sass:map';
-    @use '../styles/variables';
-
-    .main-header {
-        position: sticky;
-        top: var(--spacing);
-        margin-block: var(--spacing) 0;
+    header {
         z-index: 1000;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: top;
-        padding: var(--spacing) var(--spacing-lg);
+        position: sticky;
+        top: 0;
+        background-color: var(--clr-bg-transparent-blur);
+        background-image: url('/images/otis-redding-texture.png');
+        backdrop-filter: blur(10px);
+        padding-block: var(--spacing);
+        border-block-end: 1px solid var(--clr-border);
 
-        &__nav {
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: top;
+        }
+
+        ul {
             display: flex;
             order: 1;
             gap: var(--spacing);
@@ -63,25 +77,28 @@ import ThemeSwitcher from "./ui/ThemeSwitcher";
             flex-direction: column;
             align-items: center;
             margin-block-start: var(--spacing-lg);
+            list-style: none;
 
-            &:not(&--visible) {
+            &:not([data-mobile-visible]) {
                 display: none;
             }
         }
 
-        @media (min-width: map.get(variables.$breakpoints, md)) {
-            &__nav {
+        @media (min-width: 120ch) {
+            padding-block: var(--spacing-lg);
 
-                &, &:not(&--visible) {
+            ul {
+                order: 0;
+                flex-basis: auto;
+                flex-direction: row;
+                margin-block-start: unset;
+
+                &, &:not([data-mobile-visible]) {
                     display: flex;
-                    order: 0;
-                    flex-basis: auto;
-                    flex-direction: row;
-                    margin-block-start: unset;
                 }
             }
 
-            &__burger {
+            button {
                 display: none;
             }
         }
@@ -89,10 +106,10 @@ import ThemeSwitcher from "./ui/ThemeSwitcher";
 </style>
 
 <script>
-    const $burger = document.querySelector('.main-header__burger');
-    const $nav = document.querySelector('.main-header__nav');
+    const $burger = document.querySelector('#main-menu-toggler');
+    const $nav = document.querySelector('#main-menu-nav');
 
     $burger.addEventListener('click', () => {
-        $nav.classList.toggle('main-header__nav--visible');
+        $nav.toggleAttribute('data-mobile-visible');
     })
 </script>
