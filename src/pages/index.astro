@@ -173,6 +173,15 @@ const posts = (await getCollection("blog"))
             padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 0;
         }
 
+
+        &::part(nav-btn) {
+            display: none;
+
+            @media (min-width: 82ch) {
+                display: block;
+            }
+        }
+
         [slot^="nav-"] {
             backdrop-filter: blur(5px);
         }
