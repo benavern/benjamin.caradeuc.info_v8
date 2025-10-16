@@ -155,6 +155,7 @@ input[type="checkbox"] {
         border-radius: 99999px;
         height: var(--_switch-height);
         width: var(--_switch-width);
+        box-shadow: var(--shadow);
 
         &::before {
             content: '';

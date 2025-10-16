@@ -8,7 +8,11 @@ const timelines = await getCollection("parcours");
 ---
 
 <Layout title="Parcours">
-    <h1>Mon parcours</h1>
+    <hgroup>
+        <h1>Mon parcours</h1>
+
+        <p>Voici mon parcours professionel ainsi que mon parcours scolaire</p>
+    </hgroup>
 
     {
         timelines.map(({data: section}, i) => (

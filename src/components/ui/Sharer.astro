@@ -24,7 +24,8 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
     <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
         target="_blank"
-        class="btn btn--variant-secondary-border btn--size-large"
+        role="button"
+        class="btn btn--variant-primary btn--size-large"
         title="Partager sur Facebook">
         <span class="btn__icon">
             <Icon name="mdi:facebook" />
@@ -36,7 +37,8 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
     <a
         href={`https://twitter.com/intent/tweet?text=${shareUrl}`}
         target="_blank"
-        class="btn btn--variant-secondary-border btn--size-large"
+        role="button"
+        class="btn btn--variant-primary btn--size-large"
         title="Partager sur X">
         <span class="btn__icon">
             <Icon name="mdi:twitter" />
@@ -48,7 +50,8 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
     <a
         href={`https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}`}
         target="_blank"
-        class="btn btn--variant-secondary-border btn--size-large"
+        role="button"
+        class="btn btn--variant-primary btn--size-large"
         title="Partager sur LinkedIn">
         <span class="btn__icon">
             <Icon name="mdi:linkedin" />
@@ -57,7 +60,7 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
         <span class="sr-only">Partager sur LinkedIn</span>
     </a>
 
-    {/* whatsapp, etc ?... */
+    {/* whatsapp, etc ?... */}
 </dialog>
 
 <style lang="scss">

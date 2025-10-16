@@ -56,7 +56,7 @@ pre.astro-code {
 .card {
     border: var(--border);
     border-radius: var(--border-radius-lg);
-    background-image: url('/images/otis-redding-texture.png');
+    background-image: var(--bg-texture);
     background-color: var(--clr-bg-transparent);
     box-shadow: var(--shadow);
 

@@ -22,7 +22,7 @@ body {
     font-family: var(--font-family-body, sans-serif);
     font-optical-sizing: auto;
     line-height: var(--line-height);
-    background-image: url('/images/otis-redding-texture.png');
+    background-image: var(--bg-texture);
     background-color: var(--clr-bg);
     color: var(--clr-txt);
     overflow-x: clip;
@@ -45,10 +45,6 @@ body {
         & > * {
             grid-column: content;
         }
-    }
-
-    > header {
-        margin-block-end: var(--spacing-lg);
     }
 
     > footer {

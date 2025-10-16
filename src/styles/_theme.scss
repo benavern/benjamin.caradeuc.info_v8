@@ -76,6 +76,13 @@
 
     // Miscelineous
     --transition-duration: .3s;
+    --bg-texture: none;
+    // --bg-texture: url('https://www.transparenttextures.com/patterns/tasky.png');
+    // --bg-texture: url('https://www.transparenttextures.com/patterns/rebel.png');
+    // --bg-texture: url('https://www.transparenttextures.com/patterns/food.png');
+    // --bg-texture: url('https://www.transparenttextures.com/patterns/dark-wood.png');
+    // --bg-texture: url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png');
+    // --bg-texture: url('/images/otis-redding-texture.png');
 
     @media (min-width: 82ch) {
         --rem-base: 20;
