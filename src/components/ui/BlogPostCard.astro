@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { markdownToTxt } from 'markdown-to-txt';
 
 export type Props = {
     post: CollectionEntry<'blog'>;
@@ -26,11 +27,9 @@ const { post, class: className = "" } = Astro.props;
 
     <div class="blog-post-card__content">
         {
-            post.data.excerpt && (
-                <p class="blog-post-card__content__excerpt">
-                    {post.data.excerpt}
-                </p>
-            )
+            <p class="blog-post-card__content__excerpt">
+                {post.data.excerpt ?? (markdownToTxt(post.body).slice(0, 150) + '...')}
+            </p>
         }
 
         <p

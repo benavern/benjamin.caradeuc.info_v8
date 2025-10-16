@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@astrojs/check": "^0.9.4",
-        "astro-icon": "^1.1.5"
+        "astro-icon": "^1.1.5",
+        "markdown-to-txt": "^2.0.1"
     }
 }

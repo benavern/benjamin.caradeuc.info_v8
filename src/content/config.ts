@@ -14,25 +14,43 @@ const blog = defineCollection({
     }),
 });
 
-export const parcours = defineCollection({
-    loader: glob({ pattern: 'src/data/parcours/*.yml' }),
-    schema: z.object({
-        title: z.string(),
-        items: z.array(z.object({
+const parcoursItemSchema = z.object({
+    name: z.string(),
+    period: z.string(),
+    establishment: z.string(),
+    location: z.string(),
+    tags: z.array(
+        z.object({
             name: z.string(),
-            period: z.string(),
-            establishment: z.string(),
-            location: z.string(),
-            description: z.string(),
-            tags: z.array(z.object({
-                name: z.string(),
-                color: z.string(),
-            }))
-        })),
+            color: z.string(),
+        })
+    ),
+});
+
+const formations = defineCollection({
+    loader: glob({
+        pattern: 'src/data/parcours/formations/*.{md,mdx}',
+        generateId: ({ entry }) => {
+            const match = entry.match(/^(\d+)-/);
+            return match ? match[1] : entry;
+        },
     }),
+    schema: parcoursItemSchema,
+});
+
+const experiences = defineCollection({
+    loader: glob({
+        pattern: 'src/data/parcours/experiences/*.{md,mdx}',
+        generateId: ({ entry }) => {
+            const match = entry.match(/^(\d+)-/);
+            return match ? match[1] : entry;
+        },
+    }),
+    schema: parcoursItemSchema,
 });
 
 export const collections = {
     blog,
-    parcours,
+    formations,
+    experiences,
 };

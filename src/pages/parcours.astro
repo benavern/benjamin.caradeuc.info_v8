@@ -1,10 +1,10 @@
 ---
-import { Icon } from "astro-icon/components";
 import Layout from "../components/Layout.astro";
+import ParcoursTimeline from "../components/ui/ParcoursTimeline.astro";
 import { getCollection } from "astro:content";
-import Badge from "../components/ui/Badge.astro";
 
-const timelines = await getCollection("parcours");
+const formations = await getCollection("formations");
+const experiences = await getCollection("experiences");
 ---
 
 <Layout title="Parcours">
@@ -14,101 +14,13 @@ const timelines = await getCollection("parcours");
         <p>Voici mon parcours professionel ainsi que mon parcours scolaire</p>
     </hgroup>
 
-    {
-        timelines.map(({data: section}, i) => (
-            <>
-                {i > 1 && <hr>}
+    <ParcoursTimeline
+        name="Expériences"
+        icon="mdi:work"
+        items={experiences} />
 
-                <section class="timeline">
-                    <h2>{section.title}</h2>
-
-                    <div>
-                        {section.items.map((item) => (
-                            <article class="timeline__item card">
-                                <h3>{item.name}</h3>
-
-                                <p>
-                                    <Icon
-                                        name="mdi:calendar"
-                                        class="timeline__item__icon" />
-                                        {item.period}
-                                </p>
-
-                                {item.establishment && <p>
-                                    <Icon
-                                        name="mdi:work"
-                                        class="timeline__item__icon" />
-                                    {item.establishment}
-                                </p>}
-
-                                {item.location && <p>
-                                    <Icon
-                                        name="mdi:location"
-                                        class="timeline__item__icon" />
-                                        {item.location}
-                                </p>}
-
-                                {item.tags?.length && <p class="timeline__item__tags">
-                                    {item.tags.map(tag => (
-                                        <Badge
-                                            as="span"
-                                            color={tag.color}>
-                                            {tag.name}
-                                        </Badge>
-                                    ))}
-                                </p>}
-
-                                <details class="timeline__item__description">
-                                    <summary>
-                                        En savoir plus...
-                                    </summary>
-
-                                    <p class="timeline__item__description__content">
-                                        {item.description}
-                                    </p>
-                                </details>
-                            </article>
-                        ))}
-                    </div>
-                </section>
-            </>
-        ))
-    }
+    <ParcoursTimeline
+        name="Formations"
+        icon="mdi:school"
+        items={formations} />
 </Layout>
-
-<style lang="scss">
-.timeline {
-    &__item {
-        padding: var(--spacing-lg);
-
-        &__icon {
-            display: inline-block;
-            vertical-align: text-bottom;
-            font-size: 1.5em;
-            color: var(--clr-primary);
-        }
-
-        &__tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing);
-        }
-
-        &__description {
-            margin-block-end: 0;
-
-            &__content {
-                white-space: pre-wrap;
-            }
-        }
-
-        & + & {
-            margin-block-start: var(--spacing-lg);
-        }
-    }
-
-    & + & {
-        margin-block-start: var(--spacing-xl);
-    }
-}
-</style>

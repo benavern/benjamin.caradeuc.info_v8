@@ -165,6 +165,8 @@ const posts = (await getCollection("blog"))
         }
 
         grid-column: bleed;
+        max-width: calc(100% - var(--spacing));
+        margin-inline: auto;
 
         &::part(content) {
             /* Let the shadows and scale pass & some of the next page starting element */

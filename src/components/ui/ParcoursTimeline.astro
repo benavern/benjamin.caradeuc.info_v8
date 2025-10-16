@@ -1,0 +1,119 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CollectionEntry } from 'astro:content';
+import Badge from './Badge.astro';
+
+export interface Props {
+  name: string;
+  icon?: string,
+  items: CollectionEntry<'formations'>[] | CollectionEntry<'experiences'>[];
+}
+
+const { name, icon,  items } = Astro.props as Props;
+---
+
+<section>
+    <h2>
+        {icon && <Icon name={icon} />}
+        {name}
+    </h2>
+
+    <ol>
+        {items.map(item => (
+            <li>
+                <header>
+                    <hgroup>
+                        <time>{item.data.period}</time>
+
+                        <h3>{item.data.name}</h3>
+                    </hgroup>
+
+                    {item.data.establishment && <p>
+                        <Icon name="mdi:office-building" />
+                        {item.data.establishment}
+                    </p>}
+
+                    {item.data.location && <p>
+                        <Icon name="mdi:location" />
+                            {item.data.location}
+                    </p>}
+
+                    {item.data.tags?.length && <p aria-label="technologies">
+                        {item.data.tags.map(tag => (
+                            <Badge
+                                as="span"
+                                color={tag.color}>
+                                {tag.name}
+                            </Badge>
+                        ))}
+                    </p>}
+                </header>
+
+                <article set:html={item.rendered.html} />
+            </li>
+        ))}
+    </ol>
+</section>
+
+<style lang="scss">
+    section {
+        position: relative;
+
+        & + & {
+            margin-block-start: var(--spacing-xxl);
+        }
+
+        &::before {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            inset: 0 auto 0 var(--spacing);
+            background: var(--clr-txt);
+            width: 1px;
+            height: 100%;
+        }
+
+        ol {
+            list-style-type: none;
+        }
+
+        h2,
+        ol > li {
+            background-color: var(--clr-bg);
+            padding-block: var(--spacing-lg);
+        }
+
+        h2 {
+            margin-block: var(--spacing-lg) var(--spacing-xxl);
+            color: var(--clr-accent);
+        }
+
+        ol > li {
+            margin-block: var(--spacing-xxl);
+
+            header {
+                margin-block-end: var(--spacing);
+            }
+
+            hgroup {
+                margin-block: var(--spacing);
+
+                time {
+                    color: var(--clr-primary);
+                    font-variant: small-caps;
+                    text-transform: lowercase;
+                }
+            }
+
+            [aria-label="technologies"] {
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--spacing-sm);
+            }
+
+            article :global(li) {
+                list-style-type: square;
+            }
+        }
+    }
+</style>
