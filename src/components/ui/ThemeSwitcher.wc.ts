@@ -1,53 +1,71 @@
+import { LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
+
 type Theme = 'light' | 'dark';
 
-class ThemeSwitcher extends HTMLElement {
+@customElement('theme-switcher')
+export class ThemeSwitcher extends LitElement {
+    private static STORAGE_KEY = 'theme';
     private themes: Theme[] = ['light', 'dark'];
 
-    constructor() {
-        super();
+    @query('input[type="checkbox"]')
+    checkbox!: HTMLInputElement;
+
+    @state()
+    currentTheme?: Theme;
+
+    // no shadow root
+    createRenderRoot() {
+        return this;
     }
 
     connectedCallback(): void {
-        this.initTheme();
+        super.connectedCallback();
+        this.init();
+    }
+
+    firstUpdated(): void {
+        if (!this.checkbox) {
+            throw new Error('[ThemeSwitcher] No checkbox found inside element on connect.');
+        }
+
+        this.checkbox.checked = this.currentTheme === 'light';
         this.setupEventListeners();
     }
 
-    private initTheme(): void {
-        const savedTheme = localStorage.getItem('theme') as Theme | null;
+    private init(): void {
+        const savedTheme = localStorage.getItem(ThemeSwitcher.STORAGE_KEY) as Theme | null;
 
-        let theme: Theme;
         if (!savedTheme || !this.themes.includes(savedTheme)) {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            theme = prefersDark ? 'dark' : 'light';
+            this.currentTheme = prefersDark ? 'dark' : 'light';
         } else {
-            theme = savedTheme;
-        }
-
-        this.setTheme(theme);
-    }
-
-    private setTheme(theme: Theme): void {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-
-        const checkbox = this.querySelector('input[type="checkbox"]') as HTMLInputElement | null;
-        if (checkbox) {
-            checkbox.checked = theme === 'light';
+            this.currentTheme = savedTheme;
         }
     }
+
+    private handleCheckboxChange = (e: Event): void => {
+        const target = e.target as HTMLInputElement;
+        const newTheme: Theme = target.checked ? 'light' : 'dark';
+        this.currentTheme = newTheme;
+    };
 
     private setupEventListeners(): void {
-        const checkbox = this.querySelector('input[type="checkbox"]') as HTMLInputElement | null;
-        if (checkbox) {
-            checkbox.addEventListener('change', (e: Event) => {
-                const target = e.target as HTMLInputElement;
-                const newTheme: Theme = target.checked ? 'light' : 'dark';
-                this.setTheme(newTheme);
-            });
-        } else {
-            throw new Error('Checkbox input not found in ThemeSwitcher component.');
+        this.checkbox.addEventListener('change', this.handleCheckboxChange);
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.checkbox?.removeEventListener('change', this.handleCheckboxChange);
+    }
+
+    updated(changedProps: Map<string, unknown>): void {
+        if (changedProps.has('currentTheme')) {
+            document.documentElement.setAttribute('data-theme', this.currentTheme);
+            localStorage.setItem(ThemeSwitcher.STORAGE_KEY, this.currentTheme);
         }
     }
-}
 
-customElements.define('theme-switcher', ThemeSwitcher);
+    // Renders nothing as this component does not have a visual representation
+    protected render(): void {}
+}
