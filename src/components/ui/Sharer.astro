@@ -1,7 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
 
-
 const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
 ---
 
@@ -60,7 +59,20 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
         <span class="sr-only">Partager sur LinkedIn</span>
     </a>
 
-    {/* whatsapp, etc ?... */}
+    <a
+        href={`https://api.whatsapp.com/send/?text=${shareUrl}&type=custom_url`}
+        target="_blank"
+        role="button"
+        class="btn btn--variant-primary btn--size-large"
+        title="Partager sur Whatsapp">
+        <span class="btn__icon">
+            <Icon name="mdi:whatsapp" />
+        </span>
+
+        <span class="sr-only">Partager sur Whatsapp</span>
+    </a>
+
+    {/* etc ... */}
 </dialog>
 
 <style lang="scss">
@@ -77,5 +89,19 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
         padding: var(--spacing);
         display: grid;
         row-gap: var(--spacing);
+        overflow: visible;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: var(--spacing);
+            height: var(--spacing);
+            background-color: var(--clr-bg-alt);
+            border: 1px solid var(--clr-border);
+            inset: 50% 0 auto auto;
+            clip-path: polygon(0 0, 100% 100%, 100% 0);
+            rotate: 45deg;
+            translate: 50% -50%;
+        }
     }
 </style>
