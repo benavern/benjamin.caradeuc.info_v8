@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import ThemeSwitcher from "./ui/ThemeSwitcher";
 ---
 
 <header>
@@ -47,7 +46,22 @@ import ThemeSwitcher from "./ui/ThemeSwitcher";
             </li>
         </ul>
 
-        <ThemeSwitcher client:load />
+        <theme-switcher>
+            <label class="theme-switcher">
+                <span class="sr-only">Dark</span>
+
+                🌚
+
+                <input
+                    type="checkbox"
+                    role="switch"
+                    aria-label="Changer le thème"/>
+
+                🌞
+
+                <span class="sr-only">Light</span>
+            </label>
+        </theme-switcher>
     </nav>
 </header>
 
@@ -106,6 +120,8 @@ import ThemeSwitcher from "./ui/ThemeSwitcher";
 </style>
 
 <script>
+    import './ui/ThemeSwitcher.wc';
+
     const initBurger = () => {
         const $burger = document.querySelector('#main-menu-toggler');
         const $nav = document.querySelector('#main-menu-nav');

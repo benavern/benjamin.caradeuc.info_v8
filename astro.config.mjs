@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import solidJs from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
@@ -14,7 +13,6 @@ export default defineConfig({
     },
 
     integrations: [
-        solidJs(),
         sitemap(),
         icon({
             mdi: ['*'],

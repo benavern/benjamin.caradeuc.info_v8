@@ -9,16 +9,14 @@
         "preview": "astro preview"
     },
     "devDependencies": {
-        "@astrojs/sitemap": "^3.5.1",
-        "@astrojs/solid-js": "^5.1.0",
+        "@astrojs/sitemap": "^3.6.0",
         "@iconify-json/mdi": "^1.2.3",
-        "astro": "^5.13.5",
+        "astro": "^5.15.4",
         "sass": "^1.91.0",
-        "solid-js": "^1.9.9",
         "typescript": "^5.9.2"
     },
     "dependencies": {
-        "@astrojs/check": "^0.9.4",
+        "@astrojs/check": "^0.9.5",
         "astro-icon": "^1.1.5",
         "markdown-to-txt": "^2.0.1"
     }
