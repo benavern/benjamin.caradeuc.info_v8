@@ -21,19 +21,7 @@ export class ThemeSwitcher extends LitElement {
 
     connectedCallback(): void {
         super.connectedCallback();
-        this.init();
-    }
 
-    firstUpdated(): void {
-        if (!this.checkbox) {
-            throw new Error('[ThemeSwitcher] No checkbox found inside element on connect.');
-        }
-
-        this.checkbox.checked = this.currentTheme === 'light';
-        this.setupEventListeners();
-    }
-
-    private init(): void {
         const savedTheme = localStorage.getItem(ThemeSwitcher.STORAGE_KEY) as Theme | null;
 
         if (!savedTheme || !this.themes.includes(savedTheme)) {
@@ -42,6 +30,20 @@ export class ThemeSwitcher extends LitElement {
         } else {
             this.currentTheme = savedTheme;
         }
+    }
+
+    firstUpdated(): void {
+        if (!this.checkbox) {
+            throw new Error('[ThemeSwitcher] No checkbox found inside element on connect.');
+        }
+
+        this.checkbox.checked = this.currentTheme === 'light';
+        this.synchroAriaAttributes();
+        this.setupEventListeners();
+    }
+
+    private synchroAriaAttributes(): void {
+        this.checkbox.ariaChecked = this.currentTheme === 'light' ? 'true' : 'false';
     }
 
     private handleCheckboxChange = (e: Event): void => {
@@ -63,6 +65,7 @@ export class ThemeSwitcher extends LitElement {
         if (changedProps.has('currentTheme')) {
             document.documentElement.setAttribute('data-theme', this.currentTheme);
             localStorage.setItem(ThemeSwitcher.STORAGE_KEY, this.currentTheme);
+            this.synchroAriaAttributes();
         }
     }
 
