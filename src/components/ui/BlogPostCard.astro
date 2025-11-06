@@ -22,7 +22,8 @@ const { post, class: className = "" } = Astro.props;
             transition:name={`post-img-${post.id}`}
             class="blog-post-card__header__thumbnail"
             src={post.data.thumbnail || "/images/default_img.jpg"}
-            alt={`Thumbnail for ${post.data.title}`} />
+            alt={`Thumbnail for ${post.data.title}`}
+            loading="lazy" />
     </figure>
 
     <div class="blog-post-card__content">
@@ -78,6 +79,7 @@ const { post, class: className = "" } = Astro.props;
         display: flex;
         flex-direction: column;
         transition: scale .3s;
+        will-change: scale;
 
         &:hover {
             scale: 1.01;
