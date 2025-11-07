@@ -5,14 +5,14 @@ import { Icon } from "astro-icon/components";
 <header>
     <nav>
         <button
-            id="main-menu-toggler"
+            popovertarget="main-menu-nav"
             class="btn btn--variant-secondary-border">
             <div class="btn__icon">
                 <Icon name="mdi:menu" />
             </div>
         </button>
 
-        <ul id="main-menu-nav">
+        <ul id="main-menu-nav" popover>
             <li>
                 <a
                     class="btn"
@@ -53,6 +53,7 @@ import { Icon } from "astro-icon/components";
                 <span aria-hidden="true">🌚</span>
 
                 <input
+                    name="theme-switcher"
                     type="checkbox"
                     role="switch"
                     aria-label="Allumer la lumière ?"/>
@@ -78,60 +79,59 @@ import { Icon } from "astro-icon/components";
 
         nav {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
-            align-items: top;
+            align-items: center;
         }
 
-        ul {
+        ul[popover] {
             display: flex;
-            order: 1;
             gap: var(--spacing);
-            flex-basis: 100%;
             flex-direction: column;
             align-items: center;
-            margin-block: var(--spacing-lg) 0;
             list-style: none;
+            border: 1px solid var(--clr-border);
+            background-color: var(--clr-bg-alt);
+            margin: auto;
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
 
-            &:not([data-mobile-visible]) {
+            &:not(:popover-open) {
                 display: none;
+            }
+
+            &::backdrop {
+                background-color: var(--clr-bg-transparent-blur);
+                backdrop-filter: blur(5px);
             }
         }
 
         @media (min-width: 120ch) {
             padding-block: var(--spacing-lg);
 
-            ul {
-                order: 0;
-                flex-basis: auto;
+            ul[popover] {
                 flex-direction: row;
-                margin-block: 0;
+                inset: unset;
+                position: static!important;
+                margin: 0;
+                padding: 0;
+                border: none;
+                background-color: unset;
+                box-shadow: none;
+                overflow: visible;
 
-                &, &:not([data-mobile-visible]) {
+                &:not(:popover-open) {
                     display: flex;
+                }
+
+                &::backdrop {
+                    display: none;
                 }
             }
 
-            button {
+            button[popovertarget] {
                 display: none;
             }
         }
     }
 </style>
-
-<script>
-    import './ui/ThemeSwitcher.wc';
-
-    const initBurger = () => {
-        const $burger = document.querySelector('#main-menu-toggler');
-        const $nav = document.querySelector('#main-menu-nav');
-
-        $burger.addEventListener('click', () => {
-            $nav.toggleAttribute('data-mobile-visible');
-        });
-    }
-
-    initBurger();
-
-    document.addEventListener('astro:after-swap', initBurger);
-</script>

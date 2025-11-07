@@ -52,3 +52,7 @@ import Footer from "./Footer.astro";
     const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
 </script>
+
+<script>
+    import './ui/ThemeSwitcher.wc';
+</script>
