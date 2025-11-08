@@ -1,15 +1,15 @@
 ---
+import { ClientRouter } from "astro:transitions";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import SvgFilters from "./SvgFilters.astro";
+import "../styles/global.scss";
+
 export type Props = {
     title?: string;
 }
 
-import { ClientRouter } from "astro:transitions";
 const { title = "Mon site perso" } = Astro.props;
-
-import "../styles/global.scss";
-
-import Header from "./Header.astro";
-import Footer from "./Footer.astro";
 ---
 
 <html lang="fr" transition:name="root" transition:animate="none">
@@ -45,6 +45,8 @@ import Footer from "./Footer.astro";
         </main>
 
         <Footer />
+
+        <SvgFilters />
     </body>
 </html>
 

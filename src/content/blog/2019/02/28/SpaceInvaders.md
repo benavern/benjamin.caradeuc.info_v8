@@ -27,7 +27,7 @@ Je me suis dit que je reprendrais le principe du jeu mais en le faisant fonction
 
 ## Un gif ? Je veux une demo!
 
-Ça tombe bien, j'ai fait une page de démo ici: [https://z-space-invaders.netlify.com/](https://z-space-invaders.netlify.com/)
+Ça tombe bien, j'ai fait une page de démo ici: [https://z-space-invaders.netlify.app/](https://z-space-invaders.netlify.app/)
 
 ## Mais ça marche comment ?
 

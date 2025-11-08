@@ -10,10 +10,27 @@ export async function getStaticPaths() {
     .slice(0, 5);
 }
 
-
 const posts = (await getCollection("blog"))
   .sort((a,b) => Number(b.data.date) - Number(a.data.date))
   .slice(0, 5);
+
+const socialLinks = [
+  {
+    name: "X",
+    url: "https://x.com/benavern/",
+    icon: "x",
+  },
+  {
+    name: "Github",
+    url: "https://www.github.com/benavern/",
+    icon: "mdi:github",
+  },
+  {
+    name: "Linkedin",
+    url: "https://www.linkedin.com/in/benjamincaradeuc/",
+    icon: "mdi:linkedin",
+  }
+];
 ---
 
 <Layout>
@@ -35,102 +52,151 @@ const posts = (await getCollection("blog"))
 
     <hr>
 
-    <p>
-        En tant que <strong>développeur web fullstack</strong> et <strong>Responsable projets informatiques</strong>, Benjamin exerce actuellement son talent sur ces sites:
-    </p>
+    <social-links>
+        <h2>
+            Mes réseaux
+        </h2>
 
-    <ul>
-        <li>
-            <a
-                target="_blank"
-                href="https://www.ouestfrance-immo.com">
-                ouestfrance-immo.com
-            </a>
-        </li>
+        <ul>
+            { socialLinks.map((link) => (
+                <li>
+                    <a
+                        role="button"
+                        class="btn btn--shape-circle btn--variant-accent-border btn--size-large"
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Profil ${link.name} de Benjamin Caradeuc`}>
+                        <div
+                            aria-hidden="true"
+                            class="btn__icon">
+                            <Icon name={link.icon} />
+                        </div>
 
-        <li>
-            <a
-                target="_blank"
-                href="https://www.bellespierres.com">
-                bellespierres.com
-            </a>
-        </li>
-
-        <li>
-            <a
-                target="_blank"
-                href="https://www.cessionpme.com">
-                cessionpme.com
-            </a>
-        </li>
-    </ul>
-
-    <p>
-        Les technologies qu'il emploie au quotidien sont:
-    </p>
-
-    <ul>
-        <li>
-            <strong>Front-end:</strong> HTML, CSS, JavaScript, TypeScript, Vuejs, Nuxtjs, Lit, Svelte
-        </li>
-
-        <li>
-            <strong>Back-end:</strong> PHP, Laravel, Node.js
-        </li>
-
-        <li>
-            <strong>Base de données:</strong> MySQL, PostgreSQL
-        </li>
-    </ul>
+                        <div class="sr-only">
+                            {link.name}
+                        </div>
+                    </a>
+                </li>
+            )) }
+        </ul>
+    </social-links>
 
     <hr>
 
-    <h2>Découvrez les derniers articles du blog</h2>
+    <about-me>
+        <h2>
+            À propos de moi
+        </h2>
 
-    <z-carousel
-        id="home-carousel"
-        per-page="1"
-        gap="16"
-        navigation
-        dots>
-        { posts.map((post) => <BlogPostCard post={post} />) }
+        <p>
+            En tant que <strong>développeur web fullstack</strong> et <strong>Responsable projets informatiques</strong>, j'exerce actuellement mon talent sur ces sites:
+        </p>
 
-        <a
-            role="button"
-            class="btn btn--variant-secondary"
-            href="/blog">
-            Voir tous les articles
-        </a>
+        <ul>
+            <li>
+                <a
+                    target="_blank"
+                    href="https://www.ouestfrance-immo.com">
+                    ouestfrance-immo.com
+                </a>
+            </li>
 
-        <span
-            role="button"
-            class="btn btn--variant-secondary-border btn--shape-pill"
-            slot="nav-prev">
-            <div class="btn__icon">
-                <Icon name="mdi:arrow-left" />
-            </div>
+            <li>
+                <a
+                    target="_blank"
+                    href="https://www.bellespierres.com">
+                    bellespierres.com
+                </a>
+            </li>
 
-            <div class="sr-only">Page précédente</div>
-        </span>
+            <li>
+                <a
+                    target="_blank"
+                    href="https://www.cessionpme.com">
+                    cessionpme.com
+                </a>
+            </li>
+        </ul>
 
-        <span
-            role="button"
-            class="btn btn--variant-secondary-border btn--shape-pill"
-            slot="nav-next">
-            <div class="sr-only">Page suivante</div>
+        <p>
+            Les technologies que j'emploie au quotidien sont:
+        </p>
 
-            <div class="btn__icon">
-                <Icon name="mdi:arrow-right" />
-            </div>
-        </span>
-    </z-carousel>
+        <ul>
+            <li>
+                <strong>Front-end:</strong> HTML, CSS, JavaScript, TypeScript, Vuejs, Nuxtjs, Lit, Svelte
+            </li>
 
-    <p>
+            <li>
+                <strong>Back-end:</strong> PHP, Laravel, Node.js
+            </li>
 
-    </p>
+            <li>
+                <strong>Base de données:</strong> MySQL, PostgreSQL
+            </li>
+        </ul>
+
+        <p>
+            Tout ce que je sais faire dans mon travail, c’est sur internet que je l’ai appris. Il m’a semblé naturel d'en faire profiter à mon tour!
+        </p>
+
+        <p>
+            Vous êtes donc ici sur mon site, il me permet de partager mes trouvailles, mes réalisations, mes conseils, mes réflexions...
+        </p>
+
+        <p>
+            N'hésitez pas à fouiner un peu pour trouver votre bonheur. Vous pouvez également <a href="/contact">me contacter</a> ou me faire signe sur les réseaux sociaux.
+            Si vous voulez en savoir plus sur mon parcours, c'est par <a href="/parcours">ici</a> que ça se passe!
+        </p>
+    </about-me>
+
+    <hr>
+
+    <recent-blog-posts>
+        <h2>Découvrez les derniers articles du blog</h2>
+
+        <z-carousel
+            id="home-carousel"
+            per-page="1"
+            gap="16"
+            navigation
+            dots>
+            { posts.map((post) => <BlogPostCard post={post} />) }
+
+            <a
+                role="button"
+                class="btn btn--variant-secondary"
+                href="/blog">
+                Voir tous les articles
+            </a>
+
+            <span
+                role="button"
+                class="btn btn--variant-secondary-border btn--shape-circle"
+                slot="nav-prev">
+                <div class="btn__icon">
+                    <Icon name="mdi:arrow-left" />
+                </div>
+
+                <div class="sr-only">Page précédente</div>
+            </span>
+
+            <span
+                role="button"
+                class="btn btn--variant-secondary-border btn--shape-circle"
+                slot="nav-next">
+                <div class="sr-only">Page suivante</div>
+
+                <div class="btn__icon">
+                    <Icon name="mdi:arrow-right" />
+                </div>
+            </span>
+        </z-carousel>
+    </recent-blog-posts>
 </Layout>
 
-<style>
+<style lang="scss">
     hgroup {
         p {
             font-size: var(--txt-lg);
@@ -141,10 +207,44 @@ const posts = (await getCollection("blog"))
         color: var(--clr-primary);
     }
 
+    social-links {
+        ul {
+            display: flex;
+            gap: var(--spacing);
+            justify-content: space-evenly;
+
+            li {
+                list-style: none;
+                font-size: var(--txt-xl);
+
+                a {
+                    transition: all 0.3s ease-in-out;
+
+                    &:hover {
+                        scale: 1.5;
+                    }
+                }
+            }
+        }
+    }
+
+    recent-blog-posts {
+        grid-column: bleed;
+        display: grid;
+        grid-template-columns: subgrid;
+
+        & > * {
+            grid-column: content;
+        }
+
+        & > z-carousel {
+            grid-column: bleed;
+        }
+    }
+
     z-carousel {
         &:not(:defined) {
             padding: var(--spacing-sm) 0;
-
             gap: var(--spacing);
 
             > * {
@@ -164,7 +264,6 @@ const posts = (await getCollection("blog"))
             }
         }
 
-        grid-column: bleed;
         max-width: calc(100% - var(--spacing));
         margin-inline: auto;
 

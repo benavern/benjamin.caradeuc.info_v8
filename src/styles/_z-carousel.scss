@@ -19,13 +19,13 @@ z-carousel {
     }
 
     &::part(content) {
+        overflow: auto clip;
+        scrollbar-width: none;
         scroll-behavior: smooth;
     }
 
     &::part(nav-btn) {
         position: absolute;
-        top: 50%;
-        translate: 0 -50%;
     }
 
     &::part(nav-btn--prev) {
@@ -37,7 +37,7 @@ z-carousel {
     }
 
     &::part(nav-btn nav-btn--disabled) {
-        display: none;
+        display: none!important;
     }
 
     &::part(dots) {
@@ -54,6 +54,7 @@ z-carousel {
         padding: .25rem;
         font-size: 0;
         line-height: 0;
+        color: var(--clr-txt);
     }
 
     &::part(dots-item)::before {
@@ -62,5 +63,10 @@ z-carousel {
         height: var(--txt-sm);
         background-color: currentColor;
         border-radius: 50%;
+    }
+
+    &::part(dots-item dots-item--active) {
+        scale: 1.25;
+        color: var(--clr-fg);
     }
 }

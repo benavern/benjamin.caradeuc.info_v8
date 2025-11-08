@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+*:not(:defined) {
+    display: block;
+}
+
 html {
     height: 100%;
     font-size: calc(var(--rem-base) / 16 * 100%); // Set the root font size based on the rem base (default is 22px, so 22/16*100% = 137.5%)
@@ -70,6 +74,15 @@ a:not([role="button"]) {
         text-decoration: underline;
         text-decoration-thickness: .1em;
         text-underline-offset: .25em;
+
+        @media (prefers-reduced-motion: no-preference) {
+            filter: url('#fx-tv-lines');
+            // filter: url('#fx-glitch');
+            // filter: url('#fx-wave');
+            // filter: url('#fx-heat');
+            // filter: url('#fx-chroma');
+            // filter: url('#fx-pixelate');
+        }
     }
 }
 
@@ -135,6 +148,25 @@ ul, ol {
 li > ul,
 li > ol {
     margin-inline-start: var(--spacing-lg);
+}
+
+:is(main > about-me, main > article) {
+    > ul > li {
+            list-style-type: none;
+            position: relative;
+            padding-left: var(--spacing);
+
+            &::before {
+                content: "";
+                display: block;
+                background-color: var(--clr-txt);
+                inline-size: 100%;
+                block-size: .1px;
+                position: absolute;
+                inset-block-start: .5lh;
+                inset-inline-start: -100%;
+            }
+        }
 }
 
 details {

@@ -2,6 +2,29 @@
 import { Icon } from "astro-icon/components";
 
 const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
+
+const links = [
+  {
+    name: "Facebook",
+    url: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
+    icon: "mdi:facebook",
+  },
+  {
+    name: "X",
+    url: `https://twitter.com/intent/tweet?text=${shareUrl}`,
+    icon: "mdi:twitter",
+  },
+  {
+    name: "LinkedIn",
+    url: `https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}`,
+    icon: "mdi:linkedin",
+  },
+  {
+    name: "Whatsapp",
+    url: `https://api.whatsapp.com/send/?text=${shareUrl}&type=custom_url`,
+    icon: "mdi:whatsapp",
+  },
+];
 ---
 
 <button
@@ -20,59 +43,20 @@ const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
     id="sharer"
     class="card"
     aria-label="Partager cet article sur ...">
-    <a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
-        target="_blank"
-        role="button"
-        class="btn btn--variant-primary btn--size-large"
-        title="Partager sur Facebook">
-        <span class="btn__icon">
-            <Icon name="mdi:facebook" />
-        </span>
+    {links.map((link) => (
+        <a
+            href={link.url}
+            target="_blank"
+            role="button"
+            class="btn btn--variant-primary-border btn--size-large"
+            title={`Partager sur ${link.name}`}>
+            <span class="btn__icon">
+                <Icon name={link.icon} />
+            </span>
 
-        <span class="sr-only">Partager sur Facebook</span>
-    </a>
-
-    <a
-        href={`https://twitter.com/intent/tweet?text=${shareUrl}`}
-        target="_blank"
-        role="button"
-        class="btn btn--variant-primary btn--size-large"
-        title="Partager sur X">
-        <span class="btn__icon">
-            <Icon name="mdi:twitter" />
-        </span>
-
-        <span class="sr-only">Partager sur X</span>
-    </a>
-
-    <a
-        href={`https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}`}
-        target="_blank"
-        role="button"
-        class="btn btn--variant-primary btn--size-large"
-        title="Partager sur LinkedIn">
-        <span class="btn__icon">
-            <Icon name="mdi:linkedin" />
-        </span>
-
-        <span class="sr-only">Partager sur LinkedIn</span>
-    </a>
-
-    <a
-        href={`https://api.whatsapp.com/send/?text=${shareUrl}&type=custom_url`}
-        target="_blank"
-        role="button"
-        class="btn btn--variant-primary btn--size-large"
-        title="Partager sur Whatsapp">
-        <span class="btn__icon">
-            <Icon name="mdi:whatsapp" />
-        </span>
-
-        <span class="sr-only">Partager sur Whatsapp</span>
-    </a>
-
-    {/* etc ... */}
+            <span class="sr-only">Partager sur {link.name}</span>
+        </a>
+    ))}
 </dialog>
 
 <style lang="scss">

@@ -15,7 +15,9 @@ export default defineConfig({
     integrations: [
         sitemap(),
         icon({
-            mdi: ['*'],
+            include: {
+                mdi: ['*'],
+            },
         })
     ],
 });

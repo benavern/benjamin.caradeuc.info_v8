@@ -129,6 +129,12 @@
     &--shape-pill {
         border-radius: 9999px;
     }
+
+    &--shape-circle {
+        aspect-ratio: 1;
+        padding: var(--spacing-sm);
+        border-radius: 50%;
+    }
 }
 
 @keyframes spin {
