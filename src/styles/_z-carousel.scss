@@ -19,8 +19,6 @@ z-carousel {
     }
 
     &::part(content) {
-        overflow: auto clip;
-        scrollbar-width: none;
         scroll-behavior: smooth;
     }
 

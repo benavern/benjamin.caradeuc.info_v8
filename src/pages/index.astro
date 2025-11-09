@@ -7,12 +7,12 @@ import { Icon } from "astro-icon/components";
 export async function getStaticPaths() {
   return (await getCollection("blog"))
     .sort((a,b) => Number(b.data.date) - Number(a.data.date))
-    .slice(0, 5);
+    .slice(0, 6);
 }
 
 const posts = (await getCollection("blog"))
   .sort((a,b) => Number(b.data.date) - Number(a.data.date))
-  .slice(0, 5);
+  .slice(0, 6);
 
 const socialLinks = [
   {
@@ -125,7 +125,7 @@ const socialLinks = [
 
         <ul>
             <li>
-                <strong>Front-end:</strong> HTML, CSS, JavaScript, TypeScript, Vuejs, Nuxtjs, Lit, Svelte
+                <strong>Front-end:</strong> HTML5, CSS3, JavaScript (es2021+), TypeScript, Vue (2/3), Nuxt (2/3/4), Lit, Svelte, SvelteKit
             </li>
 
             <li>
@@ -135,10 +135,13 @@ const socialLinks = [
             <li>
                 <strong>Base de données:</strong> MySQL, PostgreSQL
             </li>
+            <li>
+                <strong>Outils & Méthodes:</strong> Git, Docker, Kubernetes, CI/CD (Gitlab), Agile Scrum, ...
+            </li>
         </ul>
 
         <p>
-            Tout ce que je sais faire dans mon travail, c’est sur internet que je l’ai appris. Il m’a semblé naturel d'en faire profiter à mon tour!
+            Tout ce que je sais faire dans mon travail, c'est sur internet que je l'ai appris. Il m'a semblé naturel d'en faire profiter à mon tour!
         </p>
 
         <p>
@@ -159,7 +162,10 @@ const socialLinks = [
         <z-carousel
             id="home-carousel"
             per-page="1"
+            per-move="1"
             gap="16"
+            offset-start="0"
+            offset-end="0"
             navigation
             dots>
             { posts.map((post) => <BlogPostCard post={post} />) }
@@ -167,15 +173,15 @@ const socialLinks = [
             <a
                 role="button"
                 class="btn btn--variant-secondary"
-                href="/blog">
-                Voir tous les articles
+                href="/blog/2">
+                Voir la page 2...
             </a>
 
             <span
                 role="button"
                 class="btn btn--variant-secondary-border btn--shape-circle"
                 slot="nav-prev">
-                <div class="btn__icon">
+                <div aria-hidden="true" class="btn__icon">
                     <Icon name="mdi:arrow-left" />
                 </div>
 
@@ -188,7 +194,7 @@ const socialLinks = [
                 slot="nav-next">
                 <div class="sr-only">Page suivante</div>
 
-                <div class="btn__icon">
+                <div aria-hidden="true" class="btn__icon">
                     <Icon name="mdi:arrow-right" />
                 </div>
             </span>
@@ -239,6 +245,10 @@ const socialLinks = [
 
         & > z-carousel {
             grid-column: bleed;
+
+            > a {
+                border-radius: var(--border-radius-lg);
+            }
         }
     }
 
@@ -264,12 +274,9 @@ const socialLinks = [
             }
         }
 
-        max-width: calc(100% - var(--spacing));
-        margin-inline: auto;
-
         &::part(content) {
-            /* Let the shadows and scale pass & some of the next page starting element */
-            padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 0;
+            /* Let the shadows and scale pass */
+            padding-block: var(--spacing-sm);
         }
 
 
@@ -289,33 +296,37 @@ const socialLinks = [
 
 
 <script>
-  const breakpoints = [
-    { mq: '(min-width: 240ch)', perPage: 4, gap: 24 },
-    { mq: '(min-width: 160ch)', perPage: 3, gap: 24 },
-    { mq: '(min-width: 82ch)',  perPage: 2, gap: 20 },
-    { mq: '(max-width: 81ch)',  perPage: 1, gap: 16 },
-  ];
+    const breakpoints = [
+        { mq: '(min-width: 240ch)', perPage: 4, perMove: 4, gap: 28, offset: 130 },
+        { mq: '(min-width: 160ch)', perPage: 3, perMove: 3, gap: 24, offset: 100 },
+        { mq: '(min-width: 100ch)',  perPage: 2, perMove: 2, gap: 20, offset: 70 },
+        { mq: '(min-width: 60ch)',  perPage: 1, perMove: 1, gap: 16, offset: 40 },
+        { mq: '(max-width: 59ch)',  perPage: 1, perMove: 1, gap: 16, offset: 10 },
+    ];
 
-  function updateCarousel() {
-    const carousel = document.querySelector('#home-carousel');
-    if (!carousel) return;
+    function updateCarousel() {
+        const carousel = document.querySelector('#home-carousel');
+        if (!carousel) return;
 
-    const match = breakpoints.find(b => window.matchMedia(b.mq).matches);
-    if (match) {
-      carousel.setAttribute('per-page', String(match.perPage));
-      carousel.setAttribute('gap', String(match.gap));
+        const match = breakpoints.find(b => window.matchMedia(b.mq).matches);
+        if (match) {
+            carousel.setAttribute('per-page', String(match.perPage));
+            carousel.setAttribute('per-move', String(match.perMove));
+            carousel.setAttribute('gap', String(match.gap));
+            carousel.setAttribute('offset-start', String(match.offset));
+            carousel.setAttribute('offset-end', String(match.offset));
+        }
     }
-  }
 
-  // initialisation
-  updateCarousel();
+    // initialisation
+    updateCarousel();
 
-  // écoute resize si le viewport change
-  for (const bp of breakpoints) {
-    const mq = window.matchMedia(bp.mq);
-    mq.addEventListener('change', updateCarousel);
-  }
+    // écoute resize si le viewport change
+    for (const bp of breakpoints) {
+        const mq = window.matchMedia(bp.mq);
+        mq.addEventListener('change', updateCarousel);
+    }
 
-  // écoute les swaps Astro SPA pour réinitialiser si nécessaire
-  document.addEventListener('astro:after-swap', updateCarousel);
+    // écoute les swaps Astro SPA pour réinitialiser si nécessaire
+    document.addEventListener('astro:after-swap', updateCarousel);
 </script>
