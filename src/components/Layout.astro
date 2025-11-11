@@ -30,9 +30,6 @@ const { title = "Mon site perso" } = Astro.props;
             rel="stylesheet"
         />
 
-        <!-- javascript -->
-        <!-- <script type="module" src="https://unpkg.com/@benavern/z-carousel"></script> -->
-
         <!-- astro transitions -->
         <ClientRouter />
     </head>
@@ -56,6 +53,6 @@ const { title = "Mon site perso" } = Astro.props;
 </script>
 
 <script>
+    import '@benavern/z-carousel';
     import './ui/ThemeSwitcher.wc';
-    import './ui/ZCarousel.wc';
 </script>

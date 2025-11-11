@@ -12,6 +12,8 @@ html {
     height: 100%;
     font-size: calc(var(--rem-base) / 16 * 100%); // Set the root font size based on the rem base (default is 22px, so 22/16*100% = 137.5%)
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -37,6 +39,10 @@ body {
 
     @media (min-width: 120ch) {
         column-gap: var(--spacing-lg);
+    }
+
+    &:has(*:popover-open) {
+        overflow: hidden;
     }
 
     > header,

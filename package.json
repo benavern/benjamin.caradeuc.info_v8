@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@astrojs/check": "^0.9.5",
+        "@benavern/z-carousel": "^0.2.0",
         "astro-icon": "^1.1.5",
         "lit": "^3.3.1",
         "markdown-to-txt": "^2.0.1"

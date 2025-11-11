@@ -167,7 +167,8 @@ const socialLinks = [
             offset-start="0"
             offset-end="0"
             navigation
-            dots>
+            dots
+            drag>
             { posts.map((post) => <BlogPostCard post={post} />) }
 
             <a
@@ -297,11 +298,11 @@ const socialLinks = [
 
 <script>
     const breakpoints = [
-        { mq: '(min-width: 240ch)', perPage: 4, perMove: 4, gap: 28, offset: 130 },
-        { mq: '(min-width: 160ch)', perPage: 3, perMove: 3, gap: 24, offset: 100 },
-        { mq: '(min-width: 100ch)',  perPage: 2, perMove: 2, gap: 20, offset: 70 },
-        { mq: '(min-width: 60ch)',  perPage: 1, perMove: 1, gap: 16, offset: 40 },
-        { mq: '(max-width: 59ch)',  perPage: 1, perMove: 1, gap: 16, offset: 10 },
+        { mq: '(min-width: 240ch)', perPage: 4, perMove: 4, gap: 28, offsetStart: 130, offsetEnd: 130 },
+        { mq: '(min-width: 160ch)', perPage: 3, perMove: 3, gap: 24, offsetStart: 100, offsetEnd: 100 },
+        { mq: '(min-width: 100ch)',  perPage: 2, perMove: 2, gap: 20, offsetStart: 70, offsetEnd: 70 },
+        { mq: '(min-width: 60ch)',  perPage: 1, perMove: 1, gap: 16, offsetStart: 32, offsetEnd: 32 },
+        { mq: '(max-width: 59ch)',  perPage: 1, perMove: 1, gap: 16, offsetStart: 8, offsetEnd: 24 },
     ];
 
     function updateCarousel() {
@@ -313,8 +314,8 @@ const socialLinks = [
             carousel.setAttribute('per-page', String(match.perPage));
             carousel.setAttribute('per-move', String(match.perMove));
             carousel.setAttribute('gap', String(match.gap));
-            carousel.setAttribute('offset-start', String(match.offset));
-            carousel.setAttribute('offset-end', String(match.offset));
+            carousel.setAttribute('offset-start', String(match.offsetStart));
+            carousel.setAttribute('offset-end', String(match.offsetEnd));
         }
     }
 

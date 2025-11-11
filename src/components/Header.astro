@@ -44,6 +44,13 @@ import { Icon } from "astro-icon/components";
                     Contact
                 </a>
             </li>
+
+            <button
+                class="btn"
+                popovertarget="main-menu-nav"
+                popovertargetaction="hide">
+                &times;
+            </button>
         </ul>
 
         <theme-switcher>
@@ -103,6 +110,16 @@ import { Icon } from "astro-icon/components";
             &::backdrop {
                 background-color: var(--clr-bg-transparent-blur);
                 backdrop-filter: blur(5px);
+            }
+
+            [popovertargetaction="hide"] {
+                position: absolute;
+                inset: var(--spacing-sm) var(--spacing-sm) auto auto;
+                padding: 0;
+                font-size: 2rem;
+                width: 2rem;
+                height: 2rem;
+                align-items: center;
             }
         }
 
