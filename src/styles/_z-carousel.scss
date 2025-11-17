@@ -67,4 +67,13 @@ z-carousel {
         scale: 1.25;
         color: var(--clr-fg);
     }
+
+    & > * {
+        opacity: 1;
+        transition: opacity .3s;
+
+        &[inert] {
+            opacity: .5;
+        }
+    }
 }
