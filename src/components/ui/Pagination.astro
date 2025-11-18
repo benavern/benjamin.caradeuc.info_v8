@@ -9,10 +9,11 @@ const {
     urlPrefix = '',
     current,
     total,
+    ...restAttributes
 } = Astro.props
 ---
 
-<nav>
+<nav {...restAttributes}>
     {Array.from({ length: total }, (_, i) => i + 1).map(
         (p) => (
             <a

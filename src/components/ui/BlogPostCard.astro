@@ -7,10 +7,10 @@ export type Props = {
     class?: string;
 }
 
-const { post, class: className = "" } = Astro.props;
+const { post, class: className = "", ...restAttributes } = Astro.props;
 ---
 
-<article class={`blog-post-card card ${className}`}>
+<article class={`blog-post-card card ${className}`} ${...restAttributes}>
     <figure class="blog-post-card__header">
         <figcaption class="blog-post-card__header__caption" data-theme="dark">
             <h3 transition:name={`post-title-${post.id}`}>

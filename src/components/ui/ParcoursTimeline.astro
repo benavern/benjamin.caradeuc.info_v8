@@ -13,14 +13,14 @@ const { name, icon,  items } = Astro.props as Props;
 ---
 
 <section>
-    <h2>
+    <h2 scroll-animation="slide-inline-start">
         {icon && <Icon name={icon} />}
         {name}
     </h2>
 
     <ol>
         {items.map(item => (
-            <li>
+            <li scroll-animation="scale">
                 <header>
                     <hgroup>
                         <time>{item.data.period}</time>

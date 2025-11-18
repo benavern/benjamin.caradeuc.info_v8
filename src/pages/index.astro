@@ -52,7 +52,7 @@ const socialLinks = [
 
     <hr>
 
-    <social-links>
+    <social-links scroll-animation="scale">
         <h2>
             Mes réseaux
         </h2>
@@ -84,7 +84,7 @@ const socialLinks = [
 
     <hr>
 
-    <about-me>
+    <about-me scroll-animation="slide-inline-start">
         <h2>
             À propos de moi
         </h2>
@@ -160,6 +160,7 @@ const socialLinks = [
         <h2>Découvrez les derniers articles du blog</h2>
 
         <z-carousel
+            scroll-animation="slide-inline-end"
             id="home-carousel"
             per-page="1"
             per-move="1"
@@ -205,6 +206,23 @@ const socialLinks = [
 
 <style lang="scss">
     hgroup {
+        --header-height: 70px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: calc(100dvh - var(--header-height));
+        margin: 0;
+
+        @media (min-width: 82ch) {
+           --header-height: 80px;
+        }
+
+        @media (min-width: 110ch) {
+           --header-height: 135px;
+        }
+
+
         p {
             font-size: var(--txt-lg);
         }
