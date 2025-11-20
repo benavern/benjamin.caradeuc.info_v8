@@ -15,7 +15,10 @@
     footer {
         text-align: center;
         padding-block: var(--spacing-lg);
-        animation-range: entry 25% entry 100%;
+
+        @supports (animation-timeline: view()) {
+            animation-range: entry 0% entry 100%;
+        }
 
         code {
             color: var(--clr-accent);

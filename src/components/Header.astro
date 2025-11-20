@@ -81,8 +81,8 @@ import { Icon } from "astro-icon/components";
         background-color: var(--clr-bg-transparent-blur);
         background-image: var(--bg-texture);
         backdrop-filter: blur(10px);
-        padding-block: var(--spacing);
         border-block-end: 1px solid var(--clr-border);
+        min-height: var(--header-height);
 
         nav {
             display: flex;
@@ -124,8 +124,6 @@ import { Icon } from "astro-icon/components";
         }
 
         @media (min-width: 120ch) {
-            padding-block: var(--spacing-lg);
-
             ul[popover] {
                 flex-direction: row;
                 inset: unset;

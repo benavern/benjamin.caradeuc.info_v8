@@ -34,7 +34,7 @@ const socialLinks = [
 ---
 
 <Layout>
-    <hgroup>
+    <hgroup scroll-animation-leave="scale">
         <h1>
             Benjamin
             <br>
@@ -206,22 +206,11 @@ const socialLinks = [
 
 <style lang="scss">
     hgroup {
-        --header-height: 70px;
-
         display: flex;
         flex-direction: column;
         justify-content: center;
         min-height: calc(100dvh - var(--header-height));
         margin: 0;
-
-        @media (min-width: 82ch) {
-           --header-height: 80px;
-        }
-
-        @media (min-width: 110ch) {
-           --header-height: 135px;
-        }
-
 
         p {
             font-size: var(--txt-lg);

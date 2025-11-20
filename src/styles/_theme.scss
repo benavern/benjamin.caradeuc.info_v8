@@ -84,12 +84,16 @@
     // --bg-texture: url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png');
     // --bg-texture: url('/images/otis-redding-texture.png');
 
+    // Header height
+    --header-height: 5rem;
+
     @media (min-width: 82ch) {
         --rem-base: 20;
     }
 
     @media (min-width: 120ch) {
         --rem-base: 24;
+        --header-height: 6rem;
     }
 }
 

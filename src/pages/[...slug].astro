@@ -29,7 +29,7 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
 ---
 
 <Layout title={post.data.title}>
-    <header>
+    <header scroll-animation-leave="scale">
         <img
             transition:name={`post-img-${post.id}`}
             src={post.data.featured_image || "/images/default_img.jpg"}
