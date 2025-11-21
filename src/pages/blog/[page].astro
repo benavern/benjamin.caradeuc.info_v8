@@ -43,7 +43,7 @@ const totalPages = Math.ceil(posts.length / pageSize);
     </hgroup>
 
     <div class="post-list">
-        { pagePosts.map((post, i) => <BlogPostCard post={post} scroll-animation="slide-block-end" />) }
+        { pagePosts.map((post) => <BlogPostCard post={post} scroll-animation="slide-block-end" />) }
     </div>
 
     {

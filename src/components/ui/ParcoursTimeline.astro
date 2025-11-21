@@ -3,13 +3,15 @@ import { Icon } from 'astro-icon/components';
 import type { CollectionEntry } from 'astro:content';
 import Badge from './Badge.astro';
 
+type ParcoursItem = CollectionEntry<'formations'> | CollectionEntry<'experiences'>;
+
 export interface Props {
   name: string;
   icon?: string,
-  items: CollectionEntry<'formations'>[] | CollectionEntry<'experiences'>[];
+  items: ParcoursItem[];
 }
 
-const { name, icon,  items } = Astro.props as Props;
+const { name, icon, items } = Astro.props as Props;
 ---
 
 <section>
