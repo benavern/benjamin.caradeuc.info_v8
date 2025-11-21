@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import BlogPostCard from "../components/ui/BlogPostCard.astro";
 import { Icon } from "astro-icon/components";
+import Fireflies from "../components/ui/Fireflies.astro";
 
 export async function getStaticPaths() {
   return (await getCollection("blog"))
@@ -34,23 +35,26 @@ const socialLinks = [
 ---
 
 <Layout>
-    <hgroup scroll-animation-leave="scale">
-        <h1>
-            Benjamin
-            <br>
-            CARADEUC
-        </h1>
+    <hero-zone>
+        <hgroup scroll-animation-leave="scale">
+            <h1>
+                Benjamin
+                <br>
+                CARADEUC
+            </h1>
 
-        <p>
-            <strong>Ingénieur développeur web</strong> passionné par le front-end et l'UX.
-        </p>
+            <p>
+                <strong>Ingénieur développeur web</strong> passionné par le front-end et l'UX.
+            </p>
 
-        <p>
-            Créateur d'applications web <strong>performantes et élégantes</strong>.
-        </p>
-    </hgroup>
+            <p>
+                Créateur d'applications web <strong>performantes et élégantes</strong>.
+            </p>
 
-    <hr>
+        </hgroup>
+
+        <Fireflies />
+    </hero-zone>
 
     <social-links scroll-animation="scale">
         <h2>
@@ -205,7 +209,15 @@ const socialLinks = [
 </Layout>
 
 <style lang="scss">
+    hero-zone {
+        position: relative;
+        grid-column: bleed;
+        display: grid;
+        grid-template-columns: subgrid;
+    }
+
     hgroup {
+        grid-column: content;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -222,6 +234,8 @@ const socialLinks = [
     }
 
     social-links {
+        margin-block-start: var(--spacing-lg);
+
         ul {
             display: flex;
             gap: var(--spacing);
