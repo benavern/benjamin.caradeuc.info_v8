@@ -1,15 +1,9 @@
 {
     "extends": "astro/tsconfigs/base",
     "compilerOptions": {
-        "jsx": "preserve",
-        "jsxImportSource": "solid-js",
-        "target": "es2021",
-        "module": "es2015",
         "moduleResolution": "bundler",
-        "lib": ["es2021", "dom"],
-        "declaration": true,
-        "declarationMap": true,
         "experimentalDecorators": true,
-        "useDefineForClassFields": false
+        "useDefineForClassFields": false,
+        "lib": ["es2021", "dom"]
     }
 }
