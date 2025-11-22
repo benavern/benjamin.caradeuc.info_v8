@@ -316,10 +316,14 @@ label:has(input:not([type="checkbox"], [type="radio"], [type="range"], [type="fi
         }
     }
 
+    > textarea {
+        padding-block-start: calc(2.75 * var(--form-element-spacing-vertical));
+    }
+
     > .label--floating {
         pointer-events: none;
         position: absolute;
-        top: calc(1.5 * var(--form-element-spacing-vertical));
+        top: calc(2.5 * var(--form-element-spacing-vertical));
         left: var(--form-element-spacing-horizontal);
         transform: translateY(0);
         transform-origin: top left;
