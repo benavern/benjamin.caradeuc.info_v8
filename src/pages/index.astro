@@ -221,8 +221,8 @@ const socialLinks = [
 
 <style lang="scss">
     @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-25%); }
+        0%, 100% { translate: -50% 0; }
+        50% { translate: -50% -25% ; }
     }
 
     hero-zone {
@@ -235,7 +235,7 @@ const socialLinks = [
         a[href="#page-content"] {
             position: absolute;
             inset: auto auto var(--spacing) 50%;
-            translate: 0 -50%;
+            translate: -50% 0;
             width: fit-content;
             animation: bounce 0.8s ease-in-out infinite;
         }
