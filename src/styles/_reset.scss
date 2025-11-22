@@ -42,10 +42,6 @@ body {
         column-gap: var(--spacing-lg);
     }
 
-    &:has(*:popover-open) {
-        overflow: hidden;
-    }
-
     > header,
     > main,
     > footer {

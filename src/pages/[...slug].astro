@@ -33,14 +33,14 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
     title={post.data.title}
     description={post.data.excerpt ?? (markdownToTxt(post.body).slice(0, 150) + '...')}
     image={new URL(post.data.featured_image || "/images/default_img.jpg", Astro.site)}>
-    <header scroll-animation-leave="scale">
+    <header>
         <img
             transition:name={`post-img-${post.id}`}
             src={post.data.featured_image || "/images/default_img.jpg"}
             alt={`Featured image for ${post.data.title}`}
             class="blog-post__image">
 
-        <hgroup>
+        <hgroup scroll-animation-leave="scale">
             <h1 transition:name={`post-title-${post.id}`}>
                 {post.data.title}
             </h1>

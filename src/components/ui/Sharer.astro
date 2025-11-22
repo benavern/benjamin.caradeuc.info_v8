@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-const shareUrl = encodeURIComponent(`${Astro.site}${Astro.url.pathname}`);
+const shareUrl = encodeURIComponent((new URL(Astro.url.pathname, Astro.site)).href);
 
 const links = [
   {
@@ -11,8 +11,8 @@ const links = [
   },
   {
     name: "X",
-    url: `https://twitter.com/intent/tweet?text=${shareUrl}`,
-    icon: "mdi:twitter",
+    url: `https://x.com/intent/tweet?text=${shareUrl}`,
+    icon: "x",
   },
   {
     name: "LinkedIn",
@@ -38,7 +38,7 @@ const links = [
     </span>
 </button>
 
-<dialog
+<div
     popover
     id="sharer"
     class="card"
@@ -57,7 +57,7 @@ const links = [
             <span class="sr-only">Partager sur {link.name}</span>
         </a>
     ))}
-</dialog>
+</div>
 
 <style lang="scss">
     [popovertarget] {
