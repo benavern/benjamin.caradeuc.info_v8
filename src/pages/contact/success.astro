@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../../components/Layout.astro";
+---
+<Layout>
+    <h1>Merci pour votre message</h1>
+
+    <p>Merci de m'avoir contacté, je reviendrai vers vous <strong>dès que possible</strong>.</p>
+
+    <p>En attendant n'hésitez pas à visiter mon <a href="/blog">blog</a> ou à consulter mon <a href="/parcours">parcours</a>.</p>
+
+    <hr>
+
+    <p>
+        <a
+            role="button"
+            class="btn btn--variant-secondary-border btn--shape-pill btn--size-large"
+            href="/">
+            <span class="btn__icon">
+                <Icon name="mdi:arrow-left">
+            </span>
+
+            Retour à l'accueil
+        </a>
+    </p>
+</Layout>
+
+<style>
+    strong {
+        color: var(--clr-primary);
+    }
+</style>
