@@ -18,7 +18,9 @@ export async function getStaticPaths() {
     const paths = [];
 
     for (const tag of tags) {
-        const tagPosts = posts.filter((post) => post.data.tags?.includes(tag));
+        const tagPosts = posts
+            .filter((post) => post.data.tags?.includes(tag))
+            .sort((a, b) => Number(b.data.date) - Number(a.data.date));
         const pageCount = Math.ceil(tagPosts.length / pageSize);
 
         paths.push(...Array.from({ length: pageCount }, (_, i) => ({
@@ -33,9 +35,9 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { page } = Astro.props;
 
-const posts = (await getCollection("blog")).filter((post) =>
-    post.data.tags?.includes(tag),
-);
+const posts = (await getCollection("blog"))
+    .filter((post) => post.data.tags?.includes(tag))
+    .sort((a, b) => Number(b.data.date) - Number(a.data.date));
 
 const pageSize = 6;
 const start = (Number(page) - 1) * pageSize;

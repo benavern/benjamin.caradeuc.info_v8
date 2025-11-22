@@ -68,6 +68,10 @@ small {
     font-size: var(--txt-sm);
 }
 
+strong {
+    color: var(--clr-primary);
+}
+
 a:not([role="button"]) {
     color: var(--clr-accent);
     text-decoration: none;
