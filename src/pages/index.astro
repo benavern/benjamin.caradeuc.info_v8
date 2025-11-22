@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import BlogPostCard from "../components/ui/BlogPostCard.astro";
 import { Icon } from "astro-icon/components";
-import Fireflies from "../components/ui/Fireflies.astro";
 
 export async function getStaticPaths() {
   return (await getCollection("blog"))
@@ -52,10 +51,9 @@ const socialLinks = [
             <p>
                 Créateur d'applications web <strong>performantes et élégantes</strong>.
             </p>
-
         </hgroup>
 
-        <Fireflies />
+        <firefly-background></firefly-background>
     </hero-zone>
 
     <social-links scroll-animation="scale">
@@ -216,6 +214,7 @@ const socialLinks = [
         grid-column: bleed;
         display: grid;
         grid-template-columns: subgrid;
+        text-shadow: 0 0 .5em var(--clr-bg);
     }
 
     hgroup {
@@ -316,6 +315,8 @@ const socialLinks = [
 
 
 <script>
+    import "../components/ui/FireflyBackground.wc";
+
     const breakpoints = [
         { mq: '(min-width: 240ch)', perPage: 4, perMove: 4, gap: 28, offsetStart: 130, offsetEnd: 130 },
         { mq: '(min-width: 160ch)', perPage: 3, perMove: 3, gap: 24, offsetStart: 100, offsetEnd: 100 },
