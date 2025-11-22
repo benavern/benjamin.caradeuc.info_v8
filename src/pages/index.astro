@@ -53,15 +53,26 @@ const socialLinks = [
             </p>
         </hgroup>
 
+        <a
+            role="button"
+            href="#page-content"
+            class="btn btn--shape-circle">
+            <span class="btn__icon">
+                <Icon name="mdi:arrow-bottom" />
+            </span>
+
+            <span class="sr-only">Passer au contenu</span>
+        </a>
+
         <firefly-background></firefly-background>
     </hero-zone>
 
-    <social-links scroll-animation="scale">
-        <h2>
+    <social-links id="page-content">
+        <h2 scroll-animation="slide-inline-start">
             Mes réseaux
         </h2>
 
-        <ul>
+        <ul scroll-animation="scale">
             { socialLinks.map((link) => (
                 <li>
                     <a
@@ -88,8 +99,8 @@ const socialLinks = [
 
     <hr>
 
-    <about-me scroll-animation="slide-inline-start">
-        <h2>
+    <about-me>
+        <h2 scroll-animation="slide-inline-start">
             À propos de moi
         </h2>
 
@@ -97,7 +108,7 @@ const socialLinks = [
             En tant que <strong>développeur web fullstack</strong> et <strong>Responsable projets informatiques</strong>, j'exerce actuellement mon talent sur ces sites:
         </p>
 
-        <ul>
+        <ul scroll-animation="slide-inline-end">
             <li>
                 <a
                     target="_blank"
@@ -127,7 +138,7 @@ const socialLinks = [
             Les technologies que j'emploie au quotidien sont:
         </p>
 
-        <ul>
+        <ul scroll-animation="slide-inline-end">
             <li>
                 <strong>Front-end:</strong> HTML5, CSS3, JavaScript (es2021+), TypeScript, Vue (2/3), Nuxt (2/3/4), Lit, Svelte, SvelteKit
             </li>
@@ -209,12 +220,25 @@ const socialLinks = [
 </Layout>
 
 <style lang="scss">
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-25%); }
+    }
+
     hero-zone {
         position: relative;
         grid-column: bleed;
         display: grid;
         grid-template-columns: subgrid;
         text-shadow: 0 0 .5em var(--clr-bg);
+
+        a[href="#page-content"] {
+            position: absolute;
+            inset: auto auto var(--spacing) 50%;
+            translate: 0 -50%;
+            width: fit-content;
+            animation: bounce 0.8s ease-in-out infinite;
+        }
     }
 
     hgroup {

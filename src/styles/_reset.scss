@@ -81,15 +81,6 @@ a:not([role="button"]) {
         text-decoration: underline;
         text-decoration-thickness: .1em;
         text-underline-offset: .25em;
-
-        @media (prefers-reduced-motion: no-preference) and (width > 82ch) {
-            filter: url('#fx-tv-lines');
-            // filter: url('#fx-glitch');
-            // filter: url('#fx-wave');
-            // filter: url('#fx-heat');
-            // filter: url('#fx-chroma');
-            // filter: url('#fx-pixelate');
-        }
     }
 }
 
@@ -102,6 +93,13 @@ textarea:focus-visible,
 select:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-width);
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+    a:not([no-hover-filter]):hover,
+    button:not([no-hover-filter]):hover {
+        filter: url('#fx-vhs-glitch');
+    }
 }
 
 hr {
@@ -212,4 +210,8 @@ blockquote {
         color: var(--clr-border);
         font-family: serif;
     }
+}
+
+[id] {
+    scroll-margin-block-start: var(--header-height);
 }

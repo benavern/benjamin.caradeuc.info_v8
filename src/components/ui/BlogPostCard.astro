@@ -10,7 +10,9 @@ export type Props = {
 const { post, class: className = "", ...restAttributes } = Astro.props;
 ---
 
-<article class={`blog-post-card card ${className}`} ${...restAttributes}>
+<article
+    class={`blog-post-card card ${className}`}
+    ${...restAttributes}>
     <figure class="blog-post-card__header">
         <figcaption class="blog-post-card__header__caption" data-theme="dark">
             <h3 transition:name={`post-title-${post.id}`}>
@@ -67,7 +69,8 @@ const { post, class: className = "", ...restAttributes } = Astro.props;
         <a
             role="button"
             class="btn btn--variant-primary blog-post-card__link"
-            href={`/${post.slug}/`}>
+            href={`/${post.slug}/`}
+            no-hover-filter>
             Lire l'article ...
         </a>
     </div>
