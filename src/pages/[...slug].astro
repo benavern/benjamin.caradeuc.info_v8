@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
 import Sharer from "../components/ui/Sharer.astro";
+import {markdownToTxt} from "markdown-to-txt";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -28,7 +29,10 @@ const prevPost = index < allPosts.length - 1 ? allPosts[index + 1] : null;
 const nextPost = index > 0 ? allPosts[index - 1] : null;
 ---
 
-<Layout title={post.data.title}>
+<Layout
+    title={post.data.title}
+    description={post.data.excerpt ?? (markdownToTxt(post.body).slice(0, 150) + '...')}
+    image={new URL(post.data.featured_image || "/images/default_img.jpg", Astro.site)}>
     <header scroll-animation-leave="scale">
         <img
             transition:name={`post-img-${post.id}`}

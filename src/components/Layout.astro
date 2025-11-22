@@ -5,11 +5,21 @@ import Footer from "./Footer.astro";
 import SvgFilters from "./SvgFilters.astro";
 import "../styles/global.scss";
 
+import favicon from '../assets/logo.svg'
+
 export type Props = {
-    title?: string;
+    title: string;
+    description: string,
+    image?: string | URL,
 }
 
-const { title = "Mon site perso" } = Astro.props;
+const {
+    title,
+    description,
+    image,
+} = Astro.props;
+
+const { url } = Astro
 ---
 
 <html lang="fr" transition:name="root" transition:animate="none">
@@ -18,10 +28,28 @@ const { title = "Mon site perso" } = Astro.props;
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator}>
 
+        <link rel="icon" type="image/svg+xml" href={favicon.src}>
+
         <title>{title} | Benjamin Caradeuc</title>
+        <meta name="description" content={description} />
+
+        <!-- OG -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        { image && <meta property="og:image" content={image} /> }
+        <meta property="og:url" content={url} />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        { image && <meta name="twitter:image" content={image} /> }
+
 
         <!-- sitemap -->
         <link rel="sitemap" href="/sitemap-index.xml" />
+
         <!-- fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

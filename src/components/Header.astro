@@ -1,5 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
+import { Image } from 'astro:assets';
+
+import icon from '../assets/logo.svg'
 ---
 
 <header>
@@ -17,7 +20,15 @@ import { Icon } from "astro-icon/components";
                 <a
                     class="btn"
                     href="/">
-                    Accueil
+                    <Image
+                        src={icon}
+                        alt="Accueil"
+                        width="64"
+                        height="64" />
+
+                    <span class="sr-only">
+                        Accueil
+                    </span>
                 </a>
             </li>
 

@@ -44,7 +44,9 @@ const totalPages = Math.ceil(posts.length / pageSize);
 const pageTitle = `Articles avec le tag "${tag}"`;
 ---
 
-<Layout title={pageTitle}>
+<Layout
+    title={pageTitle}
+    description={`Découvrez tous les articles de mon blog qui sont taggés avec "${tag}"`}>
     <hgroup>
         <h1>{pageTitle}</h1>
 

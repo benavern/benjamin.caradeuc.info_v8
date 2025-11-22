@@ -12,7 +12,9 @@ const allTags = Array.from(
 ).sort(new Intl.Collator('fr').compare);
 ---
 
-<Layout title="Tous les tags">
+<Layout
+    title="Tous les tags"
+    description="Les tags sur mon blog servent à catégoriser les articles. Choisissez en un et vous verrez tous les articles qui parlent du sujet que vous aurez choisi.">
     <h1>Tags du blog</h1>
 
     {

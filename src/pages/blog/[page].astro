@@ -35,7 +35,9 @@ const pagePosts = posts.slice(start, start + pageSize);
 const totalPages = Math.ceil(posts.length / pageSize);
 ---
 
-<Layout title={`Blog - page ${page}`}>
+<Layout
+    title={ `Blog - page ${page}` }
+    description={ `Page ${page} du blog. Découvrez-y toutes mes trouvailles, réalisations, pensées, etc ... `}>
     <hgroup>
         <h1>Blog</h1>
 
