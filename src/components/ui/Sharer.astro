@@ -87,5 +87,28 @@ const links = [
             rotate: 45deg;
             translate: 50% -50%;
         }
+
+    }
+
+    @supports not (anchor-name: --test) {
+        :global(html):has([popover]:popover-open) {
+            overflow: hidden;
+        }
+
+        [popover]:popover-open {
+            position: fixed;
+            inset: 50%;
+            margin-inline-end: 0;
+            translate: -50% -50%;
+
+            &::after {
+                display: none;
+            }
+
+            &::backdrop {
+                background-color: var(--clr-bg-transparent-blur);
+                backdrop-filter: blur(5px);
+            }
+        }
     }
 </style>
