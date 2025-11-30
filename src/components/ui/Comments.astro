@@ -1,0 +1,113 @@
+---
+const baseUrl = Astro.url.origin;
+---
+
+<div
+    class="giscus-container"
+    data-theme-url-light={`${baseUrl}/comments/light.css`}
+    data-theme-url-dark={`${baseUrl}/comments/dark.css`} />
+
+<script>
+
+    function getCurrentTheme() {
+        const htmlTheme = document.documentElement.getAttribute('data-theme');
+
+        // Si data-theme existe, on l'utilise
+        if (htmlTheme === 'light' || htmlTheme === 'dark') {
+            return htmlTheme;
+        }
+
+        // Sinon, on utilise prefers-color-scheme
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function getThemeUrl(theme) {
+        const container = document.querySelector('.giscus-container');
+        if (!container) return theme;
+
+        const lightUrl = container.getAttribute('data-theme-url-light');
+        const darkUrl = container.getAttribute('data-theme-url-dark');
+
+        return theme === 'light' ? lightUrl : darkUrl;
+    }
+
+    function loadGiscus() {
+        // Nettoyer l'ancien widget s'il existe
+        const container = document.querySelector('.giscus-container');
+        if (!container) return;
+
+        const themeUrl = getThemeUrl(getCurrentTheme());
+
+        container.innerHTML = '';
+
+        // Créer le script Giscus
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.setAttribute('data-repo', 'benavern/benjamin.caradeuc.info_v8');
+        script.setAttribute('data-repo-id', 'R_kgDOPoUbeg');
+        script.setAttribute('data-category', 'General');
+        script.setAttribute('data-category-id', 'DIC_kwDOPoUbes4CzNfk');
+        script.setAttribute('data-mapping', 'pathname');
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'bottom');
+        script.setAttribute('data-theme', themeUrl);
+        script.setAttribute('data-lang', 'fr');
+        script.setAttribute('data-loading', 'lazy');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.async = true;
+
+        container.appendChild(script);
+    }
+
+
+    function updateGiscusTheme() {
+        const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+        if (!iframe) return;
+
+        const themeUrl = getThemeUrl(getCurrentTheme());
+
+        iframe.contentWindow.postMessage(
+            {
+                giscus: {
+                    setConfig: {
+                        theme: themeUrl
+                    }
+                }
+            },
+            'https://giscus.app'
+        );
+    }
+
+    // Charger au montage initial
+    loadGiscus();
+
+    // Observer les changements de theme
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                setTimeout(updateGiscusTheme, 100);
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+
+    // Recharger après chaque navigation
+    document.addEventListener('astro:after-swap', loadGiscus);
+
+
+    // Écouter aussi prefers-color-scheme pour les utilisateurs sans data-theme
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    mediaQuery.addEventListener('change', () => {
+        // Seulement si pas de data-theme explicite
+        if (!document.documentElement.getAttribute('data-theme')) {
+            setTimeout(updateGiscusTheme, 100);
+        }
+    });
+</script>

@@ -1,0 +1,4 @@
+[[headers]]
+    for = "/comments/*"
+    [headers.values]
+        Access-Control-Allow-Origin = "https://giscus.app"

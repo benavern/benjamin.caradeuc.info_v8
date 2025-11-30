@@ -1,0 +1,59 @@
+/*!
+ * Custom Giscus theme - Light version
+ */
+
+main {
+  /* Syntax highlighting colors - Light */
+  --color-prettylights-syntax-comment: hsl(230 10% 50%);
+  --color-prettylights-syntax-constant: hsl(195 55% 40%);
+  --color-prettylights-syntax-entity: hsl(265 45% 60%);
+  --color-prettylights-syntax-storage-modifier-import: hsl(230 10% 40%);
+  --color-prettylights-syntax-entity-tag: hsl(145 55% 45%);
+  --color-prettylights-syntax-keyword: hsl(355 60% 45%);
+  --color-prettylights-syntax-string: hsl(195 55% 50%);
+  --color-prettylights-syntax-variable: hsl(30 70% 50%);
+
+  /* Button colors - Light */
+  --color-btn-text: hsl(230 15% 10%);
+  --color-btn-bg: hsl(230 15% 94%);
+  --color-btn-border: hsl(230 10% 85%);
+  --color-btn-hover-bg: hsl(230 15% 90%);
+  --color-btn-hover-border: hsl(230 10% 80%);
+
+  /* Primary button - Light */
+  --color-btn-primary-text: hsl(230 15% 97%);
+  --color-btn-primary-bg: hsl(265 45% 60%);
+  --color-btn-primary-hover-bg: hsl(265 35% 50%);
+
+  /* Canvas/background colors - Light */
+  --color-canvas-default: hsl(230 15% 97%);
+  --color-canvas-overlay: hsl(230 15% 100%);
+  --color-canvas-inset: hsl(230 15% 94%);
+  --color-canvas-subtle: hsl(230 15% 94%);
+
+  /* Foreground colors - Light */
+  --color-fg-default: hsl(230 15% 10%);
+  --color-fg-muted: hsl(230 10% 40%);
+  --color-fg-subtle: hsl(230 10% 60%);
+
+  /* Border colors - Light */
+  --color-border-default: hsl(230 10% 85%);
+  --color-border-muted: hsl(230 10% 88%);
+
+  /* Accent colors - Light */
+  --color-accent-fg: hsl(195 55% 40%);
+  --color-accent-emphasis: hsl(195 55% 40%);
+
+  /* Status colors - Light */
+  --color-success-fg: hsl(145 55% 45%);
+  --color-danger-fg: hsl(355 60% 45%);
+}
+
+/* Ajuste les mêmes customisations que dans ton thème dark */
+.gsc-reactions-count { display: none; }
+.gsc-timeline { flex-direction: column-reverse; }
+.gsc-header { padding-bottom: 1rem; }
+.gsc-comments > .gsc-header { order: 1; }
+.gsc-comments > .gsc-comment-box { order: 2; margin-bottom: 1rem; }
+.gsc-comments > .gsc-timeline { order: 3; }
+.gsc-homepage-bg { background-color: hsl(230 15% 97%); }

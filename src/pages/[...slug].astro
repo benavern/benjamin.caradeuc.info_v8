@@ -4,6 +4,7 @@ import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
 import Sharer from "../components/ui/Sharer.astro";
 import {markdownToTxt} from "markdown-to-txt";
+import Comments from "../components/ui/Comments.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -124,6 +125,10 @@ const nextPost = index > 0 ? allPosts[index - 1] : null;
                 ) : <div></div>
             }
         </nav>
+
+        <hr>
+
+        <Comments />
     </footer>
 </Layout>
 

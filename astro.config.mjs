@@ -6,6 +6,15 @@ import rehypeHeadingAnimation from './src/plugins/rehypeheadingAnimation';
 export default defineConfig({
     site: 'https://benjamin.caradeuc.info',
 
+    vite: {
+        server: {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            }
+        }
+    },
+
     markdown: {
         rehypePlugins: [
            rehypeHeadingAnimation,
