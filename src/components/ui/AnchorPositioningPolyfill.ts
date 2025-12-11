@@ -76,9 +76,9 @@ export class AnchorPositioningPolyfill {
             // Chercher le bouton qui cible ce popover
             const buttonSelector = `[popovertarget="${popover.id}"]`;
             const button = document.querySelector(buttonSelector);
-            
+
             if (button) {
-                
+
                 const config: AnchorConfig = {
                     anchorElement: button,
                     targetElement: popover as HTMLElement,
@@ -99,7 +99,7 @@ export class AnchorPositioningPolyfill {
                 // Écouter les événements toggle du popover
                 (popover as HTMLElement).addEventListener('toggle', (e: any) => {
                     config.isOpen = e.newState === 'open';
-                    
+
                     // Attendre que le popover soit rendu avant de le positionner
                     if (config.isOpen) {
                         // Utiliser requestAnimationFrame pour attendre que le popover soit peint
@@ -162,7 +162,7 @@ export class AnchorPositioningPolyfill {
         targetElement.style.inset = 'auto';
         targetElement.style.translate = 'none';
         targetElement.style.transform = 'none';
-        
+
         // Appliquer la position
         targetElement.style.left = `${left}px`;
         targetElement.style.top = `${top}px`;
