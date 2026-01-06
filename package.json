@@ -11,12 +11,12 @@
     "devDependencies": {
         "@astrojs/sitemap": "^3.6.0",
         "@iconify-json/mdi": "^1.2.3",
-        "astro": "^5.16.0",
+        "astro": "^5.16.6",
         "sass": "^1.94.2",
         "typescript": "^5.9.2"
     },
     "dependencies": {
-        "@astrojs/check": "^0.9.5",
+        "@astrojs/check": "^0.9.6",
         "@benavern/z-carousel": "^0.2.2",
         "astro-icon": "^1.1.5",
         "lit": "^3.3.1",
