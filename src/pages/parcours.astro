@@ -3,8 +3,8 @@ import Layout from "../components/Layout.astro";
 import ParcoursTimeline from "../components/ui/ParcoursTimeline.astro";
 import { getCollection } from "astro:content";
 
-const formations = await getCollection("formations");
-const experiences = await getCollection("experiences");
+const formations = (await getCollection("formations")).sort((a, b) => b.id.localeCompare(a.id));
+const experiences = (await getCollection("experiences")).sort((a, b) => b.id.localeCompare(a.id));
 ---
 
 <Layout
